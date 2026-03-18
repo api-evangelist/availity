@@ -1,0 +1,19 @@
+aid: availity
+url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml
+apis:
+- aid: availity:availity-api
+  name: Availity Claims Clearinghouse API
+  tags:
+  - Healthcare
+  - Claims
+  - EDI
+  - Eligibility
+  - Clearinghouse
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/
+    type: Documentation
+  description: >-
+    Availity is a healthcare claims clearinghouse providing real-time eligibility verification, claims submission (EDI 837/835), and remittance processing. APIs bridge payer and provider systems for prior authorization, claims status inquiry, and benefits verification.
