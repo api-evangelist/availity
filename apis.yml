@@ -19,6 +19,8 @@ apis:
     type: GettingStarted
   - url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
     type: Documentation
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
+    type: OpenAPI
   description: >-
     The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions, enabling real-time verification of member coverage, co-pays, deductibles, and benefits information. REST APIs connect provider systems to every major health plan nationwide for eligibility checks.
 
@@ -122,6 +124,12 @@ common:
     type: GitHubOrganization
   - url: https://availity.github.io/sdk-js/
     type: SDKs
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
+    type: OpenAPI
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+    type: JSONSchema
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-context.jsonld
+    type: JSONLDContext
 
 maintainers:
 - name: Kin Lane

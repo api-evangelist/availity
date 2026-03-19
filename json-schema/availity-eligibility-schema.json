@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json",
+  "title": "Availity Eligibility Response",
+  "description": "JSON Schema for an Availity healthcare eligibility and benefits response (equivalent to X12 271 transaction).",
+  "type": "object",
+  "required": ["id", "subscriber", "payer"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Availity transaction identifier"
+    },
+    "controlNumber": {
+      "type": "string",
+      "description": "Transaction control number matching the request",
+      "maxLength": 9
+    },
+    "requestedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "serviceDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "subscriber": {
+      "$ref": "#/$defs/SubscriberInfo"
+    },
+    "payer": {
+      "$ref": "#/$defs/PayerInfo"
+    },
+    "coverages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Coverage"
+      }
+    },
+    "planInformation": {
+      "$ref": "#/$defs/PlanInformation"
+    }
+  },
+  "$defs": {
+    "SubscriberInfo": {
+      "type": "object",
+      "required": ["memberId"],
+      "properties": {
+        "memberId": {"type": "string"},
+        "firstName": {"type": "string"},
+        "lastName": {"type": "string"},
+        "dateOfBirth": {"type": "string", "format": "date"},
+        "gender": {"type": "string", "enum": ["M", "F", "U"]},
+        "groupNumber": {"type": "string"},
+        "groupName": {"type": "string"}
+      }
+    },
+    "PayerInfo": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {"type": "string", "description": "Availity payer ID"},
+        "name": {"type": "string"}
+      }
+    },
+    "Coverage": {
+      "type": "object",
+      "properties": {
+        "serviceTypeCodes": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "X12 service type codes (e.g., 30=Health Benefit Plan, 1=Medical)"
+        },
+        "serviceTypeNames": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "coverageStatus": {
+          "type": "string",
+          "enum": ["Active", "Inactive", "Cancelled"]
+        },
+        "effectiveDate": {"type": "string", "format": "date"},
+        "expirationDate": {"type": "string", "format": "date"},
+        "benefits": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/Benefit"}
+        }
+      }
+    },
+    "Benefit": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "X12 benefit info code (e.g., 1=Active Coverage, C=Deductible, G=Co-payment)"
+        },
+        "name": {"type": "string"},
+        "coverageLevel": {
+          "type": "string",
+          "enum": ["INDIVIDUAL", "FAMILY", "EMPLOYEE", "EMPLOYEE_AND_SPOUSE"]
+        },
+        "benefitAmount": {
+          "type": "object",
+          "properties": {
+            "value": {"type": "number", "minimum": 0},
+            "currency": {"type": "string"}
+          }
+        },
+        "benefitPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "inPlanNetworkIndicator": {
+          "type": "string",
+          "enum": ["Y", "N", "W"],
+          "description": "Y=In-network, N=Out-of-network, W=Not applicable"
+        },
+        "timeQualifier": {
+          "type": "string",
+          "description": "Benefit period qualifier"
+        }
+      }
+    },
+    "PlanInformation": {
+      "type": "object",
+      "properties": {
+        "planName": {"type": "string"},
+        "groupName": {"type": "string"},
+        "groupNumber": {"type": "string"},
+        "planBeginDate": {"type": "string", "format": "date"},
+        "planEndDate": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}

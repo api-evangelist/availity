@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "availity": "https://developer.availity.com/api/",
+    "schema": "https://schema.org/",
+    "fhir": "http://hl7.org/fhir/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "EligibilityRequest": {
+      "@id": "fhir:CoverageEligibilityRequest",
+      "@context": {
+        "controlNumber": {"@id": "availity:controlNumber"},
+        "provider": {"@id": "fhir:provider"},
+        "subscriber": {"@id": "fhir:subscriber"},
+        "payer": {"@id": "fhir:insurer"},
+        "serviceDate": {"@id": "fhir:servicedDate", "@type": "xsd:date"}
+      }
+    },
+
+    "EligibilityResponse": {
+      "@id": "fhir:CoverageEligibilityResponse",
+      "@context": {
+        "id": {"@id": "schema:identifier"},
+        "controlNumber": {"@id": "availity:controlNumber"},
+        "requestedDate": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "subscriber": {"@id": "fhir:subscriber"},
+        "payer": {"@id": "fhir:insurer"},
+        "coverages": {"@id": "fhir:insurance", "@container": "@set"},
+        "planInformation": {"@id": "fhir:insurance/coverage"}
+      }
+    },
+
+    "Coverage": {
+      "@id": "fhir:Coverage",
+      "@context": {
+        "serviceTypeCodes": {"@id": "availity:serviceTypeCode", "@container": "@set"},
+        "coverageStatus": {"@id": "fhir:status"},
+        "effectiveDate": {"@id": "schema:startDate", "@type": "xsd:date"},
+        "expirationDate": {"@id": "schema:endDate", "@type": "xsd:date"},
+        "benefits": {"@id": "fhir:benefit", "@container": "@set"}
+      }
+    },
+
+    "Benefit": {
+      "@id": "fhir:Coverage.costToBeneficiary",
+      "@context": {
+        "code": {"@id": "availity:benefitCode"},
+        "name": {"@id": "schema:name"},
+        "coverageLevel": {"@id": "availity:coverageLevel"},
+        "benefitAmount": {"@id": "fhir:value"},
+        "benefitPercent": {"@id": "fhir:valueMoney"},
+        "inPlanNetworkIndicator": {"@id": "availity:networkIndicator"},
+        "timeQualifier": {"@id": "availity:timeQualifier"}
+      }
+    },
+
+    "Provider": {
+      "@id": "schema:Physician",
+      "@context": {
+        "npi": {"@id": "availity:npi"},
+        "firstName": {"@id": "schema:givenName"},
+        "lastName": {"@id": "schema:familyName"},
+        "organizationName": {"@id": "schema:legalName"},
+        "taxId": {"@id": "availity:taxId"}
+      }
+    }
+  }
+}

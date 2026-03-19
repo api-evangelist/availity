@@ -1,0 +1,469 @@
+openapi: 3.1.0
+info:
+  title: Availity Eligibility & Benefits API
+  description: >-
+    The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271
+    transactions, enabling real-time verification of member coverage, co-pays,
+    deductibles, and benefits information. REST APIs connect provider systems to
+    every major health plan nationwide for eligibility checks.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+
+servers:
+  - url: https://api.availity.com
+    description: Availity Production API
+
+security:
+  - oauth2: []
+
+tags:
+  - name: Eligibility
+    description: Real-time eligibility and benefits verification
+  - name: Coverage
+    description: Coverage detail inquiry
+
+paths:
+  /availity/intelligent-payer-network/v1/eligibilities:
+    post:
+      operationId: checkEligibility
+      summary: Check member eligibility
+      description: >-
+        Submit a real-time eligibility and benefits inquiry (equivalent to X12 270 transaction).
+        Returns coverage, benefits, co-pay, deductible, and plan information
+        from health plan payers.
+      tags: [Eligibility]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EligibilityRequest'
+      responses:
+        '200':
+          description: Eligibility response with coverage and benefits details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EligibilityResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          description: Unprocessable - payer returned rejection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EligibilityError'
+
+    get:
+      operationId: listEligibilities
+      summary: List eligibility inquiries
+      description: Retrieve previous eligibility inquiry results for the authenticated provider.
+      tags: [Eligibility]
+      parameters:
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: payerId
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of eligibility inquiries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EligibilityList'
+
+  /availity/intelligent-payer-network/v1/eligibilities/{id}:
+    get:
+      operationId: getEligibility
+      summary: Get eligibility inquiry by ID
+      description: Retrieve the result of a specific eligibility inquiry by its transaction ID.
+      tags: [Eligibility]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Eligibility transaction ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Eligibility inquiry details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EligibilityResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /availity/intelligent-payer-network/v1/payers:
+    get:
+      operationId: listPayers
+      summary: List supported payers
+      description: Retrieve a list of health plan payers supported for eligibility transactions.
+      tags: [Eligibility]
+      parameters:
+        - name: supportedTransaction
+          in: query
+          description: Filter by supported transaction type
+          schema:
+            type: string
+            enum: [eligibility, claimStatus, priorAuth, remittance]
+        - name: name
+          in: query
+          description: Search payers by name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of supported payers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayerList'
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    EligibilityRequest:
+      type: object
+      required: [controlNumber, provider, subscriber, payer]
+      properties:
+        controlNumber:
+          type: string
+          description: Unique transaction control number (up to 9 characters)
+          maxLength: 9
+        provider:
+          $ref: '#/components/schemas/Provider'
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+        dependent:
+          $ref: '#/components/schemas/Dependent'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        encounter:
+          type: object
+          properties:
+            serviceTypeCodes:
+              type: array
+              description: X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)
+              items:
+                type: string
+            beginningDate:
+              type: string
+              format: date
+            endDate:
+              type: string
+              format: date
+
+    EligibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Availity transaction ID
+        controlNumber:
+          type: string
+        requestedDate:
+          type: string
+          format: date-time
+        serviceDate:
+          type: string
+          format: date
+        subscriber:
+          $ref: '#/components/schemas/SubscriberInfo'
+        payer:
+          $ref: '#/components/schemas/PayerInfo'
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        planInformation:
+          $ref: '#/components/schemas/PlanInformation'
+
+    EligibilityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityResponse'
+        total:
+          type: integer
+        offset:
+          type: integer
+
+    EligibilityError:
+      type: object
+      properties:
+        id:
+          type: string
+        rejectCode:
+          type: string
+        rejectReason:
+          type: string
+        followUpAction:
+          type: string
+
+    Provider:
+      type: object
+      required: [npi]
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI)
+          pattern: "^\\d{10}$"
+        firstName:
+          type: string
+        lastName:
+          type: string
+        organizationName:
+          type: string
+        taxId:
+          type: string
+        serviceProviderNumber:
+          type: string
+
+    Subscriber:
+      type: object
+      required: [memberId]
+      properties:
+        memberId:
+          type: string
+          description: Insurance member ID
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [M, F, U]
+        ssn:
+          type: string
+          description: Social Security Number (last 4 or full)
+        groupNumber:
+          type: string
+
+    Dependent:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [M, F, U]
+        relationship:
+          type: string
+          enum: [01, 19, 20, 21, 39, 40, G8]
+
+    Payer:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          description: Availity payer ID
+        name:
+          type: string
+
+    SubscriberInfo:
+      type: object
+      properties:
+        memberId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        groupNumber:
+          type: string
+        groupName:
+          type: string
+
+    PayerInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
+
+    Coverage:
+      type: object
+      properties:
+        serviceTypeCodes:
+          type: array
+          items:
+            type: string
+        serviceTypeNames:
+          type: array
+          items:
+            type: string
+        insuranceType:
+          type: string
+        planCoverage:
+          type: string
+        coverageStatus:
+          type: string
+          enum: [Active, Inactive, Cancelled]
+        effectiveDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        benefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Benefit'
+
+    Benefit:
+      type: object
+      properties:
+        code:
+          type: string
+          description: X12 benefit information code
+        name:
+          type: string
+        coverageLevel:
+          type: string
+          enum: [INDIVIDUAL, FAMILY, EMPLOYEE, EMPLOYEE_AND_SPOUSE]
+        benefitAmount:
+          type: object
+          properties:
+            value:
+              type: number
+            currency:
+              type: string
+        benefitPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        inPlanNetworkIndicator:
+          type: string
+          enum: [Y, N, W]
+        timeQualifier:
+          type: string
+          description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
+
+    PlanInformation:
+      type: object
+      properties:
+        planName:
+          type: string
+        groupName:
+          type: string
+        groupNumber:
+          type: string
+        planBeginDate:
+          type: string
+          format: date
+        planEndDate:
+          type: string
+          format: date
+
+    PayerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              eligibilityUrl:
+                type: string
+              supportedTransactions:
+                type: array
+                items:
+                  type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
