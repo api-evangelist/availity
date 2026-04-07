@@ -1,17 +1,15 @@
 aid: availity
-url: 
-  https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml
 apis:
   - aid: availity:availity-eligibility-benefits-api
     name: Availity Eligibility & Benefits API
     tags:
-      - Healthcare
-      - Eligibility
       - Benefits
       - EDI
+      - Eligibility
+      - Healthcare
       - X12 270/271
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
     humanURL: https://developer.availity.com/
     baseURL: https://api.availity.com
     properties:
@@ -21,8 +19,7 @@ apis:
         type: GettingStarted
       - url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
         type: Documentation
-      - url: 
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
+      - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
         type: OpenAPI
     description: >-
       The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions,
@@ -33,13 +30,12 @@ apis:
   - aid: availity:availity-claims-status-api
     name: Availity Claim Status API
     tags:
-      - Healthcare
       - Claims
-      - EDI
-      - X12 276/277
       - Clearinghouse
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+      - EDI
+      - Healthcare
+      - X12 276/277
+    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
     humanURL: https://developer.availity.com/
     baseURL: https://api.availity.com
     properties:
@@ -58,13 +54,12 @@ apis:
   - aid: availity:availity-claim-attachments-api
     name: Availity Claim Attachments API
     tags:
-      - Healthcare
-      - Claims
       - Attachments
-      - EDI
+      - Claims
       - Clearinghouse
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+      - EDI
+      - Healthcare
+    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
     humanURL: https://developer.availity.com/
     baseURL: https://api.availity.com
     properties:
@@ -81,13 +76,12 @@ apis:
   - aid: availity:availity-service-reviews-api
     name: Availity Service Reviews (Prior Authorization) API
     tags:
+      - EDI
       - Healthcare
       - Prior Authorization
       - Service Reviews
-      - EDI
       - X12 278
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
     humanURL: https://developer.availity.com/
     baseURL: https://api.availity.com
     properties:
@@ -104,18 +98,15 @@ apis:
   - aid: availity:availity-hipaa-transactions-api
     name: Availity Healthcare HIPAA Transactions API
     tags:
+      - Clearinghouse
+      - EDI
       - Healthcare
       - HIPAA
-      - EDI
-      - Clearinghouse
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: 
-      https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+    humanURL: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
     baseURL: https://api.availity.com
     properties:
-      - url: 
-          https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+      - url: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
         type: Documentation
       - url: https://developer.availity.com/blog/2025/3/25/hipaa-transactions
         type: Documentation
@@ -148,14 +139,11 @@ common:
     type: GitHubOrganization
   - url: https://availity.github.io/sdk-js/
     type: SDKs
-  - url: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
     type: OpenAPI
-  - url: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
     type: JSONSchema
-  - url: 
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-context.jsonld
+  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-context.jsonld
     type: JSONLDContext
 
 maintainers:

@@ -21,9 +21,6 @@ security:
 tags:
   - name: Eligibility
     description: Real-time eligibility and benefits verification
-  - name: Coverage
-    description: Coverage detail inquiry
-
 paths:
   /availity/intelligent-payer-network/v1/eligibilities:
     post:
