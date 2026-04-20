@@ -1,0 +1,9 @@
+{
+  "id": "500123",
+  "controlNumber": "CTRL-001",
+  "requestedDate": "2025-04-15T14:30:00Z",
+  "serviceDate": "2025-04-15",
+  "coverages": [
+    "sample-value"
+  ]
+}

@@ -1,0 +1,349 @@
+vocabulary: 1.0.0
+info:
+  provider: Availity
+  description: Unified vocabulary for Availity healthcare clearinghouse APIs covering HIPAA EDI transactions, eligibility verification, claims management, and prior authorization.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+operational:
+  apis:
+  - name: Availity Eligibility & Benefits API
+    namespace: availity-eligibility
+    version: 1.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Claim Status API
+    namespace: availity-claims
+    version: 1.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Claim Attachments API
+    namespace: availity-attachments
+    version: 1.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Service Reviews API
+    namespace: availity-auth
+    version: 2.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Patient Cost Estimator API
+    namespace: availity-cost
+    version: 2.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Payer List API
+    namespace: availity-payers
+    version: 1.0.4
+    baseUrl: https://api.availity.com
+    status: active
+  - name: Availity Configurations API
+    namespace: availity-config
+    version: 1.0.0
+    baseUrl: https://api.availity.com
+    status: active
+  resources:
+  - name: eligibilities
+    apis:
+    - availity-eligibility
+    actions:
+    - check
+    - list
+    - get
+    description: Member insurance eligibility and benefits inquiries
+  - name: payers
+    apis:
+    - availity-eligibility
+    - availity-payers
+    actions:
+    - list
+    description: Health plan payers supported for transactions
+  - name: claim-statuses
+    apis:
+    - availity-claims
+    actions:
+    - create
+    - list
+    - search
+    - detail-search
+    description: Claim status inquiries and tracking
+  - name: claim-attachments
+    apis:
+    - availity-attachments
+    actions:
+    - submit
+    - get
+    description: Electronic claim attachment submission
+  - name: service-reviews
+    apis:
+    - availity-auth
+    actions:
+    - create
+    - list
+    - get
+    description: Prior authorization and service review requests
+  - name: auth-requirements
+    apis:
+    - availity-auth
+    actions:
+    - check
+    description: Authorization requirement checks per payer
+  - name: cost-estimates
+    apis:
+    - availity-cost
+    actions:
+    - estimate
+    description: Patient cost estimates for procedures
+  - name: configurations
+    apis:
+    - availity-config
+    actions:
+    - get
+    description: Payer-specific validation requirements
+  actions:
+  - name: check
+    httpMethod: POST
+    pattern: write
+    description: Submit an inquiry or check
+  - name: list
+    httpMethod: GET
+    pattern: read
+    description: List collection of resources
+  - name: get
+    httpMethod: GET
+    pattern: read
+    description: Get a specific resource by ID
+  - name: create
+    httpMethod: POST
+    pattern: write
+    description: Create a new resource
+  - name: submit
+    httpMethod: POST
+    pattern: write
+    description: Submit a document or request
+  - name: search
+    httpMethod: POST
+    pattern: query
+    description: Search with criteria
+  - name: estimate
+    httpMethod: POST
+    pattern: query
+    description: Calculate cost estimates
+  schemas:
+    core:
+    - name: EligibilityRequest
+      description: X12 270 eligibility inquiry request
+    - name: EligibilityResponse
+      description: X12 271 eligibility response with benefits
+    - name: ClaimStatusRequest
+      description: X12 276 claim status inquiry request
+    - name: ClaimStatusResponse
+      description: X12 277 claim status response
+    - name: ServiceReviewRequest
+      description: X12 278 prior authorization request
+    - name: ServiceReviewResponse
+      description: X12 278 prior authorization response
+    reference:
+    - name: Payer
+      description: Health plan payer identifier and metadata
+    - name: Provider
+      description: Healthcare provider with NPI and tax ID
+    - name: Subscriber
+      description: Insurance subscriber demographics and member ID
+    financial:
+    - name: Coverage
+      description: Insurance coverage details with benefits
+    - name: Benefit
+      description: Specific benefit with amounts and coverage level
+    - name: PlanInformation
+      description: Health plan details and effective dates
+  parameters:
+    pagination:
+    - name: limit
+      type: integer
+      description: Results per page (1-50)
+    - name: offset
+      type: integer
+      description: Pagination offset
+    filters:
+    - name: fromDate
+      type: string
+      format: date
+      description: Start date filter
+    - name: toDate
+      type: string
+      format: date
+      description: End date filter
+    - name: payerId
+      type: string
+      description: Filter by health plan payer ID
+    identifiers:
+    - name: id
+      type: string
+      description: Availity transaction ID
+    - name: npi
+      type: string
+      description: National Provider Identifier (10 digits)
+    - name: memberId
+      type: string
+      description: Insurance member ID
+    - name: controlNumber
+      type: string
+      description: X12 transaction control number (max 9 chars)
+  enums:
+    claim-statuses:
+    - ACKNOWLEDGED
+    - ACTION_REQUIRED
+    - ADJUSTED
+    - CAPITATED
+    - DENIED
+    - ERROR
+    - FINALIZED
+    - PAID
+    - PENDING
+    - REJECTED
+    - RETURNED_TO_PROVIDER
+    coverage-statuses:
+    - Active
+    - Inactive
+    - Cancelled
+    coverage-levels:
+    - INDIVIDUAL
+    - FAMILY
+    - EMPLOYEE
+    - EMPLOYEE_AND_SPOUSE
+    service-review-statuses:
+    - PENDING
+    - APPROVED
+    - DENIED
+    - PARTIALLY_APPROVED
+    - PENDING_ADDITIONAL_INFO
+    attachment-statuses:
+    - SUBMITTED
+    - AV_ACCEPTED
+    - AV_REJECTED
+    - PY_ACCEPTED
+    - PY_REJECTED
+    genders:
+    - M
+    - F
+    - U
+    supported-transactions:
+    - eligibility
+    - claimStatus
+    - priorAuth
+    - remittance
+  authentication:
+    scheme: OAuth 2.0 Client Credentials
+    tokenUrl: https://api.availity.com/availity/v1/token
+    tokenExpiry: 5 minutes
+    scopes:
+    - name: hipaa
+      description: Access to HIPAA transaction APIs
+capability:
+  workflows:
+  - name: Healthcare Revenue Cycle Management
+    file: capabilities/availity-revenue-cycle-management.yaml
+    description: Unified workflow combining eligibility, claims, and authorization for RCM teams
+    apisCombined:
+    - Eligibility & Benefits
+    - Claim Status
+    - Service Reviews
+    toolCount: 9
+    personas:
+    - Billing Specialist
+    - Revenue Cycle Manager
+  personas:
+  - id: billing-specialist
+    name: Billing Specialist
+    description: Manages claim submission, status tracking, and patient billing
+    workflows:
+    - Healthcare Revenue Cycle Management
+  - id: revenue-cycle-manager
+    name: Revenue Cycle Manager
+    description: Oversees end-to-end revenue cycle including authorization, eligibility, and claim adjudication
+    workflows:
+    - Healthcare Revenue Cycle Management
+  - id: ehr-developer
+    name: EHR Developer
+    description: Integrates Availity APIs into electronic health record and practice management systems
+    workflows:
+    - Healthcare Revenue Cycle Management
+  domains:
+  - name: Eligibility Verification
+    description: Real-time insurance coverage and benefits verification
+    resources:
+    - eligibilities
+    - payers
+  - name: Claims Management
+    description: Claim status tracking and attachment submission
+    resources:
+    - claim-statuses
+    - claim-attachments
+  - name: Prior Authorization
+    description: Service review and authorization request management
+    resources:
+    - service-reviews
+    - auth-requirements
+  - name: Financial Estimation
+    description: Patient cost estimation and price transparency
+    resources:
+    - cost-estimates
+  namespaces:
+  - name: availity-eligibility
+    type: consumed
+    port:
+  - name: availity-claims
+    type: consumed
+    port:
+  - name: availity-auth
+    type: consumed
+    port:
+  - name: availity-rcm-api
+    type: rest
+    port: 8080
+  - name: availity-rcm-mcp
+    type: mcp
+    port: 9090
+  binds:
+  - name: AVAILITY_CLIENT_ID
+    description: Availity API client ID from developer portal
+  - name: AVAILITY_CLIENT_SECRET
+    description: Availity API client secret from developer portal
+crossReference:
+- resource: eligibilities
+  operations:
+  - check
+  - list
+  - get
+  workflows:
+  - Healthcare Revenue Cycle Management
+  personas:
+  - Billing Specialist
+  - Revenue Cycle Manager
+- resource: claim-statuses
+  operations:
+  - create
+  - search
+  - detail-search
+  workflows:
+  - Healthcare Revenue Cycle Management
+  personas:
+  - Billing Specialist
+  - Revenue Cycle Manager
+- resource: service-reviews
+  operations:
+  - check
+  - create
+  - get
+  workflows:
+  - Healthcare Revenue Cycle Management
+  personas:
+  - Revenue Cycle Manager
+- resource: payers
+  operations:
+  - list
+  workflows:
+  - Healthcare Revenue Cycle Management
+  personas:
+  - Billing Specialist
+  - EHR Developer

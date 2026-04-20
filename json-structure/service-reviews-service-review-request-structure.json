@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/service-reviews-service-review-request-structure.json",
+  "description": "ServiceReviewRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "provider",
+    "subscriber",
+    "requestType"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "requestType": {
+      "type": "string",
+      "enum": [
+        "INITIAL",
+        "UPDATE",
+        "CANCEL",
+        "REFERRAL"
+      ],
+      "example": "INITIAL"
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "npi": {
+          "type": "string",
+          "example": "1234567890"
+        },
+        "taxId": {
+          "type": "string",
+          "example": "123456789"
+        }
+      }
+    },
+    "subscriber": {
+      "type": "object",
+      "properties": {
+        "memberId": {
+          "type": "string",
+          "example": "MEM123456"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Jane"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Smith"
+        }
+      }
+    },
+    "serviceInformation": {
+      "type": "object",
+      "properties": {
+        "procedureCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "diagnosisCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceFromDate": {
+          "type": "date"
+        },
+        "serviceToDate": {
+          "type": "date"
+        }
+      }
+    }
+  },
+  "name": "ServiceReviewRequest"
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-provider-schema.json",
+  "title": "Provider",
+  "description": "Provider schema from Availity API",
+  "type": "object",
+  "required": [
+    "npi"
+  ],
+  "properties": {
+    "npi": {
+      "type": "string",
+      "description": "National Provider Identifier (NPI)",
+      "pattern": "^\\d{10}$"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "organizationName": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "serviceProviderNumber": {
+      "type": "string"
+    }
+  }
+}

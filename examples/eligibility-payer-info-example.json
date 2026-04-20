@@ -1,0 +1,10 @@
+{
+  "id": "500123",
+  "name": "sample-value",
+  "address": {
+    "address1": "sample-value",
+    "city": "sample-value",
+    "state": "sample-value",
+    "postalCode": "ABC123"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "payerId": "BCBS001",
+  "claimNumber": "CLM-2025-001234",
+  "provider": {
+    "npi": "1234567890"
+  },
+  "attachmentType": "UNSTRUCTURED",
+  "attachments": [
+    {
+      "contentType": "application/pdf",
+      "title": "Operative Report",
+      "data": "SGVsbG8gV29ybGQ="
+    }
+  ]
+}

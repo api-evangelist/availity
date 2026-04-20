@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/claim-attachments-claim-attachment-request-structure.json",
+  "description": "ClaimAttachmentRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "claimNumber",
+    "provider",
+    "attachments"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "claimNumber": {
+      "type": "string",
+      "example": "CLM-2025-001234"
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "npi": {
+          "type": "string",
+          "example": "1234567890"
+        }
+      }
+    },
+    "attachmentType": {
+      "type": "string",
+      "enum": [
+        "STRUCTURED",
+        "UNSTRUCTURED"
+      ],
+      "example": "UNSTRUCTURED"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "data": {
+            "type": "string",
+            "format": "byte"
+          },
+          "name": {
+            "type": "string",
+            "example": "Operative Report"
+          }
+        }
+      }
+    }
+  },
+  "name": "ClaimAttachmentRequest"
+}

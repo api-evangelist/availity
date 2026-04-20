@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/claim-attachments-claim-attachment-response-structure.json",
+  "description": "ClaimAttachmentResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUBMITTED",
+        "ACCEPTED",
+        "REJECTED",
+        "PENDING"
+      ],
+      "example": "ACCEPTED"
+    },
+    "controlNumber": {
+      "type": "string",
+      "example": "ATT-2025-001234"
+    }
+  },
+  "name": "ClaimAttachmentResponse"
+}

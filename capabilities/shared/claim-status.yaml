@@ -1,0 +1,121 @@
+naftiko: 1.0.0-alpha1
+info:
+  label: Availity Claim Status API
+  description: Claim status inquiry and tracking using X12 276/277 transactions with enhanced claim search.
+  tags:
+  - Availity
+  - Claims
+  - EDI
+  - Healthcare
+  created: '2026-04-19'
+  modified: '2026-04-19'
+binds:
+- namespace: env
+  keys:
+    AVAILITY_CLIENT_ID: AVAILITY_CLIENT_ID
+    AVAILITY_CLIENT_SECRET: AVAILITY_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: availity-claims
+    baseUri: https://api.availity.com
+    description: Availity Claim Status API
+    authentication:
+      type: bearer
+      token: '{{AVAILITY_TOKEN}}'
+    resources:
+    - name: claim-statuses
+      path: /availity/intelligent-payer-network/v1/claim-statuses
+      description: Claim status inquiries
+      operations:
+      - name: create-claim-status-inquiry
+        method: POST
+        description: Submit a claim status inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-claim-status-inquiries
+        method: GET
+        description: List previous claim status inquiries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: enhanced-claim-status
+      path: /clmsmgmt/claim-status/claim-status/v1/status
+      description: Enhanced claim status with summary and detail search
+      operations:
+      - name: summary-search-claims
+        method: POST
+        description: High-level claim search by service date or member ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: detail-search-claim
+        method: POST
+        description: Detailed claim lookup by claim number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8101
+    namespace: availity-claims-rest
+    resources:
+    - path: /v1/claim-statuses
+      name: claim-statuses
+      description: Claim status inquiries
+      operations:
+      - method: POST
+        name: create-claim-status
+        description: Submit claim status inquiry
+        call: availity-claims.create-claim-status-inquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-claim-statuses
+        description: List claim status inquiries
+        call: availity-claims.list-claim-status-inquiries
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9101
+    namespace: availity-claims-mcp
+    transport: http
+    tools:
+    - name: submit-claim-status-inquiry
+      description: Submit a claim status inquiry using X12 276
+      hints:
+        readOnly: false
+        openWorld: true
+      call: availity-claims.create-claim-status-inquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-claims-by-date
+      description: High-level search for claims by service date or member ID
+      hints:
+        readOnly: true
+        openWorld: true
+      call: availity-claims.summary-search-claims
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lookup-claim-details
+      description: Detailed lookup of a specific claim by claim number
+      hints:
+        readOnly: true
+        openWorld: true
+      call: availity-claims.detail-search-claim
+      outputParameters:
+      - type: object
+        mapping: $.

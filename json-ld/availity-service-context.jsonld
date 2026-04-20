@@ -1,0 +1,141 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "availity": "https://availity.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ServiceReviewResponse": "availity:ServiceReviewResponse",
+    "ServiceReviewRequest": "availity:ServiceReviewRequest",
+    "IsAuthRequiredResponse": "availity:IsAuthRequiredResponse",
+    "IsAuthRequiredRequest": "availity:IsAuthRequiredRequest",
+    "ServiceReviewList": "availity:ServiceReviewList",
+    "AttachmentStatusResponse": "availity:AttachmentStatusResponse",
+    "AsyncJobResponse": "availity:AsyncJobResponse",
+    "AttachmentRequest": "availity:AttachmentRequest",
+    "id": {
+      "@id": "availity:id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "availity:status",
+      "@type": "xsd:string"
+    },
+    "certificationNumber": {
+      "@id": "availity:certificationNumber",
+      "@type": "xsd:string"
+    },
+    "effectiveDate": {
+      "@id": "availity:effectiveDate",
+      "@type": "xsd:date"
+    },
+    "expirationDate": {
+      "@id": "availity:expirationDate",
+      "@type": "xsd:date"
+    },
+    "payerId": {
+      "@id": "availity:payerId",
+      "@type": "xsd:string"
+    },
+    "requestType": {
+      "@id": "availity:requestType",
+      "@type": "xsd:string"
+    },
+    "provider": {
+      "@id": "availity:provider",
+      "@type": "@id"
+    },
+    "npi": {
+      "@id": "availity:npi",
+      "@type": "xsd:string"
+    },
+    "taxId": {
+      "@id": "availity:taxId",
+      "@type": "xsd:string"
+    },
+    "subscriber": {
+      "@id": "availity:subscriber",
+      "@type": "@id"
+    },
+    "memberId": {
+      "@id": "availity:memberId",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "availity:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "availity:lastName",
+      "@type": "xsd:string"
+    },
+    "serviceInformation": {
+      "@id": "availity:serviceInformation",
+      "@type": "@id"
+    },
+    "procedureCodes": {
+      "@id": "availity:procedureCodes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "diagnosisCodes": {
+      "@id": "availity:diagnosisCodes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "serviceFromDate": {
+      "@id": "availity:serviceFromDate",
+      "@type": "xsd:date"
+    },
+    "serviceToDate": {
+      "@id": "availity:serviceToDate",
+      "@type": "xsd:date"
+    },
+    "authRequired": {
+      "@id": "availity:authRequired",
+      "@type": "xsd:string"
+    },
+    "payerMessage": {
+      "@id": "availity:payerMessage",
+      "@type": "xsd:string"
+    },
+    "serviceReview": {
+      "@id": "availity:serviceReview",
+      "@type": "@id"
+    },
+    "procedureCode": {
+      "@id": "availity:procedureCode",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "availity:data",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "availity:total",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "availity:offset",
+      "@type": "xsd:integer"
+    },
+    "patient": {
+      "@id": "availity:patient",
+      "@type": "@id"
+    },
+    "attachments": {
+      "@id": "availity:attachments",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "contentType": {
+      "@id": "availity:contentType",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "availity:title",
+      "@type": "xsd:string"
+    }
+  }
+}

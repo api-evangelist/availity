@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/claim-status-claim-status-request-schema.json",
+  "title": "ClaimStatusRequest",
+  "description": "ClaimStatusRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "provider",
+    "subscriber"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "description": "Availity payer ID",
+      "example": "BCBS001"
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "npi": {
+          "type": "string",
+          "description": "National Provider Identifier",
+          "example": "1234567890"
+        },
+        "taxId": {
+          "type": "string",
+          "example": "123456789"
+        }
+      }
+    },
+    "subscriber": {
+      "type": "object",
+      "properties": {
+        "memberId": {
+          "type": "string",
+          "example": "MEM123456"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Jane"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Smith"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date",
+          "example": "1980-01-15"
+        }
+      }
+    },
+    "claimNumber": {
+      "type": "string",
+      "description": "Payer claim number",
+      "example": "CLM-2025-001234"
+    },
+    "fromDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-01-01"
+    },
+    "toDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-12-31"
+    }
+  }
+}

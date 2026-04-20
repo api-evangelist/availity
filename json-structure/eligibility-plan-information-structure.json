@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-plan-information-structure.json",
+  "description": "PlanInformation schema from Availity API",
+  "type": "object",
+  "properties": {
+    "planName": {
+      "type": "string"
+    },
+    "groupName": {
+      "type": "string"
+    },
+    "groupNumber": {
+      "type": "string"
+    },
+    "planBeginDate": {
+      "type": "date"
+    },
+    "planEndDate": {
+      "type": "date"
+    }
+  },
+  "name": "PlanInformation"
+}

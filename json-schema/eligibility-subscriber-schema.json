@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-subscriber-schema.json",
+  "title": "Subscriber",
+  "description": "Subscriber schema from Availity API",
+  "type": "object",
+  "required": [
+    "memberId"
+  ],
+  "properties": {
+    "memberId": {
+      "type": "string",
+      "description": "Insurance member ID"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "M",
+        "F",
+        "U"
+      ]
+    },
+    "ssn": {
+      "type": "string",
+      "description": "Social Security Number (last 4 or full)"
+    },
+    "groupNumber": {
+      "type": "string"
+    }
+  }
+}

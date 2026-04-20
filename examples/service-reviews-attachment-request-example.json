@@ -1,0 +1,21 @@
+{
+  "payerId": "BCBS001",
+  "patient": {
+    "firstName": "Jane",
+    "lastName": "Smith"
+  },
+  "subscriber": {
+    "memberId": "MEM123456"
+  },
+  "provider": {
+    "npi": "1234567890"
+  },
+  "certificationNumber": "AUTH-2025-001234",
+  "attachments": [
+    {
+      "contentType": "application/pdf",
+      "title": "Clinical Notes",
+      "data": "SGVsbG8gV29ybGQ="
+    }
+  ]
+}

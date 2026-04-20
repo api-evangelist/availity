@@ -1,0 +1,12 @@
+{
+  "code": "ABC123",
+  "name": "sample-value",
+  "coverageLevel": "FAMILY",
+  "benefitAmount": {
+    "value": 493.31,
+    "currency": "sample-value"
+  },
+  "benefitPercent": 513.75,
+  "inPlanNetworkIndicator": "Y",
+  "timeQualifier": "sample-value"
+}

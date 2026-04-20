@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-eligibility-request-schema.json",
+  "title": "EligibilityRequest",
+  "description": "EligibilityRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "controlNumber",
+    "provider",
+    "subscriber",
+    "payer"
+  ],
+  "properties": {
+    "controlNumber": {
+      "type": "string",
+      "description": "Unique transaction control number (up to 9 characters)",
+      "maxLength": 9
+    },
+    "provider": {
+      "$ref": "#/components/schemas/Provider"
+    },
+    "subscriber": {
+      "$ref": "#/components/schemas/Subscriber"
+    },
+    "dependent": {
+      "$ref": "#/components/schemas/Dependent"
+    },
+    "payer": {
+      "$ref": "#/components/schemas/Payer"
+    },
+    "encounter": {
+      "type": "object",
+      "properties": {
+        "serviceTypeCodes": {
+          "type": "array",
+          "description": "X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "beginningDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

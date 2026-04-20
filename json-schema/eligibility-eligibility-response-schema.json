@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-eligibility-response-schema.json",
+  "title": "EligibilityResponse",
+  "description": "EligibilityResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Availity transaction ID"
+    },
+    "controlNumber": {
+      "type": "string"
+    },
+    "requestedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "serviceDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "subscriber": {
+      "$ref": "#/components/schemas/SubscriberInfo"
+    },
+    "payer": {
+      "$ref": "#/components/schemas/PayerInfo"
+    },
+    "coverages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Coverage"
+      }
+    },
+    "planInformation": {
+      "$ref": "#/components/schemas/PlanInformation"
+    }
+  }
+}

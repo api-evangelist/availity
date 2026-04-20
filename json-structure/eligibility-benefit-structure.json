@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-benefit-structure.json",
+  "description": "Benefit schema from Availity API",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "X12 benefit information code"
+    },
+    "name": {
+      "type": "string"
+    },
+    "coverageLevel": {
+      "type": "string",
+      "enum": [
+        "INDIVIDUAL",
+        "FAMILY",
+        "EMPLOYEE",
+        "EMPLOYEE_AND_SPOUSE"
+      ]
+    },
+    "benefitAmount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "double"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "benefitPercent": {
+      "type": "double",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "inPlanNetworkIndicator": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N",
+        "W"
+      ]
+    },
+    "timeQualifier": {
+      "type": "string",
+      "description": "Benefit period (e.g., Calendar Year, Plan Year, Lifetime)"
+    }
+  },
+  "name": "Benefit"
+}

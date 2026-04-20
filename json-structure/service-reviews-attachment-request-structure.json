@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/service-reviews-attachment-request-structure.json",
+  "description": "AttachmentRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "patient",
+    "subscriber",
+    "provider",
+    "certificationNumber",
+    "attachments"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "patient": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Jane"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Smith"
+        }
+      }
+    },
+    "subscriber": {
+      "type": "object",
+      "properties": {
+        "memberId": {
+          "type": "string",
+          "example": "MEM123456"
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "npi": {
+          "type": "string",
+          "example": "1234567890"
+        }
+      }
+    },
+    "certificationNumber": {
+      "type": "string",
+      "example": "AUTH-2025-001234"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "data": {
+            "type": "string",
+            "format": "byte"
+          },
+          "name": {
+            "type": "string",
+            "example": "Clinical Notes"
+          }
+        }
+      }
+    }
+  },
+  "name": "AttachmentRequest"
+}

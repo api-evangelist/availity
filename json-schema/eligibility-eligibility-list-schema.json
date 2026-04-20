@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-eligibility-list-schema.json",
+  "title": "EligibilityList",
+  "description": "EligibilityList schema from Availity API",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/EligibilityResponse"
+      }
+    },
+    "total": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    }
+  }
+}

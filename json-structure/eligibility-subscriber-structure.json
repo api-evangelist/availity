@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-subscriber-structure.json",
+  "description": "Subscriber schema from Availity API",
+  "type": "object",
+  "required": [
+    "memberId"
+  ],
+  "properties": {
+    "memberId": {
+      "type": "string",
+      "description": "Insurance member ID"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "date"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "M",
+        "F",
+        "U"
+      ]
+    },
+    "ssn": {
+      "type": "string",
+      "description": "Social Security Number (last 4 or full)"
+    },
+    "groupNumber": {
+      "type": "string"
+    }
+  },
+  "name": "Subscriber"
+}

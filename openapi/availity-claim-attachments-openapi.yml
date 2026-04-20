@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Availity Claim Attachments API
+  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Claim Attachments
+  description: Electronic claim attachment submission and retrieval
+paths:
+  /availity/intelligent-payer-network/v1/claim-attachments:
+    post:
+      operationId: submitClaimAttachment
+      summary: Availity Submit Claim Attachment
+      description: Submit supporting documentation alongside a healthcare claim. Supports structured and unstructured attachment types.
+      tags:
+      - Claim Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimAttachmentRequest'
+      responses:
+        '200':
+          description: Attachment submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimAttachmentResponse'
+              examples:
+                SubmitClaimAttachment200Example:
+                  summary: Default submitClaimAttachment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: '500123'
+                    status: SUBMITTED
+                    controlNumber: ATT-2025-001234
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /availity/intelligent-payer-network/v1/claim-attachments/{id}:
+    get:
+      operationId: getClaimAttachmentStatus
+      summary: Availity Get Claim Attachment Status
+      description: Retrieve the processing status of a submitted claim attachment.
+      tags:
+      - Claim Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Attachment transaction ID
+        example: '500123'
+      responses:
+        '200':
+          description: Attachment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimAttachmentResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ClaimAttachmentRequest:
+      type: object
+      required:
+      - payerId
+      - claimNumber
+      - provider
+      - attachments
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        claimNumber:
+          type: string
+          example: CLM-2025-001234
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              example: '1234567890'
+        attachmentType:
+          type: string
+          enum:
+          - STRUCTURED
+          - UNSTRUCTURED
+          example: UNSTRUCTURED
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              contentType:
+                type: string
+                example: application/pdf
+              title:
+                type: string
+                example: Operative Report
+              data:
+                type: string
+                format: byte
+    ClaimAttachmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - ACCEPTED
+          - REJECTED
+          - PENDING
+          example: ACCEPTED
+        controlNumber:
+          type: string
+          example: ATT-2025-001234
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string

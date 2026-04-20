@@ -1,0 +1,143 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "availity": "https://availity.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Availity Eligibility Response": "availity:Availity Eligibility Response",
+    "id": {
+      "@id": "availity:id",
+      "@type": "xsd:string"
+    },
+    "controlNumber": {
+      "@id": "availity:controlNumber",
+      "@type": "xsd:string"
+    },
+    "requestedDate": {
+      "@id": "availity:requestedDate",
+      "@type": "xsd:dateTime"
+    },
+    "serviceDate": {
+      "@id": "availity:serviceDate",
+      "@type": "xsd:date"
+    },
+    "subscriber": {
+      "@id": "availity:subscriber",
+      "@type": "xsd:string"
+    },
+    "payer": {
+      "@id": "availity:payer",
+      "@type": "xsd:string"
+    },
+    "coverages": {
+      "@id": "availity:coverages",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "planInformation": {
+      "@id": "availity:planInformation",
+      "@type": "xsd:string"
+    },
+    "memberId": {
+      "@id": "availity:memberId",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "availity:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "availity:lastName",
+      "@type": "xsd:string"
+    },
+    "dateOfBirth": {
+      "@id": "availity:dateOfBirth",
+      "@type": "xsd:date"
+    },
+    "gender": {
+      "@id": "availity:gender",
+      "@type": "xsd:string"
+    },
+    "groupNumber": {
+      "@id": "availity:groupNumber",
+      "@type": "xsd:string"
+    },
+    "groupName": {
+      "@id": "availity:groupName",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "serviceTypeCodes": {
+      "@id": "availity:serviceTypeCodes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "serviceTypeNames": {
+      "@id": "availity:serviceTypeNames",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "coverageStatus": {
+      "@id": "availity:coverageStatus",
+      "@type": "xsd:string"
+    },
+    "effectiveDate": {
+      "@id": "availity:effectiveDate",
+      "@type": "xsd:date"
+    },
+    "expirationDate": {
+      "@id": "availity:expirationDate",
+      "@type": "xsd:date"
+    },
+    "benefits": {
+      "@id": "availity:benefits",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "availity:code",
+      "@type": "xsd:string"
+    },
+    "coverageLevel": {
+      "@id": "availity:coverageLevel",
+      "@type": "xsd:string"
+    },
+    "benefitAmount": {
+      "@id": "availity:benefitAmount",
+      "@type": "@id"
+    },
+    "value": {
+      "@id": "availity:value",
+      "@type": "xsd:decimal"
+    },
+    "currency": {
+      "@id": "availity:currency",
+      "@type": "xsd:string"
+    },
+    "benefitPercent": {
+      "@id": "availity:benefitPercent",
+      "@type": "xsd:decimal"
+    },
+    "inPlanNetworkIndicator": {
+      "@id": "availity:inPlanNetworkIndicator",
+      "@type": "xsd:string"
+    },
+    "timeQualifier": {
+      "@id": "availity:timeQualifier",
+      "@type": "xsd:string"
+    },
+    "planName": {
+      "@id": "availity:planName",
+      "@type": "xsd:string"
+    },
+    "planBeginDate": {
+      "@id": "availity:planBeginDate",
+      "@type": "xsd:date"
+    },
+    "planEndDate": {
+      "@id": "availity:planEndDate",
+      "@type": "xsd:date"
+    }
+  }
+}

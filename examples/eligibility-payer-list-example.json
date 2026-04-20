@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "id": "500123",
+      "name": "sample-value",
+      "eligibilityUrl": "sample-value",
+      "supportedTransactions": [
+        "sample-value"
+      ]
+    }
+  ]
+}

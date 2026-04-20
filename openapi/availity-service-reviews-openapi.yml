@@ -1,0 +1,466 @@
+openapi: 3.1.0
+info:
+  title: Availity Service Reviews (Prior Authorization) API
+  description: The Availity Service Reviews API enables the ASC X12N 278 transaction for prior authorization and healthcare service reviews. Includes IsAuthRequired and Attachments add-on APIs.
+  version: 2.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Service Reviews
+  description: Prior authorization and service review requests
+- name: Is Auth Required
+  description: Check if authorization is required before submission
+- name: Auth Attachments
+  description: Attach documentation to authorization requests
+paths:
+  /availity/intelligent-payer-network/v1/service-reviews:
+    post:
+      operationId: createServiceReview
+      summary: Availity Create Service Review
+      description: Submit a prior authorization or service review request (X12 278 transaction) to a health plan payer.
+      tags:
+      - Service Reviews
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceReviewRequest'
+      responses:
+        '200':
+          description: Service review created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceReviewResponse'
+              examples:
+                CreateServiceReview200Example:
+                  summary: Default createServiceReview 200 response
+                  x-microcks-default: true
+                  value:
+                    id: '500123'
+                    status: PENDING
+                    certificationNumber: AUTH-2025-001234
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: listServiceReviews
+      summary: Availity List Service Reviews
+      description: Retrieve a list of previous service review submissions for the authenticated provider.
+      tags:
+      - Service Reviews
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: payerId
+        in: query
+        schema:
+          type: string
+        description: Filter by payer ID
+        example: BCBS001
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+          maximum: 50
+        description: Number of results per page
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+        description: Pagination offset
+      responses:
+        '200':
+          description: List of service reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceReviewList'
+  /availity/intelligent-payer-network/v1/service-reviews/{id}:
+    get:
+      operationId: getServiceReview
+      summary: Availity Get Service Review
+      description: Retrieve the status and details of a specific service review by ID.
+      tags:
+      - Service Reviews
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Service review transaction ID
+        example: '500123'
+      responses:
+        '200':
+          description: Service review details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceReviewResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /value-adds/v1/isauthrequired:
+    post:
+      operationId: checkIsAuthRequired
+      summary: Availity Check if Authorization is Required
+      description: Query whether a payer requires prior authorization before submitting a service review request.
+      tags:
+      - Is Auth Required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IsAuthRequiredRequest'
+      responses:
+        '200':
+          description: Auth requirement check initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /value-adds/v1/isauthrequired/{id}:
+    get:
+      operationId: getIsAuthRequiredResult
+      summary: Availity Get Authorization Requirement Result
+      description: Poll for the result of an IsAuthRequired check.
+      tags:
+      - Is Auth Required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Job ID from POST response
+        example: '500123'
+      responses:
+        '200':
+          description: Auth requirement result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsAuthRequiredResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /value-adds/v2/attachments:
+    post:
+      operationId: submitAuthAttachment
+      summary: Availity Submit Authorization with Attachment
+      description: Submit an authorization request with supporting document attachments.
+      tags:
+      - Auth Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+      responses:
+        '200':
+          description: Attachment submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /value-adds/v2/attachments/{id}:
+    get:
+      operationId: getAttachmentStatus
+      summary: Availity Get Attachment Processing Status
+      description: Retrieve the processing status of a submitted authorization attachment.
+      tags:
+      - Auth Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Attachment job ID
+        example: '500123'
+      responses:
+        '200':
+          description: Attachment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentStatusResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ServiceReviewRequest:
+      type: object
+      required:
+      - payerId
+      - provider
+      - subscriber
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        requestType:
+          type: string
+          enum:
+          - INITIAL
+          - UPDATE
+          - CANCEL
+          - REFERRAL
+          example: INITIAL
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              example: '1234567890'
+            taxId:
+              type: string
+              example: '123456789'
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+        serviceInformation:
+          type: object
+          properties:
+            procedureCodes:
+              type: array
+              items:
+                type: string
+            diagnosisCodes:
+              type: array
+              items:
+                type: string
+            serviceFromDate:
+              type: string
+              format: date
+            serviceToDate:
+              type: string
+              format: date
+    ServiceReviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - APPROVED
+          - DENIED
+          - PARTIALLY_APPROVED
+          - PENDING_ADDITIONAL_INFO
+          example: APPROVED
+        certificationNumber:
+          type: string
+          example: AUTH-2025-001234
+        effectiveDate:
+          type: string
+          format: date
+          example: '2025-04-01'
+        expirationDate:
+          type: string
+          format: date
+          example: '2025-10-01'
+    ServiceReviewList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceReviewResponse'
+        total:
+          type: integer
+          example: 15
+        offset:
+          type: integer
+          example: 0
+    IsAuthRequiredRequest:
+      type: object
+      properties:
+        serviceReview:
+          type: object
+          description: Authorization details to check
+          properties:
+            payerId:
+              type: string
+              example: BCBS001
+            procedureCode:
+              type: string
+              example: '99213'
+    IsAuthRequiredResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        authRequired:
+          type: string
+          enum:
+          - Auth Required
+          - No Auth Required
+          example: Auth Required
+        payerMessage:
+          type: string
+          example: Prior authorization required for this procedure
+    AttachmentRequest:
+      type: object
+      required:
+      - payerId
+      - patient
+      - subscriber
+      - provider
+      - certificationNumber
+      - attachments
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        patient:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              example: '1234567890'
+        certificationNumber:
+          type: string
+          example: AUTH-2025-001234
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              contentType:
+                type: string
+                example: application/pdf
+              title:
+                type: string
+                example: Clinical Notes
+              data:
+                type: string
+                format: byte
+    AttachmentStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - AV_ACCEPTED
+          - AV_REJECTED
+          - PY_ACCEPTED
+          - PY_REJECTED
+          example: AV_ACCEPTED
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string

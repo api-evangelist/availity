@@ -1,0 +1,9 @@
+{
+  "memberId": "MEM123456",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "dateOfBirth": "2025-04-15",
+  "gender": "M",
+  "ssn": "sample-value",
+  "groupNumber": "sample-value"
+}

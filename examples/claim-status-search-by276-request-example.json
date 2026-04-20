@@ -1,0 +1,10 @@
+{
+  "payerId": "BCBS001",
+  "patientLastName": "Smith",
+  "patientFirstName": "Jane",
+  "patientBirthDate": "1980-01-15",
+  "fromDate": "2025-01-01",
+  "toDate": "2025-12-31",
+  "providerLastName": "Johnson",
+  "patientSameAsSubscriber": true
+}

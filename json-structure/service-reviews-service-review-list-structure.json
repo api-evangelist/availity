@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/service-reviews-service-review-list-structure.json",
+  "description": "ServiceReviewList schema from Availity API",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ServiceReviewResponse"
+      }
+    },
+    "total": {
+      "type": "int32",
+      "example": 15
+    },
+    "offset": {
+      "type": "int32",
+      "example": 0
+    }
+  },
+  "name": "ServiceReviewList"
+}

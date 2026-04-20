@@ -1,0 +1,8 @@
+{
+  "payerId": "BCBS001",
+  "claimNumber": "CLM-2025-001234",
+  "requestType": "CLAIM_NUMBER",
+  "providerTaxId": "123456789",
+  "providerNpi": "1234567890",
+  "processedDate": "2025-03-15"
+}

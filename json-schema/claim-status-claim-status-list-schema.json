@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/claim-status-claim-status-list-schema.json",
+  "title": "ClaimStatusList",
+  "description": "ClaimStatusList schema from Availity API",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ClaimStatusResponse"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "example": 42
+    },
+    "offset": {
+      "type": "integer",
+      "example": 0
+    }
+  }
+}

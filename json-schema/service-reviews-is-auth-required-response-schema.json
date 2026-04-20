@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/service-reviews-is-auth-required-response-schema.json",
+  "title": "IsAuthRequiredResponse",
+  "description": "IsAuthRequiredResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "authRequired": {
+      "type": "string",
+      "enum": [
+        "Auth Required",
+        "No Auth Required"
+      ],
+      "example": "Auth Required"
+    },
+    "payerMessage": {
+      "type": "string",
+      "example": "Prior authorization required for this procedure"
+    }
+  }
+}

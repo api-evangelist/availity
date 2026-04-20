@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-eligibility-list-structure.json",
+  "description": "EligibilityList schema from Availity API",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/EligibilityResponse"
+      }
+    },
+    "total": {
+      "type": "int32"
+    },
+    "offset": {
+      "type": "int32"
+    }
+  },
+  "name": "EligibilityList"
+}

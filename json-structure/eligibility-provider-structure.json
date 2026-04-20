@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-provider-structure.json",
+  "description": "Provider schema from Availity API",
+  "type": "object",
+  "required": [
+    "npi"
+  ],
+  "properties": {
+    "npi": {
+      "type": "string",
+      "description": "National Provider Identifier (NPI)",
+      "pattern": "^\\d{10}$"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "organizationName": {
+      "type": "string"
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "serviceProviderNumber": {
+      "type": "string"
+    }
+  },
+  "name": "Provider"
+}

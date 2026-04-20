@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-eligibility-error-structure.json",
+  "description": "EligibilityError schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "rejectCode": {
+      "type": "string"
+    },
+    "rejectReason": {
+      "type": "string"
+    },
+    "followUpAction": {
+      "type": "string"
+    }
+  },
+  "name": "EligibilityError"
+}

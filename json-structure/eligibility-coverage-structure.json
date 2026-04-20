@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-coverage-structure.json",
+  "description": "Coverage schema from Availity API",
+  "type": "object",
+  "properties": {
+    "serviceTypeCodes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serviceTypeNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "insuranceType": {
+      "type": "string"
+    },
+    "planCoverage": {
+      "type": "string"
+    },
+    "coverageStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Inactive",
+        "Cancelled"
+      ]
+    },
+    "effectiveDate": {
+      "type": "date"
+    },
+    "expirationDate": {
+      "type": "date"
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Benefit"
+      }
+    }
+  },
+  "name": "Coverage"
+}

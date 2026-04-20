@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/service-reviews-is-auth-required-request-structure.json",
+  "description": "IsAuthRequiredRequest schema from Availity API",
+  "type": "object",
+  "properties": {
+    "serviceReview": {
+      "type": "object",
+      "description": "Authorization details to check",
+      "properties": {
+        "payerId": {
+          "type": "string",
+          "example": "BCBS001"
+        },
+        "procedureCode": {
+          "type": "string",
+          "example": "99213"
+        }
+      }
+    }
+  },
+  "name": "IsAuthRequiredRequest"
+}

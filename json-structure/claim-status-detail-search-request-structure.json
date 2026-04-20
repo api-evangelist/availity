@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/claim-status-detail-search-request-structure.json",
+  "description": "DetailSearchRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "claimNumber",
+    "requestType"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "claimNumber": {
+      "type": "string",
+      "example": "CLM-2025-001234"
+    },
+    "requestType": {
+      "type": "string",
+      "enum": [
+        "CLAIM_NUMBER"
+      ],
+      "example": "CLAIM_NUMBER"
+    },
+    "providerTaxId": {
+      "type": "string",
+      "example": "123456789"
+    },
+    "providerNpi": {
+      "type": "string",
+      "example": "1234567890"
+    },
+    "processedDate": {
+      "type": "date",
+      "example": "2025-03-15"
+    }
+  },
+  "name": "DetailSearchRequest"
+}

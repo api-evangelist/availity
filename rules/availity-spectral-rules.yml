@@ -1,0 +1,345 @@
+# Availity API Spectral Ruleset
+# Enforces Availity API conventions across all OpenAPI specifications
+
+rules:
+
+  # INFO / METADATA
+  info-title-required:
+    description: API info title must be present and start with "Availity"
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  info-title-availity-prefix:
+    description: API title should start with "Availity"
+    severity: warn
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Availity"
+
+  info-description-required:
+    description: API info description must be present and non-empty
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-description-min-length:
+    description: API description should be at least 50 characters
+    severity: warn
+    given: "$.info.description"
+    then:
+      function: minLength
+      functionOptions:
+        value: 50
+
+  info-version-required:
+    description: API version must be present
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  info-contact-required:
+    description: API contact information should be provided
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3x:
+    description: OpenAPI version must be 3.x
+    severity: error
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\."
+
+  # SERVERS
+  servers-required:
+    description: At least one server must be defined
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  servers-https-only:
+    description: All server URLs must use HTTPS
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-description-required:
+    description: Each server should have a description
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: description
+      function: truthy
+
+  # PATHS — NAMING CONVENTIONS
+  paths-kebab-case:
+    description: Path segments should use kebab-case
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9{}-]+)+$"
+
+  paths-no-trailing-slash:
+    description: Paths should not have trailing slashes
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  paths-no-query-strings:
+    description: Paths should not contain query strings
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\?"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-availity-prefix:
+    description: Operation summaries should start with "Availity"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Availity"
+
+  operation-description-required:
+    description: Every operation must have a description
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: description
+      function: truthy
+
+  operation-id-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-id-camel-case:
+    description: operationId should use camelCase
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  operation-tags-required:
+    description: Every operation must have at least one tag
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  parameter-snake-case:
+    description: Query and path parameter names should use camelCase or snake_case
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].parameters[?(@.in == 'query')].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9_]*$"
+
+  # REQUEST BODIES
+  request-body-description-required:
+    description: Request bodies should have a description
+    severity: info
+    given: "$.paths[*][post,put,patch].requestBody"
+    then:
+      field: description
+      function: truthy
+
+  request-body-json-content:
+    description: Request bodies should include application/json content type
+    severity: warn
+    given: "$.paths[*][post,put,patch].requestBody.content"
+    then:
+      field: application/json
+      function: truthy
+
+  # RESPONSES
+  response-success-required:
+    description: Every operation must have at least one 2xx response
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-description-required:
+    description: All responses must have a description
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  response-401-required:
+    description: APIs using OAuth should include 401 Unauthorized response
+    severity: warn
+    given: "$.paths[*][post,get].responses"
+    then:
+      field: "401"
+      function: truthy
+
+  response-400-required:
+    description: POST/PUT/PATCH operations should document 400 Bad Request
+    severity: warn
+    given: "$.paths[*][post,put,patch].responses"
+    then:
+      field: "400"
+      function: truthy
+
+  # SCHEMAS — PROPERTY NAMING
+  schema-description-required:
+    description: Top-level schemas should have a description
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  schema-type-required:
+    description: Schema definitions should have a type
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: type
+      function: truthy
+
+  schema-property-camel-case:
+    description: Schema properties should use camelCase naming
+    severity: info
+    given: "$.components.schemas[*].properties[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # SECURITY
+  security-schemes-defined:
+    description: Security schemes must be defined in components
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  security-oauth2-token-url:
+    description: OAuth2 token URL should point to Availity token endpoint
+    severity: warn
+    given: "$.components.securitySchemes[*].flows[*].tokenUrl"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://.*availity\.com.*/token$"
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations must not have a request body
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-request-body:
+    description: DELETE operations should not have a request body
+    severity: warn
+    given: "$.paths[*].delete"
+    then:
+      field: requestBody
+      function: falsy
+
+  post-should-have-request-body:
+    description: POST operations creating resources should have a request body
+    severity: info
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: truthy
+
+  # GENERAL QUALITY
+  operation-examples-encouraged:
+    description: Operations should include examples for better developer experience
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].responses[*].content[*]"
+    then:
+      field: examples
+      function: truthy
+
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings
+    severity: error
+    given: "$..description"
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"
+
+  pagination-limit-parameter:
+    description: Collection GET endpoints should support limit parameter
+    severity: info
+    given: "$.paths[*].get.parameters[?(@.name == 'limit')]"
+    then:
+      field: schema.maximum
+      function: defined
+
+  pagination-offset-parameter:
+    description: Collection GET endpoints with limit should also have offset
+    severity: info
+    given: "$.paths[*].get.parameters[?(@.name == 'offset')]"
+    then:
+      field: schema.default
+      function: defined

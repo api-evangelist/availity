@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/claim-status-summary-search-request-schema.json",
+  "title": "SummarySearchRequest",
+  "description": "SummarySearchRequest schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "requestType"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "requestType": {
+      "type": "string",
+      "enum": [
+        "SERVICE_DATE",
+        "MEMBER_ID"
+      ],
+      "example": "SERVICE_DATE"
+    },
+    "memberId": {
+      "type": "string",
+      "example": "MEM123456"
+    },
+    "fromDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-01-01"
+    },
+    "toDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-12-31"
+    },
+    "providerNpi": {
+      "type": "string",
+      "example": "1234567890"
+    },
+    "checkNumber": {
+      "type": "string",
+      "example": "CHK-001234"
+    },
+    "requestedStatus": {
+      "type": "string",
+      "example": "PAID"
+    }
+  }
+}

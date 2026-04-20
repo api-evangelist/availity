@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/claim-status-claim-status-response-schema.json",
+  "title": "ClaimStatusResponse",
+  "description": "ClaimStatusResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Availity transaction ID",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACKNOWLEDGED",
+        "ACTION_REQUIRED",
+        "ADJUSTED",
+        "CAPITATED",
+        "DENIED",
+        "ERROR",
+        "FINALIZED",
+        "PAID",
+        "PENDING",
+        "REJECTED",
+        "RETURNED_TO_PROVIDER"
+      ],
+      "example": "PAID"
+    },
+    "traceIds": {
+      "type": "object",
+      "properties": {
+        "AVAILITY_TRACE_ID": {
+          "type": "string",
+          "example": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"
+        },
+        "PAYER_TRACE_ID": {
+          "type": "string",
+          "example": "277-trace-001"
+        }
+      }
+    },
+    "amounts": {
+      "type": "object",
+      "properties": {
+        "billed": {
+          "type": "number",
+          "example": 250.0
+        },
+        "allowed": {
+          "type": "number",
+          "example": 200.0
+        },
+        "paid": {
+          "type": "number",
+          "example": 160.0
+        },
+        "patientResponsibility": {
+          "type": "number",
+          "example": 40.0
+        }
+      }
+    },
+    "completeCode": {
+      "type": "string",
+      "example": "COMPLETE"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

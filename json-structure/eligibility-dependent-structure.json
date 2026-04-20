@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/eligibility-dependent-structure.json",
+  "description": "Dependent schema from Availity API",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "date"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "M",
+        "F",
+        "U"
+      ]
+    },
+    "relationship": {
+      "type": "string",
+      "enum": [
+        1,
+        19,
+        20,
+        21,
+        39,
+        40,
+        "G8"
+      ]
+    }
+  },
+  "name": "Dependent"
+}

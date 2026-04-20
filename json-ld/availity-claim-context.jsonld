@@ -1,0 +1,201 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "availity": "https://availity.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ClaimStatusRequest": "availity:ClaimStatusRequest",
+    "ClaimAttachmentResponse": "availity:ClaimAttachmentResponse",
+    "DetailSearchRequest": "availity:DetailSearchRequest",
+    "ClaimStatusResponse": "availity:ClaimStatusResponse",
+    "SummarySearchRequest": "availity:SummarySearchRequest",
+    "AsyncJobResponse": "availity:AsyncJobResponse",
+    "SearchBy276Request": "availity:SearchBy276Request",
+    "ClaimStatusList": "availity:ClaimStatusList",
+    "ClaimAttachmentRequest": "availity:ClaimAttachmentRequest",
+    "payerId": {
+      "@id": "availity:payerId",
+      "@type": "xsd:string"
+    },
+    "provider": {
+      "@id": "availity:provider",
+      "@type": "@id"
+    },
+    "npi": {
+      "@id": "availity:npi",
+      "@type": "xsd:string"
+    },
+    "taxId": {
+      "@id": "availity:taxId",
+      "@type": "xsd:string"
+    },
+    "subscriber": {
+      "@id": "availity:subscriber",
+      "@type": "@id"
+    },
+    "memberId": {
+      "@id": "availity:memberId",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "availity:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "availity:lastName",
+      "@type": "xsd:string"
+    },
+    "dateOfBirth": {
+      "@id": "availity:dateOfBirth",
+      "@type": "xsd:date"
+    },
+    "claimNumber": {
+      "@id": "availity:claimNumber",
+      "@type": "xsd:string"
+    },
+    "fromDate": {
+      "@id": "availity:fromDate",
+      "@type": "xsd:date"
+    },
+    "toDate": {
+      "@id": "availity:toDate",
+      "@type": "xsd:date"
+    },
+    "id": {
+      "@id": "availity:id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "availity:status",
+      "@type": "xsd:string"
+    },
+    "controlNumber": {
+      "@id": "availity:controlNumber",
+      "@type": "xsd:string"
+    },
+    "requestType": {
+      "@id": "availity:requestType",
+      "@type": "xsd:string"
+    },
+    "providerTaxId": {
+      "@id": "availity:providerTaxId",
+      "@type": "xsd:string"
+    },
+    "providerNpi": {
+      "@id": "availity:providerNpi",
+      "@type": "xsd:string"
+    },
+    "processedDate": {
+      "@id": "availity:processedDate",
+      "@type": "xsd:date"
+    },
+    "traceIds": {
+      "@id": "availity:traceIds",
+      "@type": "@id"
+    },
+    "AVAILITYTraceId": {
+      "@id": "availity:AVAILITY_TRACE_ID",
+      "@type": "xsd:string"
+    },
+    "PAYERTraceId": {
+      "@id": "availity:PAYER_TRACE_ID",
+      "@type": "xsd:string"
+    },
+    "amounts": {
+      "@id": "availity:amounts",
+      "@type": "@id"
+    },
+    "billed": {
+      "@id": "availity:billed",
+      "@type": "xsd:decimal"
+    },
+    "allowed": {
+      "@id": "availity:allowed",
+      "@type": "xsd:decimal"
+    },
+    "paid": {
+      "@id": "availity:paid",
+      "@type": "xsd:decimal"
+    },
+    "patientResponsibility": {
+      "@id": "availity:patientResponsibility",
+      "@type": "xsd:decimal"
+    },
+    "completeCode": {
+      "@id": "availity:completeCode",
+      "@type": "xsd:string"
+    },
+    "errors": {
+      "@id": "availity:errors",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "availity:code",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "availity:message",
+      "@type": "xsd:string"
+    },
+    "checkNumber": {
+      "@id": "availity:checkNumber",
+      "@type": "xsd:string"
+    },
+    "requestedStatus": {
+      "@id": "availity:requestedStatus",
+      "@type": "xsd:string"
+    },
+    "patientLastName": {
+      "@id": "availity:patientLastName",
+      "@type": "xsd:string"
+    },
+    "patientFirstName": {
+      "@id": "availity:patientFirstName",
+      "@type": "xsd:string"
+    },
+    "patientBirthDate": {
+      "@id": "availity:patientBirthDate",
+      "@type": "xsd:date"
+    },
+    "providerLastName": {
+      "@id": "availity:providerLastName",
+      "@type": "xsd:string"
+    },
+    "patientSameAsSubscriber": {
+      "@id": "availity:patientSameAsSubscriber",
+      "@type": "xsd:boolean"
+    },
+    "data": {
+      "@id": "availity:data",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "availity:total",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "availity:offset",
+      "@type": "xsd:integer"
+    },
+    "attachmentType": {
+      "@id": "availity:attachmentType",
+      "@type": "xsd:string"
+    },
+    "attachments": {
+      "@id": "availity:attachments",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "contentType": {
+      "@id": "availity:contentType",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "availity:title",
+      "@type": "xsd:string"
+    }
+  }
+}

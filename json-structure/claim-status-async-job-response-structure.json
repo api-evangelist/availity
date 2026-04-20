@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/claim-status-async-job-response-structure.json",
+  "description": "AsyncJobResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Job ID for polling",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "example": "PROCESSING"
+    }
+  },
+  "name": "AsyncJobResponse"
+}

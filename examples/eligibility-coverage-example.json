@@ -1,0 +1,16 @@
+{
+  "serviceTypeCodes": [
+    "ABC123"
+  ],
+  "serviceTypeNames": [
+    "standard"
+  ],
+  "insuranceType": "standard",
+  "planCoverage": "sample-value",
+  "coverageStatus": "Inactive",
+  "effectiveDate": "2025-04-15",
+  "expirationDate": "2025-04-15",
+  "benefits": [
+    "sample-value"
+  ]
+}

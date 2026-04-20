@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/service-reviews-service-review-list-schema.json",
+  "title": "ServiceReviewList",
+  "description": "ServiceReviewList schema from Availity API",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ServiceReviewResponse"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "example": 15
+    },
+    "offset": {
+      "type": "integer",
+      "example": 0
+    }
+  }
+}

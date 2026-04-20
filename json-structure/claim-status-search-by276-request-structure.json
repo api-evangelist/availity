@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-structure/claim-status-search-by276-request-structure.json",
+  "description": "SearchBy276Request schema from Availity API",
+  "type": "object",
+  "required": [
+    "payerId",
+    "patientLastName",
+    "patientFirstName",
+    "patientBirthDate",
+    "fromDate",
+    "toDate",
+    "providerLastName"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "patientLastName": {
+      "type": "string",
+      "example": "Smith"
+    },
+    "patientFirstName": {
+      "type": "string",
+      "example": "Jane"
+    },
+    "patientBirthDate": {
+      "type": "date",
+      "example": "1980-01-15"
+    },
+    "fromDate": {
+      "type": "date",
+      "example": "2025-01-01"
+    },
+    "toDate": {
+      "type": "date",
+      "example": "2025-12-31"
+    },
+    "providerLastName": {
+      "type": "string",
+      "example": "Johnson"
+    },
+    "patientSameAsSubscriber": {
+      "type": "boolean",
+      "example": true
+    }
+  },
+  "name": "SearchBy276Request"
+}

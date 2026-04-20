@@ -1,0 +1,8 @@
+{
+  "npi": "1234567890",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "organizationName": "sample-value",
+  "taxId": "123456789",
+  "serviceProviderNumber": "sample-value"
+}

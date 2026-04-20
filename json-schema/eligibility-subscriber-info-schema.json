@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-subscriber-info-schema.json",
+  "title": "SubscriberInfo",
+  "description": "SubscriberInfo schema from Availity API",
+  "type": "object",
+  "properties": {
+    "memberId": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "groupNumber": {
+      "type": "string"
+    },
+    "groupName": {
+      "type": "string"
+    }
+  }
+}

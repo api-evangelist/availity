@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/eligibility-payer-schema.json",
+  "title": "Payer",
+  "description": "Payer schema from Availity API",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Availity payer ID"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

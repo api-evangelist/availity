@@ -1,0 +1,16 @@
+{
+  "payerId": "BCBS001",
+  "provider": {
+    "npi": "1234567890",
+    "taxId": "123456789"
+  },
+  "subscriber": {
+    "memberId": "MEM123456",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "dateOfBirth": "1980-01-15"
+  },
+  "claimNumber": "CLM-2025-001234",
+  "fromDate": "2025-01-01",
+  "toDate": "2025-12-31"
+}

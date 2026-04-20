@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/service-reviews-service-review-response-schema.json",
+  "title": "ServiceReviewResponse",
+  "description": "ServiceReviewResponse schema from Availity API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "DENIED",
+        "PARTIALLY_APPROVED",
+        "PENDING_ADDITIONAL_INFO"
+      ],
+      "example": "APPROVED"
+    },
+    "certificationNumber": {
+      "type": "string",
+      "example": "AUTH-2025-001234"
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-04-01"
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-10-01"
+    }
+  }
+}

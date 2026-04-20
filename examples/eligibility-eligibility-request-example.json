@@ -1,0 +1,10 @@
+{
+  "controlNumber": "CTRL-001",
+  "encounter": {
+    "serviceTypeCodes": [
+      "ABC123"
+    ],
+    "beginningDate": "2025-04-15",
+    "endDate": "2025-04-15"
+  }
+}
