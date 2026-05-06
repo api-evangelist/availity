@@ -1,124 +1,56 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: availity
+provider: Availity
 providerId: availity
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
+notes: Availity does not publish public per-second rate limit numbers on its public site. Limits are
+  per trading-partner / per-application, governed by the trading-partner agreement. Trading-partner
+  developer docs (apicraft.availity.com) require authenticated access.
 tags:
+  - Healthcare
+  - HIPAA
+  - X12 EDI
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the availity API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Rate limits for the Availity REST and X12 surfaces. Limits are per registered application
+  / trading-partner, with separate ceilings for batch X12 vs real-time transactions. Numeric limits
+  are not posted publicly; they are enforced via Availity's trading-partner agreement and gateway.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Availity Eligibility & Benefits API
-      - Availity Claim Status API
-      - Availity Claim Attachments API
-      - Availity Service Reviews (Prior Authorization) API
-      - Availity Healthcare HIPAA Transactions API
-      - Availity Patient Cost Estimator API
-      - Availity Eligibility & Benefits Value-Add APIs
-      - Availity Payer List API
-      - Availity Configurations API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Availity Eligibility & Benefits API
-      - Availity Claim Status API
-      - Availity Claim Attachments API
-      - Availity Service Reviews (Prior Authorization) API
-      - Availity Healthcare HIPAA Transactions API
-      - Availity Patient Cost Estimator API
-      - Availity Eligibility & Benefits Value-Add APIs
-      - Availity Payer List API
-      - Availity Configurations API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Availity Eligibility & Benefits API
-      - Availity Claim Status API
-      - Availity Claim Attachments API
-      - Availity Service Reviews (Prior Authorization) API
-      - Availity Healthcare HIPAA Transactions API
-      - Availity Patient Cost Estimator API
-      - Availity Eligibility & Benefits Value-Add APIs
-      - Availity Payer List API
-      - Availity Configurations API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Availity Eligibility & Benefits API
-      - Availity Claim Status API
-      - Availity Claim Attachments API
-      - Availity Service Reviews (Prior Authorization) API
-      - Availity Healthcare HIPAA Transactions API
-      - Availity Patient Cost Estimator API
-      - Availity Eligibility & Benefits Value-Add APIs
-      - Availity Payer List API
-      - Availity Configurations API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Availity Eligibility & Benefits API
-      - Availity Claim Status API
-      - Availity Claim Attachments API
-      - Availity Service Reviews (Prior Authorization) API
-      - Availity Healthcare HIPAA Transactions API
-      - Availity Patient Cost Estimator API
-      - Availity Eligibility & Benefits Value-Add APIs
-      - Availity Payer List API
-      - Availity Configurations API
+  - name: REST API per-application
+    scope: application
+    metric: varies
+    limit: see trading-partner agreement
+    notes: Availity gates real-time eligibility / claim-status REST APIs per registered application;
+      numeric ceilings depend on the partner agreement.
+  - name: X12 batch
+    scope: trading-partner
+    metric: varies
+    limit: see trading-partner agreement
+    notes: Batch X12 submissions are sized by file size and submission frequency rather than per-second
+      RPS.
+  - name: Real-time X12 (270/271, 276/277, 278)
+    scope: trading-partner
+    metric: varies
+    limit: see trading-partner agreement
+    notes: Real-time 270/276/278 transactions are intended for point-of-care lookups and shaped to
+      sub-second latency; volume is bounded by partner contract.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Implement exponential backoff with jitter on 429 / 503. Honor Retry-After when present.
+  - name: Trading Partner Agreement Governs
+    description: Sustained throughput must be authorized in the Availity trading-partner agreement;
+      uncoordinated bursts may be throttled even if within the technical ceiling.
+  - name: HIPAA / PHI Handling
+    description: All requests carry PHI; clients must operate under a BAA with Availity and adhere to
+      HIPAA Security Rule controls in addition to rate posture.
+  - name: Idempotency for Claims
+    description: 837 claim submissions should use payer-assigned tracking identifiers (ICN / Claim ID)
+      to prevent duplicate adjudication on retry.
 maintainers:
-  - name: Kin Lane
+  - FN: Kin Lane
     email: kin@apievangelist.com
