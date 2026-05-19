@@ -1,0 +1,222 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Availity Eligibility & Benefits API — Eligibility
+  description: 'Availity Eligibility & Benefits API — Eligibility. 4 operations. Lead operation: Availity Check Member Eligibility.
+    Self-contained Naftiko capability covering one Availity business surface.'
+  tags:
+  - Availity
+  - Eligibility
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AVAILITY_API_KEY: AVAILITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: eligibility-eligibility
+    baseUri: https://api.availity.com
+    description: Availity Eligibility & Benefits API — Eligibility business capability. Self-contained, no shared references.
+    resources:
+    - name: availity-intelligent-payer-network-v1-eligibilities
+      path: /availity/intelligent-payer-network/v1/eligibilities
+      operations:
+      - name: checkeligibility
+        method: POST
+        description: Availity Check Member Eligibility
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listeligibilities
+        method: GET
+        description: Availity List Eligibility Inquiries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fromDate
+          in: query
+          type: string
+        - name: toDate
+          in: query
+          type: string
+        - name: payerId
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+    - name: availity-intelligent-payer-network-v1-eligibilities-id
+      path: /availity/intelligent-payer-network/v1/eligibilities/{id}
+      operations:
+      - name: geteligibility
+        method: GET
+        description: Availity Get Eligibility Inquiry by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Eligibility transaction ID
+          required: true
+    - name: availity-intelligent-payer-network-v1-payers
+      path: /availity/intelligent-payer-network/v1/payers
+      operations:
+      - name: listpayers
+        method: GET
+        description: Availity List Supported Payers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: supportedTransaction
+          in: query
+          type: string
+          description: Filter by supported transaction type
+        - name: name
+          in: query
+          type: string
+          description: Search payers by name
+    authentication:
+      type: bearer
+      token: '{{env.AVAILITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: eligibility-eligibility-rest
+    port: 8080
+    description: REST adapter for Availity Eligibility & Benefits API — Eligibility. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/availity/intelligent-payer-network/v1/eligibilities
+      name: availity-intelligent-payer-network-v1-eligibilities
+      description: REST surface for availity-intelligent-payer-network-v1-eligibilities.
+      operations:
+      - method: POST
+        name: checkeligibility
+        description: Availity Check Member Eligibility
+        call: eligibility-eligibility.checkeligibility
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listeligibilities
+        description: Availity List Eligibility Inquiries
+        call: eligibility-eligibility.listeligibilities
+        with:
+          fromDate: rest.fromDate
+          toDate: rest.toDate
+          payerId: rest.payerId
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/availity/intelligent-payer-network/v1/eligibilities/{id}
+      name: availity-intelligent-payer-network-v1-eligibilities-id
+      description: REST surface for availity-intelligent-payer-network-v1-eligibilities-id.
+      operations:
+      - method: GET
+        name: geteligibility
+        description: Availity Get Eligibility Inquiry by ID
+        call: eligibility-eligibility.geteligibility
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/availity/intelligent-payer-network/v1/payers
+      name: availity-intelligent-payer-network-v1-payers
+      description: REST surface for availity-intelligent-payer-network-v1-payers.
+      operations:
+      - method: GET
+        name: listpayers
+        description: Availity List Supported Payers
+        call: eligibility-eligibility.listpayers
+        with:
+          supportedTransaction: rest.supportedTransaction
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: eligibility-eligibility-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Availity Eligibility & Benefits API — Eligibility. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: availity-check-member-eligibility
+      description: Availity Check Member Eligibility
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: eligibility-eligibility.checkeligibility
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: availity-list-eligibility-inquiries
+      description: Availity List Eligibility Inquiries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eligibility-eligibility.listeligibilities
+      with:
+        fromDate: tools.fromDate
+        toDate: tools.toDate
+        payerId: tools.payerId
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: availity-get-eligibility-inquiry-id
+      description: Availity Get Eligibility Inquiry by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eligibility-eligibility.geteligibility
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: availity-list-supported-payers
+      description: Availity List Supported Payers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eligibility-eligibility.listpayers
+      with:
+        supportedTransaction: tools.supportedTransaction
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

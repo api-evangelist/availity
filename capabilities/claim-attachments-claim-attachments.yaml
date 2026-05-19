@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Availity Claim Attachments API — Claim Attachments
+  description: 'Availity Claim Attachments API — Claim Attachments. 2 operations. Lead operation: Availity Submit Claim Attachment.
+    Self-contained Naftiko capability covering one Availity business surface.'
+  tags:
+  - Availity
+  - Claim Attachments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AVAILITY_API_KEY: AVAILITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: claim-attachments-claim-attachments
+    baseUri: https://api.availity.com
+    description: Availity Claim Attachments API — Claim Attachments business capability. Self-contained, no shared references.
+    resources:
+    - name: availity-intelligent-payer-network-v1-claim-attachments
+      path: /availity/intelligent-payer-network/v1/claim-attachments
+      operations:
+      - name: submitclaimattachment
+        method: POST
+        description: Availity Submit Claim Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: availity-intelligent-payer-network-v1-claim-attachments-id
+      path: /availity/intelligent-payer-network/v1/claim-attachments/{id}
+      operations:
+      - name: getclaimattachmentstatus
+        method: GET
+        description: Availity Get Claim Attachment Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Attachment transaction ID
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AVAILITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: claim-attachments-claim-attachments-rest
+    port: 8080
+    description: REST adapter for Availity Claim Attachments API — Claim Attachments. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/availity/intelligent-payer-network/v1/claim-attachments
+      name: availity-intelligent-payer-network-v1-claim-attachments
+      description: REST surface for availity-intelligent-payer-network-v1-claim-attachments.
+      operations:
+      - method: POST
+        name: submitclaimattachment
+        description: Availity Submit Claim Attachment
+        call: claim-attachments-claim-attachments.submitclaimattachment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/availity/intelligent-payer-network/v1/claim-attachments/{id}
+      name: availity-intelligent-payer-network-v1-claim-attachments-id
+      description: REST surface for availity-intelligent-payer-network-v1-claim-attachments-id.
+      operations:
+      - method: GET
+        name: getclaimattachmentstatus
+        description: Availity Get Claim Attachment Status
+        call: claim-attachments-claim-attachments.getclaimattachmentstatus
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: claim-attachments-claim-attachments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Availity Claim Attachments API — Claim Attachments. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: availity-submit-claim-attachment
+      description: Availity Submit Claim Attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: claim-attachments-claim-attachments.submitclaimattachment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: availity-get-claim-attachment-status
+      description: Availity Get Claim Attachment Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: claim-attachments-claim-attachments.getclaimattachmentstatus
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
