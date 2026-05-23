@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Coverage",
+  "title": "Coverage",
+  "type": "object",
+  "properties": {
+    "serviceTypeCodes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serviceTypeNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "insuranceType": {
+      "type": "string"
+    },
+    "planCoverage": {
+      "type": "string"
+    },
+    "coverageStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Inactive",
+        "Cancelled"
+      ]
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Benefit"
+      }
+    }
+  }
+}

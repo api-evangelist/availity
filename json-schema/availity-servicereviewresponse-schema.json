@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceReviewResponse",
+  "title": "ServiceReviewResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "DENIED",
+        "PARTIALLY_APPROVED",
+        "PENDING_ADDITIONAL_INFO"
+      ],
+      "example": "APPROVED"
+    },
+    "certificationNumber": {
+      "type": "string",
+      "example": "AUTH-2025-001234"
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-04-01"
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-10-01"
+    }
+  }
+}

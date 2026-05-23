@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PlanInformation",
+  "title": "PlanInformation",
+  "type": "object",
+  "properties": {
+    "planName": {
+      "type": "string"
+    },
+    "groupName": {
+      "type": "string"
+    },
+    "groupNumber": {
+      "type": "string"
+    },
+    "planBeginDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "planEndDate": {
+      "type": "string",
+      "format": "date"
+    }
+  }
+}

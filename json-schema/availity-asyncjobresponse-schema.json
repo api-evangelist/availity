@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AsyncJobResponse",
+  "title": "AsyncJobResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Job ID for polling",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "example": "PROCESSING"
+    }
+  }
+}

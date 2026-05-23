@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AttachmentStatusResponse",
+  "title": "AttachmentStatusResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUBMITTED",
+        "AV_ACCEPTED",
+        "AV_REJECTED",
+        "PY_ACCEPTED",
+        "PY_REJECTED"
+      ],
+      "example": "AV_ACCEPTED"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EligibilityError",
+  "title": "EligibilityError",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "rejectCode": {
+      "type": "string"
+    },
+    "rejectReason": {
+      "type": "string"
+    },
+    "followUpAction": {
+      "type": "string"
+    }
+  }
+}

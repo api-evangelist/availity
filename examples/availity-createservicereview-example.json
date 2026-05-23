@@ -1,0 +1,19 @@
+{
+  "operationId": "createServiceReview",
+  "method": "POST",
+  "path": "/availity/intelligent-payer-network/v1/service-reviews",
+  "summary": "Availity Create Service Review",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateServiceReview200Example",
+      "example": {
+        "id": "500123",
+        "status": "PENDING",
+        "certificationNumber": "AUTH-2025-001234"
+      }
+    }
+  ]
+}

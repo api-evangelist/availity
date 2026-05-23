@@ -1,0 +1,19 @@
+{
+  "operationId": "submitClaimAttachment",
+  "method": "POST",
+  "path": "/availity/intelligent-payer-network/v1/claim-attachments",
+  "summary": "Availity Submit Claim Attachment",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "SubmitClaimAttachment200Example",
+      "example": {
+        "id": "500123",
+        "status": "SUBMITTED",
+        "controlNumber": "ATT-2025-001234"
+      }
+    }
+  ]
+}

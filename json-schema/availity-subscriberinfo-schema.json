@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriberInfo",
+  "title": "SubscriberInfo",
+  "type": "object",
+  "properties": {
+    "memberId": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "groupNumber": {
+      "type": "string"
+    },
+    "groupName": {
+      "type": "string"
+    }
+  }
+}

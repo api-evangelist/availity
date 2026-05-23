@@ -1,0 +1,133 @@
+{
+  "provider": "Availity",
+  "providerId": "availity",
+  "kind": "json-structure",
+  "description": "Structural overview of the Availity API surface; extracted from openapi/.",
+  "schemaCount": 8,
+  "operationCount": 6,
+  "schemas": [
+    {
+      "name": "ClaimStatusRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "payerId",
+        "provider",
+        "subscriber"
+      ]
+    },
+    {
+      "name": "ClaimStatusResponse",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "ClaimStatusList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SearchBy276Request",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "payerId",
+        "patientLastName",
+        "patientFirstName",
+        "patientBirthDate",
+        "fromDate",
+        "toDate",
+        "providerLastName"
+      ]
+    },
+    {
+      "name": "SummarySearchRequest",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "payerId",
+        "requestType"
+      ]
+    },
+    {
+      "name": "DetailSearchRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "payerId",
+        "claimNumber",
+        "requestType"
+      ]
+    },
+    {
+      "name": "AsyncJobResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/availity/intelligent-payer-network/v1/claim-statuses",
+      "operationId": "listClaimStatusInquiries",
+      "summary": "Availity List Claim Status Inquiries",
+      "tags": [
+        "Claim Status"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/availity/intelligent-payer-network/v1/claim-statuses",
+      "operationId": "createClaimStatusInquiry",
+      "summary": "Availity Create Claim Status Inquiry",
+      "tags": [
+        "Claim Status"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/clmsmgmt/claim-status/claim-status/v1/status/searchBy276",
+      "operationId": "pollSearchBy276",
+      "summary": "Availity Poll X12 276 Search Results",
+      "tags": [
+        "Enhanced Claim Status"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/clmsmgmt/claim-status/claim-status/v1/status/searchBy276",
+      "operationId": "searchClaimBy276",
+      "summary": "Availity Search Claim by X12 276",
+      "tags": [
+        "Enhanced Claim Status"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/clmsmgmt/claim-status/claim-status/v1/status/summarySearch",
+      "operationId": "summarySearchClaims",
+      "summary": "Availity Summary Search Claims",
+      "tags": [
+        "Enhanced Claim Status"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/clmsmgmt/claim-status/claim-status/v1/status/detailSearch",
+      "operationId": "detailSearchClaim",
+      "summary": "Availity Detail Search Claim",
+      "tags": [
+        "Enhanced Claim Status"
+      ]
+    }
+  ]
+}

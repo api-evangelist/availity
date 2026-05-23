@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DetailSearchRequest",
+  "title": "DetailSearchRequest",
+  "type": "object",
+  "required": [
+    "payerId",
+    "claimNumber",
+    "requestType"
+  ],
+  "properties": {
+    "payerId": {
+      "type": "string",
+      "example": "BCBS001"
+    },
+    "claimNumber": {
+      "type": "string",
+      "example": "CLM-2025-001234"
+    },
+    "requestType": {
+      "type": "string",
+      "enum": [
+        "CLAIM_NUMBER"
+      ],
+      "example": "CLAIM_NUMBER"
+    },
+    "providerTaxId": {
+      "type": "string",
+      "example": "123456789"
+    },
+    "providerNpi": {
+      "type": "string",
+      "example": "1234567890"
+    },
+    "processedDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2025-03-15"
+    }
+  }
+}

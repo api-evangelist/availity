@@ -1,0 +1,22 @@
+{
+  "operationId": "createClaimStatusInquiry",
+  "method": "POST",
+  "path": "/availity/intelligent-payer-network/v1/claim-statuses",
+  "summary": "Availity Create Claim Status Inquiry",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateClaimStatusInquiry200Example",
+      "example": {
+        "id": "500123",
+        "status": "PENDING",
+        "traceIds": {
+          "AVAILITY_TRACE_ID": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4",
+          "PAYER_TRACE_ID": "277-trace-001"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "example": "INVALID_REQUEST"
+    },
+    "message": {
+      "type": "string",
+      "example": "Required field missing"
+    },
+    "details": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

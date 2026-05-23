@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClaimAttachmentResponse",
+  "title": "ClaimAttachmentResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUBMITTED",
+        "ACCEPTED",
+        "REJECTED",
+        "PENDING"
+      ],
+      "example": "ACCEPTED"
+    },
+    "controlNumber": {
+      "type": "string",
+      "example": "ATT-2025-001234"
+    }
+  }
+}

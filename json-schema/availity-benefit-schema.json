@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Benefit",
+  "title": "Benefit",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "X12 benefit information code"
+    },
+    "name": {
+      "type": "string"
+    },
+    "coverageLevel": {
+      "type": "string",
+      "enum": [
+        "INDIVIDUAL",
+        "FAMILY",
+        "EMPLOYEE",
+        "EMPLOYEE_AND_SPOUSE"
+      ]
+    },
+    "benefitAmount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "benefitPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "inPlanNetworkIndicator": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N",
+        "W"
+      ]
+    },
+    "timeQualifier": {
+      "type": "string",
+      "description": "Benefit period (e.g., Calendar Year, Plan Year, Lifetime)"
+    }
+  }
+}
