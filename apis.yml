@@ -307,6 +307,8 @@ common:
     description: Integration with Florida Blue for care reminders and real-time eligibility verification.
   - name: Healthfirst New York
     description: Integration with Healthfirst New York for eligibility and care gap identification.
+- type: LLMsTxt
+  url: https://developer.availity.com/llms.txt
 maintainers:
 - name: Kin Lane
   email: kin@apievangelist.com
