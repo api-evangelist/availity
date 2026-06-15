@@ -1,0 +1,1057 @@
+{
+  "item": [
+    {
+      "id": "f1388d4a-a095-454a-92f2-f7a16462fdc7",
+      "name": "Claim Status",
+      "description": {
+        "content": "Claim status inquiries and tracking",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b28e6884-4117-4f68-9af0-4846c97a8301",
+          "name": "Availity Create Claim Status Inquiry",
+          "request": {
+            "name": "Availity Create Claim Status Inquiry",
+            "description": {
+              "content": "Submit a claim status inquiry (equivalent to X12 276 transaction). Returns claim status and adjudication information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "claim-statuses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"<string>\",\n    \"taxId\": \"<string>\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"dateOfBirth\": \"<date>\"\n  },\n  \"claimNumber\": \"<string>\",\n  \"fromDate\": \"<date>\",\n  \"toDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "572a1575-feda-4f78-8999-a69291d92324",
+              "name": "Claim status response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"provider\": {\n    \"npi\": \"1234567890\",\n    \"taxId\": \"123456789\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"MEM123456\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"dateOfBirth\": \"1980-01-15\"\n  },\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"PENDING\",\n  \"traceIds\": {\n    \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n    \"PAYER_TRACE_ID\": \"277-trace-001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fd33133-22d2-44af-94bb-7ae40620f984",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"provider\": {\n    \"npi\": \"1234567890\",\n    \"taxId\": \"123456789\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"MEM123456\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"dateOfBirth\": \"1980-01-15\"\n  },\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f571a2d-458c-4827-a739-b201fa1c3ac0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"provider\": {\n    \"npi\": \"1234567890\",\n    \"taxId\": \"123456789\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"MEM123456\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"dateOfBirth\": \"1980-01-15\"\n  },\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25b75f4c-b72a-4be8-a92a-d76a0ead10f7",
+          "name": "Availity List Claim Status Inquiries",
+          "request": {
+            "name": "Availity List Claim Status Inquiries",
+            "description": {
+              "content": "Retrieve a list of previous claim status inquiries for the authenticated provider.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "claim-statuses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<date>",
+                  "description": "Start date filter (ISO 8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<date>",
+                  "description": "End date filter (ISO 8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "payerId",
+                  "value": "<string>",
+                  "description": "Filter by payer ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45d7c801-96d5-403f-a532-bf79a1b74756",
+              "name": "List of claim status inquiries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "2025-01-01"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2025-12-31"
+                    },
+                    {
+                      "key": "payerId",
+                      "value": "BCBS001"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"500123\",\n      \"status\": \"PAID\",\n      \"traceIds\": {\n        \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n        \"PAYER_TRACE_ID\": \"277-trace-001\"\n      },\n      \"amounts\": {\n        \"billed\": 250,\n        \"allowed\": 200,\n        \"paid\": 160,\n        \"patientResponsibility\": 40\n      },\n      \"completeCode\": \"COMPLETE\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"500123\",\n      \"status\": \"PAID\",\n      \"traceIds\": {\n        \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n        \"PAYER_TRACE_ID\": \"277-trace-001\"\n      },\n      \"amounts\": {\n        \"billed\": 250,\n        \"allowed\": 200,\n        \"paid\": 160,\n        \"patientResponsibility\": 40\n      },\n      \"completeCode\": \"COMPLETE\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"total\": 42,\n  \"offset\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f7bee29b-4607-45da-b04e-56d5e16b8b43",
+      "name": "Enhanced Claim Status",
+      "description": {
+        "content": "Enhanced claim status with value-add data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da89c0c2-e6a3-4f68-8e95-812d1953f63b",
+          "name": "Availity Search Claim by X12 276",
+          "request": {
+            "name": "Availity Search Claim by X12 276",
+            "description": {
+              "content": "Convert a standard ASC X12N 276 claim status request into JSON format and submit to payer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clmsmgmt",
+                "claim-status",
+                "claim-status",
+                "v1",
+                "status",
+                "searchBy276"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"patientLastName\": \"<string>\",\n  \"patientFirstName\": \"<string>\",\n  \"patientBirthDate\": \"<date>\",\n  \"fromDate\": \"<date>\",\n  \"toDate\": \"<date>\",\n  \"providerLastName\": \"<string>\",\n  \"patientSameAsSubscriber\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8cd0e1db-b3b0-412c-9b08-d38fc700f733",
+              "name": "276 search initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "searchBy276"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"patientLastName\": \"Smith\",\n  \"patientFirstName\": \"Jane\",\n  \"patientBirthDate\": \"1980-01-15\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\",\n  \"providerLastName\": \"Johnson\",\n  \"patientSameAsSubscriber\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"PROCESSING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "102ca66d-0881-4fee-b512-81070294ca91",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "searchBy276"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"patientLastName\": \"Smith\",\n  \"patientFirstName\": \"Jane\",\n  \"patientBirthDate\": \"1980-01-15\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\",\n  \"providerLastName\": \"Johnson\",\n  \"patientSameAsSubscriber\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1366575-cea7-4bd8-81c1-0e55aa66c9db",
+          "name": "Availity Poll X12 276 Search Results",
+          "request": {
+            "name": "Availity Poll X12 276 Search Results",
+            "description": {
+              "content": "Poll for results of a previously submitted 276 claim status request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clmsmgmt",
+                "claim-status",
+                "claim-status",
+                "v1",
+                "status",
+                "searchBy276"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Job ID returned from POST"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "169f7e06-c5e9-4691-abc2-a8f8474d4a95",
+              "name": "276 search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "searchBy276"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "500123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"PAID\",\n  \"traceIds\": {\n    \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n    \"PAYER_TRACE_ID\": \"277-trace-001\"\n  },\n  \"amounts\": {\n    \"billed\": 250,\n    \"allowed\": 200,\n    \"paid\": 160,\n    \"patientResponsibility\": 40\n  },\n  \"completeCode\": \"COMPLETE\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "731840f2-6bd3-43ac-9cd6-978ef1cbdd40",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "searchBy276"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "500123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b36e7aa5-7026-4048-b455-d6243931312c",
+          "name": "Availity Summary Search Claims",
+          "request": {
+            "name": "Availity Summary Search Claims",
+            "description": {
+              "content": "High-level claim searches using service dates, member IDs, or check numbers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clmsmgmt",
+                "claim-status",
+                "claim-status",
+                "v1",
+                "status",
+                "summarySearch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"requestType\": \"<string>\",\n  \"memberId\": \"<string>\",\n  \"fromDate\": \"<date>\",\n  \"toDate\": \"<date>\",\n  \"providerNpi\": \"<string>\",\n  \"checkNumber\": \"<string>\",\n  \"requestedStatus\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9a105fe-178e-46b7-b9e0-12eaf2bba444",
+              "name": "Summary search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "summarySearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"requestType\": \"SERVICE_DATE\",\n  \"memberId\": \"MEM123456\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\",\n  \"providerNpi\": \"1234567890\",\n  \"checkNumber\": \"CHK-001234\",\n  \"requestedStatus\": \"PAID\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"500123\",\n      \"status\": \"PAID\",\n      \"traceIds\": {\n        \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n        \"PAYER_TRACE_ID\": \"277-trace-001\"\n      },\n      \"amounts\": {\n        \"billed\": 250,\n        \"allowed\": 200,\n        \"paid\": 160,\n        \"patientResponsibility\": 40\n      },\n      \"completeCode\": \"COMPLETE\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"500123\",\n      \"status\": \"PAID\",\n      \"traceIds\": {\n        \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n        \"PAYER_TRACE_ID\": \"277-trace-001\"\n      },\n      \"amounts\": {\n        \"billed\": 250,\n        \"allowed\": 200,\n        \"paid\": 160,\n        \"patientResponsibility\": 40\n      },\n      \"completeCode\": \"COMPLETE\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"total\": 42,\n  \"offset\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74ab4ea8-3e62-4c43-95dc-e4410cae7437",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "summarySearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"requestType\": \"SERVICE_DATE\",\n  \"memberId\": \"MEM123456\",\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\",\n  \"providerNpi\": \"1234567890\",\n  \"checkNumber\": \"CHK-001234\",\n  \"requestedStatus\": \"PAID\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d115c91-a099-4c63-9e4e-6c74ce6ec5b2",
+          "name": "Availity Detail Search Claim",
+          "request": {
+            "name": "Availity Detail Search Claim",
+            "description": {
+              "content": "Detailed single-claim lookup by NPI/tax ID and claim number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clmsmgmt",
+                "claim-status",
+                "claim-status",
+                "v1",
+                "status",
+                "detailSearch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"claimNumber\": \"<string>\",\n  \"requestType\": \"<string>\",\n  \"providerTaxId\": \"<string>\",\n  \"providerNpi\": \"<string>\",\n  \"processedDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b1592bf-cd1d-4046-a790-11cad22910ae",
+              "name": "Claim detail results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "detailSearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"requestType\": \"CLAIM_NUMBER\",\n  \"providerTaxId\": \"123456789\",\n  \"providerNpi\": \"1234567890\",\n  \"processedDate\": \"2025-03-15\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"PAID\",\n  \"traceIds\": {\n    \"AVAILITY_TRACE_ID\": \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4\",\n    \"PAYER_TRACE_ID\": \"277-trace-001\"\n  },\n  \"amounts\": {\n    \"billed\": 250,\n    \"allowed\": 200,\n    \"paid\": 160,\n    \"patientResponsibility\": 40\n  },\n  \"completeCode\": \"COMPLETE\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9f6f01-c582-4677-b9ce-e7e6b1447445",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clmsmgmt",
+                    "claim-status",
+                    "claim-status",
+                    "v1",
+                    "status",
+                    "detailSearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"requestType\": \"CLAIM_NUMBER\",\n  \"providerTaxId\": \"123456789\",\n  \"providerNpi\": \"1234567890\",\n  \"processedDate\": \"2025-03-15\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing: payerId\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.availity.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "hipaa"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.availity.com/availity/v1/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "377758a0-e176-4fb6-acda-3c7d9aa20ace",
+    "name": "Availity Claim Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Availity Claim Status API enables the ASC X12N 276 and 277 transactions, allowing providers to submit and track claim status inquiries. Supports standard 276/277 workflows and enhanced claim status with summary search, detail search, and value-add 277 responses.\n\nContact Support:\n Name: Availity Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

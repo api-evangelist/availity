@@ -1,0 +1,419 @@
+{
+  "item": [
+    {
+      "id": "676de5dd-cd96-49f5-b75e-b80e3eea5539",
+      "name": "Claim Attachments",
+      "description": {
+        "content": "Electronic claim attachment submission and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9eff5891-0d41-4d27-9dc7-7e0772d14ad7",
+          "name": "Availity Submit Claim Attachment",
+          "request": {
+            "name": "Availity Submit Claim Attachment",
+            "description": {
+              "content": "Submit supporting documentation alongside a healthcare claim. Supports structured and unstructured attachment types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "claim-attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"claimNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"<string>\"\n  },\n  \"attachments\": [\n    {\n      \"contentType\": \"<string>\",\n      \"title\": \"<string>\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"<string>\",\n      \"title\": \"<string>\",\n      \"data\": \"<byte>\"\n    }\n  ],\n  \"attachmentType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfc3158a-91d0-4a63-b437-e8efbbd1da82",
+              "name": "Attachment submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"provider\": {\n    \"npi\": \"1234567890\"\n  },\n  \"attachments\": [\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    }\n  ],\n  \"attachmentType\": \"UNSTRUCTURED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"SUBMITTED\",\n  \"controlNumber\": \"ATT-2025-001234\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1af2bfb-7939-4af3-b2e3-18b3e1924771",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"provider\": {\n    \"npi\": \"1234567890\"\n  },\n  \"attachments\": [\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    }\n  ],\n  \"attachmentType\": \"UNSTRUCTURED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d5329eb-0ba1-4bac-8337-aa634bad3637",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"claimNumber\": \"CLM-2025-001234\",\n  \"provider\": {\n    \"npi\": \"1234567890\"\n  },\n  \"attachments\": [\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Operative Report\",\n      \"data\": \"<byte>\"\n    }\n  ],\n  \"attachmentType\": \"UNSTRUCTURED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d20dc30e-8ea8-4613-9f55-e5f64f5ddac6",
+          "name": "Availity Get Claim Attachment Status",
+          "request": {
+            "name": "Availity Get Claim Attachment Status",
+            "description": {
+              "content": "Retrieve the processing status of a submitted claim attachment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "claim-attachments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Attachment transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73552974-e904-4b84-a804-00855f79aca8",
+              "name": "Attachment status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Attachment transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"ACCEPTED\",\n  \"controlNumber\": \"ATT-2025-001234\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fc370fa-e26e-4bb2-a47a-74d980af0a2a",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "claim-attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Attachment transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.availity.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "hipaa"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.availity.com/availity/v1/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c9dde2e7-b5ae-4a06-89bb-957befba07e8",
+    "name": "Availity Claim Attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.\n\nContact Support:\n Name: Availity Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

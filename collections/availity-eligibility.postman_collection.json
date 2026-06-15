@@ -1,0 +1,710 @@
+{
+  "item": [
+    {
+      "id": "13e6f325-759d-4caa-9f59-f678ec1e9e73",
+      "name": "Eligibility",
+      "description": {
+        "content": "Real-time eligibility and benefits verification",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05810d3c-d240-4782-9402-82728e0c289d",
+          "name": "Availity Check Member Eligibility",
+          "request": {
+            "name": "Availity Check Member Eligibility",
+            "description": {
+              "content": "Submit a real-time eligibility and benefits inquiry (equivalent to X12 270 transaction). Returns coverage, benefits, co-pay, deductible, and plan information from health plan payers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "eligibilities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"controlNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"organizationName\": \"<string>\",\n    \"taxId\": \"<string>\",\n    \"serviceProviderNumber\": \"<string>\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"dateOfBirth\": \"<date>\",\n    \"gender\": \"<string>\",\n    \"ssn\": \"<string>\",\n    \"groupNumber\": \"<string>\"\n  },\n  \"payer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"dependent\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"dateOfBirth\": \"<date>\",\n    \"gender\": \"<string>\",\n    \"relationship\": \"<string>\"\n  },\n  \"encounter\": {\n    \"serviceTypeCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"beginningDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "adeaee71-649a-495b-93e7-204e6efad779",
+              "name": "Eligibility response with coverage and benefits details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"controlNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"0253413878\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"organizationName\": \"string\",\n    \"taxId\": \"string\",\n    \"serviceProviderNumber\": \"string\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1949-01-04\",\n    \"gender\": \"F\",\n    \"ssn\": \"string\",\n    \"groupNumber\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"dependent\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1965-09-22\",\n    \"gender\": \"F\",\n    \"relationship\": \"21\"\n  },\n  \"encounter\": {\n    \"serviceTypeCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"beginningDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"controlNumber\": \"string\",\n  \"requestedDate\": \"2004-09-16T09:05:02.243Z\",\n  \"serviceDate\": \"1991-12-24\",\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1997-12-01\",\n    \"gender\": \"string\",\n    \"groupNumber\": \"string\",\n    \"groupName\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"address1\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"postalCode\": \"string\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"serviceTypeCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serviceTypeNames\": [\n        \"string\",\n        \"string\"\n      ],\n      \"insuranceType\": \"string\",\n      \"planCoverage\": \"string\",\n      \"coverageStatus\": \"Active\",\n      \"effectiveDate\": \"2010-12-11\",\n      \"expirationDate\": \"1994-10-08\",\n      \"benefits\": [\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"INDIVIDUAL\",\n          \"benefitAmount\": {\n            \"value\": 6177.107059449576,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 35.658712164673155,\n          \"inPlanNetworkIndicator\": \"Y\",\n          \"timeQualifier\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"INDIVIDUAL\",\n          \"benefitAmount\": {\n            \"value\": 7565.6454693406995,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 5.649843595023096,\n          \"inPlanNetworkIndicator\": \"Y\",\n          \"timeQualifier\": \"string\"\n        }\n      ]\n    },\n    {\n      \"serviceTypeCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serviceTypeNames\": [\n        \"string\",\n        \"string\"\n      ],\n      \"insuranceType\": \"string\",\n      \"planCoverage\": \"string\",\n      \"coverageStatus\": \"Inactive\",\n      \"effectiveDate\": \"1984-11-04\",\n      \"expirationDate\": \"1993-12-14\",\n      \"benefits\": [\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"EMPLOYEE\",\n          \"benefitAmount\": {\n            \"value\": 3654.6606991070594,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 42.99148243175068,\n          \"inPlanNetworkIndicator\": \"W\",\n          \"timeQualifier\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"FAMILY\",\n          \"benefitAmount\": {\n            \"value\": 1808.8800434417362,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 43.316605029451814,\n          \"inPlanNetworkIndicator\": \"W\",\n          \"timeQualifier\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"planInformation\": {\n    \"planName\": \"string\",\n    \"groupName\": \"string\",\n    \"groupNumber\": \"string\",\n    \"planBeginDate\": \"1997-04-03\",\n    \"planEndDate\": \"2015-12-23\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e679e92d-df2e-43d1-b944-ee2f04747e80",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"controlNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"0253413878\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"organizationName\": \"string\",\n    \"taxId\": \"string\",\n    \"serviceProviderNumber\": \"string\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1949-01-04\",\n    \"gender\": \"F\",\n    \"ssn\": \"string\",\n    \"groupNumber\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"dependent\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1965-09-22\",\n    \"gender\": \"F\",\n    \"relationship\": \"21\"\n  },\n  \"encounter\": {\n    \"serviceTypeCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"beginningDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39902576-0c3b-4b12-8e84-25976b7d4bb5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"controlNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"0253413878\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"organizationName\": \"string\",\n    \"taxId\": \"string\",\n    \"serviceProviderNumber\": \"string\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1949-01-04\",\n    \"gender\": \"F\",\n    \"ssn\": \"string\",\n    \"groupNumber\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"dependent\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1965-09-22\",\n    \"gender\": \"F\",\n    \"relationship\": \"21\"\n  },\n  \"encounter\": {\n    \"serviceTypeCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"beginningDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "297e5721-5a9e-4a45-8914-2b579817c6c5",
+              "name": "Unprocessable - payer returned rejection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"controlNumber\": \"<string>\",\n  \"provider\": {\n    \"npi\": \"0253413878\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"organizationName\": \"string\",\n    \"taxId\": \"string\",\n    \"serviceProviderNumber\": \"string\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1949-01-04\",\n    \"gender\": \"F\",\n    \"ssn\": \"string\",\n    \"groupNumber\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"dependent\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1965-09-22\",\n    \"gender\": \"F\",\n    \"relationship\": \"21\"\n  },\n  \"encounter\": {\n    \"serviceTypeCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"beginningDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"rejectCode\": \"string\",\n  \"rejectReason\": \"string\",\n  \"followUpAction\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d4f6722-9989-4fd0-a7f0-5b8e30b54b28",
+          "name": "Availity List Eligibility Inquiries",
+          "request": {
+            "name": "Availity List Eligibility Inquiries",
+            "description": {
+              "content": "Retrieve previous eligibility inquiry results for the authenticated provider.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "eligibilities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "payerId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a94c6b26-1c27-40f6-9ef5-b8e7d127910f",
+              "name": "List of eligibility inquiries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "payerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"controlNumber\": \"string\",\n      \"requestedDate\": \"2009-11-27T11:37:33.486Z\",\n      \"serviceDate\": \"2004-10-17\",\n      \"subscriber\": {\n        \"memberId\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"dateOfBirth\": \"2008-02-11\",\n        \"gender\": \"string\",\n        \"groupNumber\": \"string\",\n        \"groupName\": \"string\"\n      },\n      \"payer\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"address\": {\n          \"address1\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"postalCode\": \"string\"\n        }\n      },\n      \"coverages\": [\n        {\n          \"serviceTypeCodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"serviceTypeNames\": [\n            \"string\",\n            \"string\"\n          ],\n          \"insuranceType\": \"string\",\n          \"planCoverage\": \"string\",\n          \"coverageStatus\": \"Active\",\n          \"effectiveDate\": \"1984-02-08\",\n          \"expirationDate\": \"2014-12-25\",\n          \"benefits\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"serviceTypeCodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"serviceTypeNames\": [\n            \"string\",\n            \"string\"\n          ],\n          \"insuranceType\": \"string\",\n          \"planCoverage\": \"string\",\n          \"coverageStatus\": \"Active\",\n          \"effectiveDate\": \"1979-10-21\",\n          \"expirationDate\": \"2022-09-10\",\n          \"benefits\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"planInformation\": {\n        \"planName\": \"string\",\n        \"groupName\": \"string\",\n        \"groupNumber\": \"string\",\n        \"planBeginDate\": \"1983-01-30\",\n        \"planEndDate\": \"2022-10-15\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"controlNumber\": \"string\",\n      \"requestedDate\": \"1977-11-03T22:39:38.275Z\",\n      \"serviceDate\": \"1968-07-02\",\n      \"subscriber\": {\n        \"memberId\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"dateOfBirth\": \"1963-08-05\",\n        \"gender\": \"string\",\n        \"groupNumber\": \"string\",\n        \"groupName\": \"string\"\n      },\n      \"payer\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"address\": {\n          \"address1\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"postalCode\": \"string\"\n        }\n      },\n      \"coverages\": [\n        {\n          \"serviceTypeCodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"serviceTypeNames\": [\n            \"string\",\n            \"string\"\n          ],\n          \"insuranceType\": \"string\",\n          \"planCoverage\": \"string\",\n          \"coverageStatus\": \"Cancelled\",\n          \"effectiveDate\": \"2017-06-06\",\n          \"expirationDate\": \"1983-03-06\",\n          \"benefits\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"serviceTypeCodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"serviceTypeNames\": [\n            \"string\",\n            \"string\"\n          ],\n          \"insuranceType\": \"string\",\n          \"planCoverage\": \"string\",\n          \"coverageStatus\": \"Active\",\n          \"effectiveDate\": \"1989-01-19\",\n          \"expirationDate\": \"1978-12-25\",\n          \"benefits\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coverageLevel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"benefitPercent\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"inPlanNetworkIndicator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timeQualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"planInformation\": {\n        \"planName\": \"string\",\n        \"groupName\": \"string\",\n        \"groupNumber\": \"string\",\n        \"planBeginDate\": \"1948-09-14\",\n        \"planEndDate\": \"2011-03-14\"\n      }\n    }\n  ],\n  \"total\": 1971,\n  \"offset\": 526\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ec2546c-2956-461b-8586-cb003e9eb4c4",
+          "name": "Availity Get Eligibility Inquiry by ID",
+          "request": {
+            "name": "Availity Get Eligibility Inquiry by ID",
+            "description": {
+              "content": "Retrieve the result of a specific eligibility inquiry by its transaction ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "eligibilities",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Eligibility transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "178612a5-6a3e-4110-ab85-65a0915e23fc",
+              "name": "Eligibility inquiry details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Eligibility transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"controlNumber\": \"string\",\n  \"requestedDate\": \"2004-09-16T09:05:02.243Z\",\n  \"serviceDate\": \"1991-12-24\",\n  \"subscriber\": {\n    \"memberId\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"dateOfBirth\": \"1997-12-01\",\n    \"gender\": \"string\",\n    \"groupNumber\": \"string\",\n    \"groupName\": \"string\"\n  },\n  \"payer\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"address1\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"postalCode\": \"string\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"serviceTypeCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serviceTypeNames\": [\n        \"string\",\n        \"string\"\n      ],\n      \"insuranceType\": \"string\",\n      \"planCoverage\": \"string\",\n      \"coverageStatus\": \"Active\",\n      \"effectiveDate\": \"2010-12-11\",\n      \"expirationDate\": \"1994-10-08\",\n      \"benefits\": [\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"INDIVIDUAL\",\n          \"benefitAmount\": {\n            \"value\": 6177.107059449576,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 35.658712164673155,\n          \"inPlanNetworkIndicator\": \"Y\",\n          \"timeQualifier\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"INDIVIDUAL\",\n          \"benefitAmount\": {\n            \"value\": 7565.6454693406995,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 5.649843595023096,\n          \"inPlanNetworkIndicator\": \"Y\",\n          \"timeQualifier\": \"string\"\n        }\n      ]\n    },\n    {\n      \"serviceTypeCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serviceTypeNames\": [\n        \"string\",\n        \"string\"\n      ],\n      \"insuranceType\": \"string\",\n      \"planCoverage\": \"string\",\n      \"coverageStatus\": \"Inactive\",\n      \"effectiveDate\": \"1984-11-04\",\n      \"expirationDate\": \"1993-12-14\",\n      \"benefits\": [\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"EMPLOYEE\",\n          \"benefitAmount\": {\n            \"value\": 3654.6606991070594,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 42.99148243175068,\n          \"inPlanNetworkIndicator\": \"W\",\n          \"timeQualifier\": \"string\"\n        },\n        {\n          \"code\": \"string\",\n          \"name\": \"string\",\n          \"coverageLevel\": \"FAMILY\",\n          \"benefitAmount\": {\n            \"value\": 1808.8800434417362,\n            \"currency\": \"string\"\n          },\n          \"benefitPercent\": 43.316605029451814,\n          \"inPlanNetworkIndicator\": \"W\",\n          \"timeQualifier\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"planInformation\": {\n    \"planName\": \"string\",\n    \"groupName\": \"string\",\n    \"groupNumber\": \"string\",\n    \"planBeginDate\": \"1997-04-03\",\n    \"planEndDate\": \"2015-12-23\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "634444aa-cb2a-4cd7-b4e5-abde1a19c121",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "eligibilities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Eligibility transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6654673d-aa69-4035-9e89-b9642fbe6899",
+          "name": "Availity List Supported Payers",
+          "request": {
+            "name": "Availity List Supported Payers",
+            "description": {
+              "content": "Retrieve a list of health plan payers supported for eligibility transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availity",
+                "intelligent-payer-network",
+                "v1",
+                "payers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "supportedTransaction",
+                  "value": "<string>",
+                  "description": "Filter by supported transaction type"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Search payers by name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce1a1c93-b3bb-4c1d-81fa-4919e8283e9b",
+              "name": "List of supported payers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availity",
+                    "intelligent-payer-network",
+                    "v1",
+                    "payers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "supportedTransaction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"eligibilityUrl\": \"string\",\n      \"supportedTransactions\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"eligibilityUrl\": \"string\",\n      \"supportedTransactions\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.availity.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "hipaa"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.availity.com/availity/v1/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6ff9e440-35b9-4bc2-90c9-5c32c48b28de",
+    "name": "Availity Eligibility & Benefits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions, enabling real-time verification of member coverage, co-pays, deductibles, and benefits information. REST APIs connect provider systems to every major health plan nationwide for eligibility checks.\n\nContact Support:\n Name: Availity Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

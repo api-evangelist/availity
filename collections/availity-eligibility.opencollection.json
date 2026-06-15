@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Availity Eligibility & Benefits API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.availity.com/availity/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity List Eligibility Inquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/eligibilities",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payerId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve previous eligibility inquiry results for the authenticated provider."
+        },
+        {
+          "info": {
+            "name": "Availity Check Member Eligibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/eligibilities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a real-time eligibility and benefits inquiry (equivalent to X12 270 transaction). Returns coverage, benefits, co-pay, deductible, and plan information from health plan payers."
+        },
+        {
+          "info": {
+            "name": "Availity Get Eligibility Inquiry by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/eligibilities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Eligibility transaction ID"
+              }
+            ]
+          },
+          "docs": "Retrieve the result of a specific eligibility inquiry by its transaction ID."
+        },
+        {
+          "info": {
+            "name": "Availity List Supported Payers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/payers",
+            "params": [
+              {
+                "name": "supportedTransaction",
+                "value": "",
+                "type": "query",
+                "description": "Filter by supported transaction type"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Search payers by name"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of health plan payers supported for eligibility transactions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

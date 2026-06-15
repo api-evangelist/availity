@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Availity Claim Attachments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.availity.com/availity/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Claim Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity Submit Claim Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-attachments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit supporting documentation alongside a healthcare claim. Supports structured and unstructured attachment types."
+        },
+        {
+          "info": {
+            "name": "Availity Get Claim Attachment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "500123",
+                "type": "path",
+                "description": "Attachment transaction ID"
+              }
+            ]
+          },
+          "docs": "Retrieve the processing status of a submitted claim attachment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

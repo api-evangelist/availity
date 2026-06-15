@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Availity Claim Status API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.availity.com/availity/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Claim Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity List Claim Status Inquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-statuses",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "2025-01-01",
+                "type": "query",
+                "description": "Start date filter (ISO 8601)"
+              },
+              {
+                "name": "toDate",
+                "value": "2025-12-31",
+                "type": "query",
+                "description": "End date filter (ISO 8601)"
+              },
+              {
+                "name": "payerId",
+                "value": "BCBS001",
+                "type": "query",
+                "description": "Filter by payer ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of previous claim status inquiries for the authenticated provider."
+        },
+        {
+          "info": {
+            "name": "Availity Create Claim Status Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-statuses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a claim status inquiry (equivalent to X12 276 transaction). Returns claim status and adjudication information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Enhanced Claim Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity Poll X12 276 Search Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/clmsmgmt/claim-status/claim-status/v1/status/searchBy276",
+            "params": [
+              {
+                "name": "id",
+                "value": "500123",
+                "type": "query",
+                "description": "Job ID returned from POST"
+              }
+            ]
+          },
+          "docs": "Poll for results of a previously submitted 276 claim status request."
+        },
+        {
+          "info": {
+            "name": "Availity Search Claim by X12 276",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/clmsmgmt/claim-status/claim-status/v1/status/searchBy276",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a standard ASC X12N 276 claim status request into JSON format and submit to payer."
+        },
+        {
+          "info": {
+            "name": "Availity Summary Search Claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/clmsmgmt/claim-status/claim-status/v1/status/summarySearch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "High-level claim searches using service dates, member IDs, or check numbers."
+        },
+        {
+          "info": {
+            "name": "Availity Detail Search Claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/clmsmgmt/claim-status/claim-status/v1/status/detailSearch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Detailed single-claim lookup by NPI/tax ID and claim number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
