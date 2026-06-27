@@ -224,7 +224,7 @@ common:
   - url: https://github.com/availity
     type: GitHubOrganization
   - url: https://availity.github.io/sdk-js/
-    type: SDK
+    type: SDKs
   - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
     type: OpenAPI
   - url: >-
@@ -334,7 +334,7 @@ common:
         description: Integration with Florida Blue for care reminders and real-time eligibility verification.
       - name: Healthfirst New York
         description: Integration with Healthfirst New York for eligibility and care gap identification.
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.availity.com/llms.txt
 maintainers:
   - name: Kin Lane
