@@ -1,0 +1,57 @@
+arazzo: 1.0.1
+info:
+  title: Availity Claim Status Inquiry (X12 276/277)
+  summary: Submit an X12 276 claim status request, then poll for the X12 277 claim status response until the payer finalizes it.
+  description: >-
+    The canonical Availity claim status flow, modeled on the X12 276/277 health
+    care claim status request and response transaction set. A 276 inquiry is
+    submitted for a previously filed claim and the job is polled until the payer
+    returns a finalized 277 status response carrying the claim's disposition.
+    Every step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: availityClaimStatus
+  url: ../openapi/availity-claim-status-openapi.yml
+  type: openapi
+workflows:
+- workflowId: claim-status-inquiry
+  summary: Submit the X12 276 inquiry and poll until the X12 277 status response is finalized.
+  description: >-
+    Implements the X12 276/277 claim status sequence end to end: 276 inquiry
+    submission and polling to completion for the finalized 277 status response.
+  inputs:
+    type: object
+    required:
+    - claimStatusRequest
+    properties:
+      claimStatusRequest:
+        type: object
+        description: The X12 276 claim status inquiry packet (payer, provider, subscriber, and claim identifiers).
+  steps:
+  - stepId: submitInquiry
+    description: Submit the X12 276 claim status request to begin an enhanced search job.
+    operationId: searchClaimBy276
+    requestBody:
+      contentType: application/json
+      payload: $inputs.claimStatusRequest
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inquiryId: $response.body#/id
+  - stepId: pollInquiry
+    description: Poll the search job until the payer returns the finalized X12 277 claim status response.
+    operationId: pollSearchBy276
+    parameters:
+    - name: id
+      in: query
+      value: $steps.submitInquiry.outputs.inquiryId
+    successCriteria:
+    - context: $response.body
+      condition: $.status == "FINALIZED"
+      type: jsonpath
+    outputs:
+      status: $response.body#/status
+      claims: $response.body
+  outputs:
+    inquiryId: $steps.submitInquiry.outputs.inquiryId
+    claims: $steps.pollInquiry.outputs.claims

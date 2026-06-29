@@ -336,6 +336,20 @@ common:
         description: Integration with Healthfirst New York for eligibility and care gap identification.
   - type: LlmsText
     url: https://developer.availity.com/llms.txt
+  - type: ArazzoWorkflows
+    workflows:
+    - url: arazzo/availity-claim-attachment-workflow.yml
+      name: Availity Claim Attachment (X12 275)
+      summary: "Submit an X12 275 claim attachment, then poll for its processing status until the payer accepts it."
+    - url: arazzo/availity-claim-status-inquiry-workflow.yml
+      name: Availity Claim Status Inquiry (X12 276/277)
+      summary: "Submit an X12 276 claim status request, then poll for the X12 277 claim status response until the payer finalizes it."
+    - url: arazzo/availity-eligibility-benefits-workflow.yml
+      name: Availity Eligibility and Benefits (X12 270/271)
+      summary: "Locate a payer that supports the 270 transaction, submit an X12 270 eligibility request, then retrieve the resulting 271 benefit response."
+    - url: arazzo/availity-prior-authorization-workflow.yml
+      name: Availity Prior Authorization (X12 278)
+      summary: "Determine whether authorization is required, create the X12 278 service review, attach supporting clinical documentation, then read back the authorization decision."
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com

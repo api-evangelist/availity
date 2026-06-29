@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Availity Prior Authorization (X12 278)
+  summary: Determine whether authorization is required, create the X12 278 service review, attach supporting clinical documentation, then read back the authorization decision.
+  description: >-
+    The canonical Availity prior authorization flow, modeled on the X12 278
+    health care services review request and response transaction set. A
+    determination is made on whether the payer requires authorization, a 278
+    service review is created for the requested services, clinical documentation
+    is attached to support the request, and the resulting authorization decision
+    is read back. Every step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: availityServiceReviews
+  url: ../openapi/availity-service-reviews-openapi.yml
+  type: openapi
+workflows:
+- workflowId: prior-authorization
+  summary: Check if auth is required, create the X12 278 review, attach clinicals, and read the decision.
+  description: >-
+    Implements the X12 278 prior authorization sequence end to end: auth-required
+    determination, 278 service review creation, clinical attachment submission,
+    and retrieval of the authorization decision.
+  inputs:
+    type: object
+    required:
+    - authCheckRequest
+    - serviceReview
+    - attachment
+    properties:
+      authCheckRequest:
+        type: object
+        description: The inquiry packet used to determine whether the payer requires authorization for the requested services.
+      serviceReview:
+        type: object
+        description: The X12 278 service review request packet (payer, provider, subscriber, and requested services).
+      attachment:
+        type: object
+        description: The supporting clinical documentation submitted to substantiate the authorization request.
+  steps:
+  - stepId: checkAuthRequired
+    description: Submit the inquiry that determines whether the payer requires authorization for the requested services.
+    operationId: checkIsAuthRequired
+    requestBody:
+      contentType: application/json
+      payload: $inputs.authCheckRequest
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      checkId: $response.body#/id
+  - stepId: getAuthRequiredResult
+    description: Retrieve the auth-required determination by its Availity transaction id.
+    operationId: getIsAuthRequiredResult
+    parameters:
+    - name: id
+      in: path
+      value: $steps.checkAuthRequired.outputs.checkId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authRequired: $response.body#/authRequired
+  - stepId: createReview
+    description: Create the X12 278 service review request for the requested services.
+    operationId: createServiceReview
+    requestBody:
+      contentType: application/json
+      payload: $inputs.serviceReview
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reviewId: $response.body#/id
+  - stepId: attachClinical
+    description: Attach supporting clinical documentation to substantiate the service review.
+    operationId: submitAuthAttachment
+    requestBody:
+      contentType: application/json
+      payload: $inputs.attachment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attachmentId: $response.body#/id
+  - stepId: getReview
+    description: Read back the X12 278 service review to obtain the authorization decision.
+    operationId: getServiceReview
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createReview.outputs.reviewId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      review: $response.body
+  outputs:
+    authRequired: $steps.getAuthRequiredResult.outputs.authRequired
+    reviewId: $steps.createReview.outputs.reviewId
+    review: $steps.getReview.outputs.review

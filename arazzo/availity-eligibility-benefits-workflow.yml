@@ -1,0 +1,66 @@
+arazzo: 1.0.1
+info:
+  title: Availity Eligibility and Benefits (X12 270/271)
+  summary: Locate a payer that supports the 270 transaction, submit an X12 270 eligibility request, then retrieve the resulting 271 benefit response.
+  description: >-
+    The canonical Availity eligibility flow, modeled on the X12 270/271 health
+    care eligibility/benefit inquiry and response transaction set. A payer that
+    supports the 270 transaction is located, an eligibility inquiry is submitted
+    for the member, and the completed 271 benefit response is read back by its
+    Availity transaction id. Every step inlines its request so the flow is
+    self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: availityEligibility
+  url: ../openapi/availity-eligibility-openapi.yml
+  type: openapi
+workflows:
+- workflowId: eligibility-benefits
+  summary: Find a 270-capable payer, submit the eligibility inquiry, and read the 271 benefit response.
+  description: >-
+    Implements the X12 270/271 eligibility/benefit sequence end to end: payer
+    lookup, 270 inquiry submission, and retrieval of the 271 benefit response.
+  inputs:
+    type: object
+    required:
+    - eligibilityRequest
+    properties:
+      eligibilityRequest:
+        type: object
+        description: The X12 270 eligibility inquiry packet (payer, provider, subscriber, and requested service types).
+  steps:
+  - stepId: findPayer
+    description: Locate a payer in the Availity directory that supports the X12 270 eligibility transaction.
+    operationId: listPayers
+    parameters:
+    - name: supportedTransaction
+      in: query
+      value: "270"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      payers: $response.body
+  - stepId: checkEligibility
+    description: Submit the X12 270 eligibility inquiry for the member to the selected payer.
+    operationId: checkEligibility
+    requestBody:
+      contentType: application/json
+      payload: $inputs.eligibilityRequest
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      eligibilityId: $response.body#/id
+  - stepId: getEligibility
+    description: Retrieve the completed X12 271 benefit response by its Availity transaction id.
+    operationId: getEligibility
+    parameters:
+    - name: id
+      in: path
+      value: $steps.checkEligibility.outputs.eligibilityId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      benefits: $response.body
+  outputs:
+    eligibilityId: $steps.checkEligibility.outputs.eligibilityId
+    benefits: $steps.getEligibility.outputs.benefits

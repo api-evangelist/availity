@@ -1,0 +1,56 @@
+arazzo: 1.0.1
+info:
+  title: Availity Claim Attachment (X12 275)
+  summary: Submit an X12 275 claim attachment, then poll for its processing status until the payer accepts it.
+  description: >-
+    The canonical Availity claim attachment flow, modeled on the X12 275 patient
+    information / additional information to support a health care claim
+    transaction set. Supporting documentation is submitted for a filed claim and
+    the attachment is polled until the payer acknowledges acceptance. Every step
+    inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: availityClaimAttachments
+  url: ../openapi/availity-claim-attachments-openapi.yml
+  type: openapi
+workflows:
+- workflowId: claim-attachment
+  summary: Submit the X12 275 claim attachment and poll until the payer accepts it.
+  description: >-
+    Implements the X12 275 claim attachment sequence end to end: attachment
+    submission and polling to the accepted processing status.
+  inputs:
+    type: object
+    required:
+    - claimAttachment
+    properties:
+      claimAttachment:
+        type: object
+        description: The X12 275 claim attachment packet (claim identifiers, document metadata, and supporting documentation).
+  steps:
+  - stepId: submitAttachment
+    description: Submit the X12 275 claim attachment with supporting documentation for the filed claim.
+    operationId: submitClaimAttachment
+    requestBody:
+      contentType: application/json
+      payload: $inputs.claimAttachment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attachmentId: $response.body#/id
+  - stepId: getAttachmentStatus
+    description: Poll the attachment until the payer reports it has been accepted.
+    operationId: getClaimAttachmentStatus
+    parameters:
+    - name: id
+      in: path
+      value: $steps.submitAttachment.outputs.attachmentId
+    successCriteria:
+    - context: $response.body
+      condition: $.status == "ACCEPTED"
+      type: jsonpath
+    outputs:
+      status: $response.body#/status
+  outputs:
+    attachmentId: $steps.submitAttachment.outputs.attachmentId
+    status: $steps.getAttachmentStatus.outputs.status
