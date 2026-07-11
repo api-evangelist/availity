@@ -361,6 +361,10 @@ description: >-
   eligibility verification, claims management, prior authorization, and patient cost estimation.
 
 common:
+  - type: DomainSecurity
+    url: security/availity-domain-security.yml
+  - type: Authentication
+    url: authentication/availity-authentication.yml
   - type: OAuthScopes
     url: scopes/availity-scopes.yml
   - url: https://developer.availity.com/blog
