@@ -359,3 +359,9 @@ description: >-
   transactions. The platform processes over 11 billion annual healthcare transactions connecting providers, health
   plans, and vendors nationwide. Create your application and subscribe to a plan to make use of Availity APIs for
   eligibility verification, claims management, prior authorization, and patient cost estimation.
+
+common:
+  - type: OAuthScopes
+    url: scopes/availity-scopes.yml
+  - url: https://developer.availity.com/blog
+    type: Blog

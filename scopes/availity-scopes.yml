@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/availity-claim-attachments-openapi.yml, openapi/availity-claim-status-openapi.yml,
+  openapi/availity-eligibility-openapi.yml, openapi/availity-service-reviews-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/availity-claim-attachments-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.availity.com/availity/v1/token
+- name: oauth2
+  source: openapi/availity-claim-status-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.availity.com/availity/v1/token
+- name: oauth2
+  source: openapi/availity-eligibility-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.availity.com/availity/v1/token
+- name: oauth2
+  source: openapi/availity-service-reviews-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.availity.com/availity/v1/token
+scopes:
+- scope: hipaa
+  description: Access to HIPAA transaction APIs
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/availity-claim-attachments-openapi.yml
+  - openapi/availity-claim-status-openapi.yml
+  - openapi/availity-eligibility-openapi.yml
+  - openapi/availity-service-reviews-openapi.yml
