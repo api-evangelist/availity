@@ -361,6 +361,8 @@ description: >-
   eligibility verification, claims management, prior authorization, and patient cost estimation.
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/availity-agentic-access.yml
   - type: DomainSecurity
     url: security/availity-domain-security.yml
   - type: Authentication
