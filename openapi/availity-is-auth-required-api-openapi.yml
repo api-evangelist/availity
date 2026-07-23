@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Availity Claim Attachments Auth Attachments Is Auth Required API
+  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Is Auth Required
+  description: Check if authorization is required before submission
+paths:
+  /value-adds/v1/isauthrequired:
+    post:
+      operationId: checkIsAuthRequired
+      summary: Availity Check if Authorization is Required
+      description: Query whether a payer requires prior authorization before submitting a service review request.
+      tags:
+      - Is Auth Required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IsAuthRequiredRequest'
+      responses:
+        '200':
+          description: Auth requirement check initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /value-adds/v1/isauthrequired/{id}:
+    get:
+      operationId: getIsAuthRequiredResult
+      summary: Availity Get Authorization Requirement Result
+      description: Poll for the result of an IsAuthRequired check.
+      tags:
+      - Is Auth Required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Job ID from POST response
+        example: '500123'
+      responses:
+        '200':
+          description: Auth requirement result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsAuthRequiredResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    IsAuthRequiredRequest:
+      type: object
+      properties:
+        serviceReview:
+          type: object
+          description: Authorization details to check
+          properties:
+            payerId:
+              type: string
+              example: BCBS001
+            procedureCode:
+              type: string
+              example: '99213'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
+    IsAuthRequiredResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        authRequired:
+          type: string
+          enum:
+          - Auth Required
+          - No Auth Required
+          example: Auth Required
+        payerMessage:
+          type: string
+          example: Prior authorization required for this procedure
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs

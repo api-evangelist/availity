@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: Availity Claim Attachments Auth Attachments Claim Status API
+  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Claim Status
+  description: Claim status inquiries and tracking
+paths:
+  /availity/intelligent-payer-network/v1/claim-statuses:
+    post:
+      operationId: createClaimStatusInquiry
+      summary: Availity Create Claim Status Inquiry
+      description: Submit a claim status inquiry (equivalent to X12 276 transaction). Returns claim status and adjudication information.
+      tags:
+      - Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimStatusRequest'
+      responses:
+        '200':
+          description: Claim status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusResponse'
+              examples:
+                CreateClaimStatusInquiry200Example:
+                  summary: Default createClaimStatusInquiry 200 response
+                  x-microcks-default: true
+                  value:
+                    id: '500123'
+                    status: PENDING
+                    traceIds:
+                      AVAILITY_TRACE_ID: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+                      PAYER_TRACE_ID: 277-trace-001
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: listClaimStatusInquiries
+      summary: Availity List Claim Status Inquiries
+      description: Retrieve a list of previous claim status inquiries for the authenticated provider.
+      tags:
+      - Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: fromDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date filter (ISO 8601)
+        example: '2025-01-01'
+      - name: toDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date filter (ISO 8601)
+        example: '2025-12-31'
+      - name: payerId
+        in: query
+        schema:
+          type: string
+        description: Filter by payer ID
+        example: BCBS001
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+          maximum: 50
+        description: Number of results per page
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+        description: Pagination offset
+      responses:
+        '200':
+          description: List of claim status inquiries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusList'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ClaimStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Availity transaction ID
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - ACKNOWLEDGED
+          - ACTION_REQUIRED
+          - ADJUSTED
+          - CAPITATED
+          - DENIED
+          - ERROR
+          - FINALIZED
+          - PAID
+          - PENDING
+          - REJECTED
+          - RETURNED_TO_PROVIDER
+          example: PAID
+        traceIds:
+          type: object
+          properties:
+            AVAILITY_TRACE_ID:
+              type: string
+              example: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+            PAYER_TRACE_ID:
+              type: string
+              example: 277-trace-001
+        amounts:
+          type: object
+          properties:
+            billed:
+              type: number
+              example: 250.0
+            allowed:
+              type: number
+              example: 200.0
+            paid:
+              type: number
+              example: 160.0
+            patientResponsibility:
+              type: number
+              example: 40.0
+        completeCode:
+          type: string
+          example: COMPLETE
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: 'Required field missing: payerId'
+        details:
+          type: array
+          items:
+            type: string
+    ClaimStatusList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClaimStatusResponse'
+        total:
+          type: integer
+          example: 42
+        offset:
+          type: integer
+          example: 0
+    ClaimStatusRequest:
+      type: object
+      required:
+      - payerId
+      - provider
+      - subscriber
+      properties:
+        payerId:
+          type: string
+          description: Availity payer ID
+          example: BCBS001
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              description: National Provider Identifier
+              example: '1234567890'
+            taxId:
+              type: string
+              example: '123456789'
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+            dateOfBirth:
+              type: string
+              format: date
+              example: '1980-01-15'
+        claimNumber:
+          type: string
+          description: Payer claim number
+          example: CLM-2025-001234
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs

@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Availity Claim Attachments API
+  title: Availity Auth Attachments Claim Attachments API
   description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
   version: 1.0.0
   contact:
@@ -78,14 +78,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  securitySchemes:
-    oauth2:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://api.availity.com/availity/v1/token
-          scopes:
-            hipaa: Access to HIPAA transaction APIs
   responses:
     BadRequest:
       description: Bad request
@@ -106,6 +98,36 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    ClaimAttachmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - ACCEPTED
+          - REJECTED
+          - PENDING
+          example: ACCEPTED
+        controlNumber:
+          type: string
+          example: ATT-2025-001234
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
     ClaimAttachmentRequest:
       type: object
       required:
@@ -146,33 +168,11 @@ components:
               data:
                 type: string
                 format: byte
-    ClaimAttachmentResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - SUBMITTED
-          - ACCEPTED
-          - REJECTED
-          - PENDING
-          example: ACCEPTED
-        controlNumber:
-          type: string
-          example: ATT-2025-001234
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs

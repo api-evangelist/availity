@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Availity Claim Attachments Auth Attachments API
+  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Auth Attachments
+  description: Attach documentation to authorization requests
+paths:
+  /value-adds/v2/attachments:
+    post:
+      operationId: submitAuthAttachment
+      summary: Availity Submit Authorization with Attachment
+      description: Submit an authorization request with supporting document attachments.
+      tags:
+      - Auth Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+      responses:
+        '200':
+          description: Attachment submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /value-adds/v2/attachments/{id}:
+    get:
+      operationId: getAttachmentStatus
+      summary: Availity Get Attachment Processing Status
+      description: Retrieve the processing status of a submitted authorization attachment.
+      tags:
+      - Auth Attachments
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Attachment job ID
+        example: '500123'
+      responses:
+        '200':
+          description: Attachment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentStatusResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
+    AttachmentStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - AV_ACCEPTED
+          - AV_REJECTED
+          - PY_ACCEPTED
+          - PY_REJECTED
+          example: AV_ACCEPTED
+    AttachmentRequest:
+      type: object
+      required:
+      - payerId
+      - patient
+      - subscriber
+      - provider
+      - certificationNumber
+      - attachments
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        patient:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              example: '1234567890'
+        certificationNumber:
+          type: string
+          example: AUTH-2025-001234
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              contentType:
+                type: string
+                example: application/pdf
+              title:
+                type: string
+                example: Clinical Notes
+              data:
+                type: string
+                format: byte
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs
