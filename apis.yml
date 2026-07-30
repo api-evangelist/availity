@@ -1,207 +1,296 @@
 aid: availity
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/availity.png
 url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml
 apis:
-  - aid: availity:availity-eligibility-benefits-api
-    name: Availity Eligibility & Benefits API
-    tags:
-      - Benefits
-      - EDI
-      - Eligibility
-      - Healthcare
-      - X12 270/271
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/partner/documentation
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-      - url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
-        type: Documentation
-      - url: >-
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
-        type: OpenAPI
-      - url: >-
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
-        type: JSONSchema
-    description: >-
-      The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions, enabling real-time
-      verification of member coverage, co-pays, deductibles, and benefits information. REST APIs connect provider
-      systems to every major health plan nationwide for eligibility checks.
-  - aid: availity:availity-claims-status-api
-    name: Availity Claim Status API
-    tags:
-      - Claims
-      - Clearinghouse
-      - EDI
-      - Healthcare
-      - X12 276/277
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/partner/documentation
-        type: Documentation
-      - url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-      - url: >-
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-status-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Availity Claim Status API enables the standard ASC X12N 276 and 277 transactions, allowing providers to find,
-      create, and manage claim status inquiries against payer systems. REST APIs bridge provider billing systems and
-      payers through the Availity clearinghouse network. Supports both standard 276/277 workflows and enhanced claim
-      status with summary and detail search.
-  - aid: availity:availity-claim-attachments-api
-    name: Availity Claim Attachments API
-    tags:
-      - Attachments
-      - Claims
-      - Clearinghouse
-      - EDI
-      - Healthcare
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-      - url: >-
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-attachments-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare
-      claims. REST APIs support structured and unstructured attachment types for additional clinical information
-      required by payers during claims adjudication.
-  - aid: availity:availity-service-reviews-api
-    name: Availity Service Reviews (Prior Authorization) API
-    tags:
-      - EDI
-      - Healthcare
-      - Prior Authorization
-      - Service Reviews
-      - X12 278
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/blog/2025/3/4/service-reviews
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-      - url: >-
-          https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-service-reviews-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Availity Service Reviews API enables the ASC X12N 278 transaction for prior authorization and healthcare
-      service review. REST APIs allow providers to find, create, and manage authorization requests and responses with
-      health plan payers through the Availity clearinghouse. Includes IsAuthRequired and Attachments add-on APIs.
-  - aid: availity:availity-hipaa-transactions-api
-    name: Availity Healthcare HIPAA Transactions API
-    tags:
-      - Clearinghouse
-      - EDI
-      - Healthcare
-      - HIPAA
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
-        type: Documentation
-      - url: https://developer.availity.com/blog/2025/3/25/hipaa-transactions
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-    description: >-
-      The Availity Healthcare HIPAA Transactions API provides a unified interface for standard HIPAA EDI transactions.
-      REST APIs enable healthcare providers and vendors to submit and receive X12 EDI transactions across payers
-      including eligibility, claims, remittance, authorizations, and referrals. Quota: 100,000 calls per day, 100 calls
-      per second rate limit.
-  - aid: availity:availity-patient-cost-estimator-api
-    name: Availity Patient Cost Estimator API
-    tags:
-      - Cost Estimation
-      - Healthcare
-      - Patient Financial Responsibility
-      - Price Transparency
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/partner/documentation
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-    description: >-
-      The Availity Patient Cost Estimator API enables healthcare providers and institutions to estimate service costs
-      before delivery for both institutional and professional services. REST APIs support version 1.0.0 and 2.0.0 and
-      include predetermination requests across all major health plan payers, helping meet price transparency
-      requirements.
-  - aid: availity:availity-eb-value-adds-api
-    name: Availity Eligibility & Benefits Value-Add APIs
-    tags:
-      - Care Reminders
-      - EDI
-      - Eligibility
-      - Healthcare
-      - Member ID Card
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-    description: >-
-      The Availity Eligibility & Benefits Value-Add APIs provide supplementary data during eligibility transactions. The
-      Care Reminders API retrieves real-time care gap information from multiple payers. The Member ID Card API retrieves
-      digital member ID cards in PDF or PNG format during eligibility verification workflows.
-  - aid: availity:availity-payer-list-api
-    name: Availity Payer List API
-    tags:
-      - Clearinghouse
-      - Healthcare
-      - Payer Network
-      - Reference Data
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/partner/documentation
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-    description: >-
-      The Availity Payer List API (v1.0.4) allows healthcare organizations to query available payers and the
-      transactions they support. Returns payer identifiers, names, and supported transaction types including
-      eligibility, claim status, prior authorization, and remittance across the nationwide Availity clearinghouse
-      network.
-  - aid: availity:availity-configurations-api
-    name: Availity Configurations API
-    tags:
-      - Configuration
-      - Healthcare
-      - Payer Requirements
-      - Provider Validation
-    image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
-    humanURL: https://developer.availity.com/
-    baseURL: https://api.availity.com
-    properties:
-      - url: https://developer.availity.com/partner/documentation
-        type: Documentation
-      - url: https://developer.availity.com/partner/gettingstarted
-        type: GettingStarted
-    description: >-
-      The Availity Configurations API (v1.0.0) provides provider details and payer-specific validation requirements.
-      Returns configuration rules for enhanced claim status, prior authorization, and other transaction types so
-      provider systems can validate submissions before sending to payers.
+- aid: availity:availity-hipaa-transactions-api
+  name: Availity Healthcare HIPAA Transactions API
+  tags:
+  - Clearinghouse
+  - EDI
+  - Healthcare
+  - HIPAA
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+    type: Documentation
+  - url: https://developer.availity.com/blog/2025/3/25/hipaa-transactions
+    type: Documentation
+  - url: https://developer.availity.com/partner/gettingstarted
+    type: GettingStarted
+  description: >-
+    The Availity Healthcare HIPAA Transactions API provides a unified interface for standard HIPAA EDI
+    transactions. REST APIs enable healthcare providers and vendors to submit and receive X12 EDI transactions
+    across payers including eligibility, claims, remittance, authorizations, and referrals. Quota: 100,000
+    calls per day, 100 calls per second rate limit.
+- aid: availity:availity-patient-cost-estimator-api
+  name: Availity Patient Cost Estimator API
+  tags:
+  - Cost Estimation
+  - Healthcare
+  - Patient Financial Responsibility
+  - Price Transparency
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/partner/documentation
+    type: Documentation
+  - url: https://developer.availity.com/partner/gettingstarted
+    type: GettingStarted
+  description: >-
+    The Availity Patient Cost Estimator API enables healthcare providers and institutions to estimate
+    service costs before delivery for both institutional and professional services. REST APIs support
+    version 1.0.0 and 2.0.0 and include predetermination requests across all major health plan payers,
+    helping meet price transparency requirements.
+- aid: availity:availity-eb-value-adds-api
+  name: Availity Eligibility & Benefits Value-Add APIs
+  tags:
+  - Care Reminders
+  - EDI
+  - Eligibility
+  - Healthcare
+  - Member ID Card
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+    type: Documentation
+  - url: https://developer.availity.com/partner/gettingstarted
+    type: GettingStarted
+  description: >-
+    The Availity Eligibility & Benefits Value-Add APIs provide supplementary data during eligibility transactions.
+    The Care Reminders API retrieves real-time care gap information from multiple payers. The Member ID
+    Card API retrieves digital member ID cards in PDF or PNG format during eligibility verification workflows.
+- aid: availity:availity-payer-list-api
+  name: Availity Payer List API
+  tags:
+  - Clearinghouse
+  - Healthcare
+  - Payer Network
+  - Reference Data
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/partner/documentation
+    type: Documentation
+  - url: https://developer.availity.com/partner/gettingstarted
+    type: GettingStarted
+  description: >-
+    The Availity Payer List API (v1.0.4) allows healthcare organizations to query available payers and
+    the transactions they support. Returns payer identifiers, names, and supported transaction types including
+    eligibility, claim status, prior authorization, and remittance across the nationwide Availity clearinghouse
+    network.
+- aid: availity:availity-configurations-api
+  name: Availity Configurations API
+  tags:
+  - Configuration
+  - Healthcare
+  - Payer Requirements
+  - Provider Validation
+  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  properties:
+  - url: https://developer.availity.com/partner/documentation
+    type: Documentation
+  - url: https://developer.availity.com/partner/gettingstarted
+    type: GettingStarted
+  description: >-
+    The Availity Configurations API (v1.0.0) provides provider details and payer-specific validation requirements.
+    Returns configuration rules for enhanced claim status, prior authorization, and other transaction
+    types so provider systems can validate submissions before sending to payers.
+- aid: availity:availity-auth-attachments-api
+  name: availity Auth Attachments API
+  description: Attach documentation to authorization requests
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Auth Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-auth-attachments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-claim-attachments-api
+  name: availity Claim Attachments API
+  description: Electronic claim attachment submission and retrieval
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Claim Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-claim-attachments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-claim-status-api
+  name: availity Claim Status API
+  description: Claim status inquiries and tracking
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Claim Status
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-claim-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-eligibility-api
+  name: availity Eligibility API
+  description: Real-time eligibility and benefits verification
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Eligibility
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-eligibility-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-enhanced-claim-status-api
+  name: availity Enhanced Claim Status API
+  description: Enhanced claim status with value-add data
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Enhanced Claim Status
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-enhanced-claim-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-is-auth-required-api
+  name: availity Is Auth Required API
+  description: Check if authorization is required before submission
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Is Auth Required
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-is-auth-required-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
+- aid: availity:availity-service-reviews-api
+  name: availity Service Reviews API
+  description: Prior authorization and service review requests
+  humanURL: https://developer.availity.com/
+  baseURL: https://api.availity.com
+  tags:
+  - Service Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/availity-service-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developer.availity.com/partner/documentation
+  - type: GettingStarted
+    url: https://developer.availity.com/partner/gettingstarted
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/ebvalue-add-api
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/25/enhanced-claim-status
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/2/28/claim-attachment-api
+  - type: Documentation
+    url: https://developer.availity.com/blog/2025/3/4/service-reviews
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/availity
