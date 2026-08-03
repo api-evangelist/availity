@@ -1,0 +1,482 @@
+openapi: 3.1.0
+info:
+  title: Availity Claim Status API
+  description: The Availity Claim Status API enables the ASC X12N 276 and 277 transactions, allowing providers to submit and track claim status inquiries. Supports standard 276/277 workflows and 
+    enhanced claim status with summary search, detail search, and value-add 277 responses.
+  version: 1.0.0
+  contact:
+    name: Availity Developer Portal
+    url: https://developer.availity.com/
+servers:
+- url: https://api.availity.com
+  description: Availity Production API
+security:
+- oauth2: []
+tags:
+- name: Claim Status
+  description: Claim status inquiries and tracking
+- name: Enhanced Claim Status
+  description: Enhanced claim status with value-add data
+paths:
+  /availity/intelligent-payer-network/v1/claim-statuses:
+    post:
+      operationId: createClaimStatusInquiry
+      summary: Availity Create Claim Status Inquiry
+      description: Submit a claim status inquiry (equivalent to X12 276 transaction). Returns claim status and adjudication information.
+      tags:
+      - Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimStatusRequest'
+      responses:
+        '200':
+          description: Claim status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusResponse'
+              examples:
+                CreateClaimStatusInquiry200Example:
+                  summary: Default createClaimStatusInquiry 200 response
+                  x-microcks-default: true
+                  value:
+                    id: '500123'
+                    status: PENDING
+                    traceIds:
+                      AVAILITY_TRACE_ID: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+                      PAYER_TRACE_ID: 277-trace-001
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: listClaimStatusInquiries
+      summary: Availity List Claim Status Inquiries
+      description: Retrieve a list of previous claim status inquiries for the authenticated provider.
+      tags:
+      - Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: fromDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date filter (ISO 8601)
+        example: '2025-01-01'
+      - name: toDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date filter (ISO 8601)
+        example: '2025-12-31'
+      - name: payerId
+        in: query
+        schema:
+          type: string
+        description: Filter by payer ID
+        example: BCBS001
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+          maximum: 50
+        description: Number of results per page
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+        description: Pagination offset
+      responses:
+        '200':
+          description: List of claim status inquiries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusList'
+  /clmsmgmt/claim-status/claim-status/v1/status/searchBy276:
+    post:
+      operationId: searchClaimBy276
+      summary: Availity Search Claim by X12 276
+      description: Convert a standard ASC X12N 276 claim status request into JSON format and submit to payer.
+      tags:
+      - Enhanced Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchBy276Request'
+      responses:
+        '200':
+          description: 276 search initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    get:
+      operationId: pollSearchBy276
+      summary: Availity Poll X12 276 Search Results
+      description: Poll for results of a previously submitted 276 claim status request.
+      tags:
+      - Enhanced Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Job ID returned from POST
+        example: '500123'
+      responses:
+        '200':
+          description: 276 search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /clmsmgmt/claim-status/claim-status/v1/status/summarySearch:
+    post:
+      operationId: summarySearchClaims
+      summary: Availity Summary Search Claims
+      description: High-level claim searches using service dates, member IDs, or check numbers.
+      tags:
+      - Enhanced Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SummarySearchRequest'
+      responses:
+        '200':
+          description: Summary search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /clmsmgmt/claim-status/claim-status/v1/status/detailSearch:
+    post:
+      operationId: detailSearchClaim
+      summary: Availity Detail Search Claim
+      description: Detailed single-claim lookup by NPI/tax ID and claim number.
+      tags:
+      - Enhanced Claim Status
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetailSearchRequest'
+      responses:
+        '200':
+          description: Claim detail results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.availity.com/availity/v1/token
+          scopes:
+            hipaa: Access to HIPAA transaction APIs
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ClaimStatusRequest:
+      type: object
+      required:
+      - payerId
+      - provider
+      - subscriber
+      properties:
+        payerId:
+          type: string
+          description: Availity payer ID
+          example: BCBS001
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              description: National Provider Identifier
+              example: '1234567890'
+            taxId:
+              type: string
+              example: '123456789'
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+            dateOfBirth:
+              type: string
+              format: date
+              example: '1980-01-15'
+        claimNumber:
+          type: string
+          description: Payer claim number
+          example: CLM-2025-001234
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+    ClaimStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Availity transaction ID
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - ACKNOWLEDGED
+          - ACTION_REQUIRED
+          - ADJUSTED
+          - CAPITATED
+          - DENIED
+          - ERROR
+          - FINALIZED
+          - PAID
+          - PENDING
+          - REJECTED
+          - RETURNED_TO_PROVIDER
+          example: PAID
+        traceIds:
+          type: object
+          properties:
+            AVAILITY_TRACE_ID:
+              type: string
+              example: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+            PAYER_TRACE_ID:
+              type: string
+              example: 277-trace-001
+        amounts:
+          type: object
+          properties:
+            billed:
+              type: number
+              example: 250.0
+            allowed:
+              type: number
+              example: 200.0
+            paid:
+              type: number
+              example: 160.0
+            patientResponsibility:
+              type: number
+              example: 40.0
+        completeCode:
+          type: string
+          example: COMPLETE
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+    ClaimStatusList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClaimStatusResponse'
+        total:
+          type: integer
+          example: 42
+        offset:
+          type: integer
+          example: 0
+    SearchBy276Request:
+      type: object
+      required:
+      - payerId
+      - patientLastName
+      - patientFirstName
+      - patientBirthDate
+      - fromDate
+      - toDate
+      - providerLastName
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        patientLastName:
+          type: string
+          example: Smith
+        patientFirstName:
+          type: string
+          example: Jane
+        patientBirthDate:
+          type: string
+          format: date
+          example: '1980-01-15'
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerLastName:
+          type: string
+          example: Johnson
+        patientSameAsSubscriber:
+          type: boolean
+          example: true
+    SummarySearchRequest:
+      type: object
+      required:
+      - payerId
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        requestType:
+          type: string
+          enum:
+          - SERVICE_DATE
+          - MEMBER_ID
+          example: SERVICE_DATE
+        memberId:
+          type: string
+          example: MEM123456
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        checkNumber:
+          type: string
+          example: CHK-001234
+        requestedStatus:
+          type: string
+          example: PAID
+    DetailSearchRequest:
+      type: object
+      required:
+      - payerId
+      - claimNumber
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        claimNumber:
+          type: string
+          example: CLM-2025-001234
+        requestType:
+          type: string
+          enum:
+          - CLAIM_NUMBER
+          example: CLAIM_NUMBER
+        providerTaxId:
+          type: string
+          example: '123456789'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        processedDate:
+          type: string
+          format: date
+          example: '2025-03-15'
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: 'Required field missing: payerId'
+        details:
+          type: array
+          items:
+            type: string

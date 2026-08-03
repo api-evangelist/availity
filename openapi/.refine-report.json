@@ -1,0 +1,26 @@
+{
+  "provider": "availity",
+  "sources": [
+    "availity-auth-attachments-api-openapi.yml",
+    "availity-claim-attachments-api-openapi.yml",
+    "availity-claim-status-api-openapi.yml",
+    "availity-eligibility-api-openapi.yml",
+    "availity-enhanced-claim-status-api-openapi.yml",
+    "availity-is-auth-required-api-openapi.yml",
+    "availity-service-reviews-api-openapi.yml"
+  ],
+  "outputs": [
+    "availity-auth-attachments-api-openapi.yml",
+    "availity-claim-attachments-api-openapi.yml",
+    "availity-claim-status-api-openapi.yml",
+    "availity-eligibility-api-openapi.yml",
+    "availity-enhanced-claim-status-api-openapi.yml",
+    "availity-is-auth-required-api-openapi.yml",
+    "availity-service-reviews-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
