@@ -1,4 +1,17 @@
 aid: availity
+name: Availity
+created: '2026-04-20'
+tags:
+  - Healthcare
+  - Clearinghouse
+  - HIPAA
+  - X12 EDI
+  - Eligibility
+  - Claims
+  - Prior Authorization
+  - Revenue Cycle Management
+  - Payers
+  - Price Transparency
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -48,7 +61,7 @@ apis:
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
-  - url: https://developer.availity.com/partner/documentation
+  - url: https://developer.availity.com/blog
     type: Documentation
   - url: https://developer.availity.com/partner/gettingstarted
     type: GettingStarted
@@ -88,7 +101,7 @@ apis:
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
-  - url: https://developer.availity.com/partner/documentation
+  - url: https://developer.availity.com/blog
     type: Documentation
   - url: https://developer.availity.com/partner/gettingstarted
     type: GettingStarted
@@ -108,7 +121,7 @@ apis:
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
-  - url: https://developer.availity.com/partner/documentation
+  - url: https://developer.availity.com/blog
     type: Documentation
   - url: https://developer.availity.com/partner/gettingstarted
     type: GettingStarted
@@ -127,7 +140,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-auth-attachments-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -152,7 +165,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-claim-attachments-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -177,7 +190,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-claim-status-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -202,7 +215,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-eligibility-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -227,7 +240,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-enhanced-claim-status-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -252,7 +265,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-is-auth-required-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -277,7 +290,7 @@ apis:
   - type: OpenAPI
     url: openapi/availity-service-reviews-api-openapi.yml
   - type: Documentation
-    url: https://developer.availity.com/partner/documentation
+    url: https://developer.availity.com/blog
   - type: GettingStarted
     url: https://developer.availity.com/partner/gettingstarted
   - type: Documentation
@@ -298,7 +311,7 @@ common:
     type: Website
   - url: https://developer.availity.com/
     type: Portal
-  - url: https://developer.availity.com/partner/documentation
+  - url: https://developer.availity.com/blog
     type: Documentation
   - url: https://developer.availity.com/partner/gettingstarted
     type: GettingStarted
@@ -314,17 +327,6 @@ common:
     type: GitHubOrganization
   - url: https://availity.github.io/sdk-js/
     type: SDKs
-  - url: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml
-    type: OpenAPI
-  - url: >-
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-status-openapi.yml
-    type: OpenAPI
-  - url: >-
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-attachments-openapi.yml
-    type: OpenAPI
-  - url: >-
-      https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-service-reviews-openapi.yml
-    type: OpenAPI
   - url: >-
       https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json
     type: JSONSchema
@@ -423,8 +425,6 @@ common:
         description: Integration with Florida Blue for care reminders and real-time eligibility verification.
       - name: Healthfirst New York
         description: Integration with Healthfirst New York for eligibility and care gap identification.
-  - type: LlmsText
-    url: https://developer.availity.com/llms.txt
   - type: ArazzoWorkflows
     workflows:
     - url: arazzo/availity-claim-attachment-workflow.yml
@@ -439,17 +439,6 @@ common:
     - url: arazzo/availity-prior-authorization-workflow.yml
       name: Availity Prior Authorization (X12 278)
       summary: "Determine whether authorization is required, create the X12 278 service review, attach supporting clinical documentation, then read back the authorization decision."
-maintainers:
-  - name: Kin Lane
-    email: kin@apievangelist.com
-modified: '2026-05-19'
-description: >-
-  Availity is a healthcare information network and clearinghouse providing REST APIs for real-time HIPAA EDI
-  transactions. The platform processes over 11 billion annual healthcare transactions connecting providers, health
-  plans, and vendors nationwide. Create your application and subscribe to a plan to make use of Availity APIs for
-  eligibility verification, claims management, prior authorization, and patient cost estimation.
-
-common:
   - type: AgenticAccess
     url: agentic-access/availity-agentic-access.yml
   - type: DomainSecurity
@@ -458,5 +447,139 @@ common:
     url: authentication/availity-authentication.yml
   - type: OAuthScopes
     url: scopes/availity-scopes.yml
-  - url: https://developer.availity.com/blog
-    type: Blog
+  # --- 2026-08-15 enrichment pass: artifact + link pointers ---
+  - type: DeveloperPortal
+    url: https://developer.availity.com/
+  - type: APIReference
+    url: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - type: Blog
+    url: https://www.availity.com/blog/
+  - type: SignUp
+    url: https://developer.availity.com/portal/user/login
+  - type: Compliance
+    url: https://www.availity.com/regulatory-compliance/
+  - type: StatusPage
+    url: https://status.availity.com
+  # Availity operates a real Atlassian Statuspage instance; its incident history and
+  # JSON API are gated behind a login. See lifecycle/availity-lifecycle.yml.
+  - type: Packages
+    url: packages/availity-packages.yml
+  - type: SDKs
+    url: packages/availity-packages.yml
+  - type: CLI
+    url: cli/availity-cli.yml
+  - type: Components
+    url: components/availity-components.yml
+  - type: Sandbox
+    url: sandbox/availity-sandbox.yml
+  - type: Conventions
+    url: conventions/availity-conventions.yml
+  - type: ErrorCatalog
+    url: errors/availity-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/availity-lifecycle.yml
+  - type: Conformance
+    url: conformance/availity-conformance.yml
+  - type: DataModel
+    url: data-model/availity-data-model.yml
+  - type: Plans
+    url: plans/availity-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/availity-rate-limits.yml
+  - type: FinOps
+    url: finops/availity-finops.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/availity-llms.txt
+  # Availity serves NO llms.txt. https://developer.availity.com/llms.txt returns HTTP 200
+  # but the body is the portal SPA shell (10,902 bytes, identical to a control probe of a
+  # non-existent path). The former LlmsText pointer to that URL was false credit and is
+  # removed; this pointer is an API Evangelist GENERATED llms.txt.
+  # NOT emitted, and why: WellKnown/SecurityTxt (every /.well-known path misses on every
+  # host - see well-known/availity-well-known.yml); MCPServer (no server exists; mcp/ holds
+  # a derived candidate only); AgentCard (probed both paths on every host - HTML shells or
+  # 401); Idempotency (Availity publishes no idempotency key); Deprecation (no policy, no
+  # Sunset/Deprecation header); Security (no vulnerability-disclosure policy or bug bounty);
+  # Webhooks/AsyncAPI (no event surface); ChangeLog (no dated API changelog).
+  - type: OpenAPI
+    url: openapi/_harvested/availity-aws-payer-list-swagger.json
+    name: Availity AWS Payer List (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-care-cost-estimator-institutional-swagger.json
+    name: Availity Patient Cost Estimator 1.0.0 - Institutional (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-care-cost-estimator-professional-swagger.json
+    name: Availity Patient Cost Estimator 1.0.0 - Professional (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-claim-statuses-swagger.json
+    name: Availity Claim Statuses (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-configurations-swagger.json
+    name: Availity Configurations (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-coverages-swagger.json
+    name: Availity Coverages (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-dental-claims-swagger.json
+    name: Availity Dental Claims (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-dfs-swagger.json
+    name: Availity Dfs (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-patient-cost-estimator-professional-swagger.json
+    name: Availity Patient Cost Estimator 2.0.0 - Professional (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-payer-list-swagger.json
+    name: Availity Payer List (Swagger 2.0, first-party)
+  - type: OpenAPI
+    url: openapi/_harvested/availity-service-reviews-swagger.json
+    name: Availity Service Reviews (Swagger 2.0, first-party)
+  - type: Overlay
+    url: overlays/availity-aws-payer-list-overlay.yaml
+    name: API Evangelist enhancements for Availity AWS Payer List
+  - type: Overlay
+    url: overlays/availity-care-cost-estimator-institutional-overlay.yaml
+    name: API Evangelist enhancements for Availity Patient Cost Estimator 1.0.0 - Institutional
+  - type: Overlay
+    url: overlays/availity-care-cost-estimator-professional-overlay.yaml
+    name: API Evangelist enhancements for Availity Patient Cost Estimator 1.0.0 - Professional
+  - type: Overlay
+    url: overlays/availity-claim-statuses-overlay.yaml
+    name: API Evangelist enhancements for Availity Claim Statuses
+  - type: Overlay
+    url: overlays/availity-configurations-overlay.yaml
+    name: API Evangelist enhancements for Availity Configurations
+  - type: Overlay
+    url: overlays/availity-coverages-overlay.yaml
+    name: API Evangelist enhancements for Availity Coverages
+  - type: Overlay
+    url: overlays/availity-dental-claims-overlay.yaml
+    name: API Evangelist enhancements for Availity Dental Claims
+  - type: Overlay
+    url: overlays/availity-dfs-overlay.yaml
+    name: API Evangelist enhancements for Availity Dfs
+  - type: Overlay
+    url: overlays/availity-patient-cost-estimator-professional-overlay.yaml
+    name: API Evangelist enhancements for Availity Patient Cost Estimator 2.0.0 - Professional
+  - type: Overlay
+    url: overlays/availity-payer-list-overlay.yaml
+    name: API Evangelist enhancements for Availity Payer List
+  - type: Overlay
+    url: overlays/availity-service-reviews-overlay.yaml
+    name: API Evangelist enhancements for Availity Service Reviews
+maintainers:
+  - name: Kin Lane
+    email: kin@apievangelist.com
+modified: '2026-08-15'
+description: >-
+  Availity is a healthcare information network and clearinghouse providing REST APIs for real-time HIPAA EDI
+  transactions. The platform processes over 11 billion annual healthcare transactions connecting providers, health
+  plans, and vendors nationwide. Create your application and subscribe to a plan to make use of Availity APIs for
+  eligibility verification, claims management, prior authorization, and patient cost estimation.
+
+x-enrichment:
+  date: '2026-08-15'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1
