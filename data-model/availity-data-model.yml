@@ -1,0 +1,1138 @@
+generated: '2026-08-15'
+method: derived
+source: openapi/_harvested/*-swagger.json (Availity's own published Swagger 2.0 documents, harvested 2026-08-14)
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  The entity-relationship graph of Availity's public REST surface, derived mechanically from the
+  `definitions` blocks of the eleven first-party Swagger 2.0 documents Availity publishes. Every
+  entity, field count, identifier field and relationship below was read out of Availity's own
+  documents; nothing is inferred from prose.
+shape_notes:
+  - >-
+    THERE IS NO SHARED MODEL ACROSS PRODUCTS. Each Availity API document defines its OWN copy of
+    the common healthcare entities — Patient, Payer, Provider, Subscriber, Submitter, ServiceLine,
+    Diagnosis, Note, ErrorResponse, FieldError, Link, ResultSet all recur, with DIFFERENT field
+    sets, in Coverages, Claim Statuses, Service Reviews and Dental Claims. There is no
+    `components.schemas` reuse across products because each document is generated per product by
+    the gateway. A client cannot write one Payer type and reuse it; it needs a per-product type.
+  - >-
+    NO CROSS-RESOURCE ID GRAPH. Availity's resources are TRANSACTION envelopes, not persistent
+    domain objects. A Coverage does not reference a Claim, a ClaimStatus does not reference a
+    ServiceReview, and there is no customer/account object at the root. The only durable
+    identifier is the per-transaction `id` returned by a POST, which is then polled on the GET.
+    Correlation across transactions is done on X12 business identifiers carried INSIDE the payload
+    (member id, control number, patientAccountNumber, payer claim number), not on API-level ids.
+  - >-
+    THE ROOT ENTITIES ARE THE X12 TRANSACTIONS. Coverage (270/271), ClaimStatus (276/277),
+    ServiceReview (278), DentalClaim, InstitutionalClaim, ProfessionalClaim /
+    ProfessionalPCERequest, Configuration and Payer. Everything else hangs off one of these.
+  - >-
+    EVERY DOCUMENT SHARES ONE ERROR SHAPE: ErrorResponse has_many FieldError. That is the single
+    genuinely universal relationship in the estate. See errors/availity-problem-types.yml.
+  - >-
+    COLLECTION RESPONSES WRAP IN ResultSet. Coverages, Claim Statuses, Service Reviews and
+    Configurations each define a ResultSet whose array member is named for the plural resource
+    (`coverages`, `claimStatuses`, `serviceReviews`, `configurations`) — the pagination contract
+    described in conventions/availity-conventions.yml.
+  - >-
+    THE BENEFITS GRAPH IS THE DEEPEST STRUCTURE IN THE ESTATE. Coverage -> Benefit -> Amounts ->
+    BenefitDetail -> NetworkBenefit is four levels of nesting, and BenefitDetail fans out into
+    inNetwork / outOfNetwork / noNetwork / notApplicableNetwork arrays of NetworkBenefit. Anyone
+    reading co-pay or deductible values must walk all four network buckets, not just `inNetwork`.
+  - >-
+    THE DENTAL CLAIM IS THE WIDEST. DentalClaim -> ClaimInformation carries twelve relationships
+    including six distinct provider roles (rendering, referring, supervising, assistant surgeon,
+    primary care, service facility), and ServiceLine repeats four of those roles at line level.
+render: null
+counts:
+  specs_read: 11
+  entities: 106
+  relationship_bearing_entities: 39
+entities:
+- name: Payer
+  spec: availity-aws-payer-list-swagger.json
+  field_count: 5
+  identifier_fields:
+  - payerId
+- name: Diagnosis
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 5
+  identifier_fields:
+  - code
+  - presentOnAdmissionIndicatorCode
+  - qualifierCode
+- name: ErrorResponse
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: InstitutionalClaim
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 13
+  identifier_fields:
+  - customerId
+  - id
+  - requestTypeCode
+- name: ItemDescription
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 6
+  identifier_fields:
+  - code
+- name: Procedure
+  spec: availity-care-cost-estimator-institutional-swagger.json
+  field_count: 5
+  identifier_fields:
+  - code
+  - qualifierCode
+- name: AmbulanceCertification
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 6
+- name: ClaimAdjustmentGroup
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 2
+  identifier_fields:
+  - groupCode
+- name: ErrorResponse
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: ItemDescription
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 6
+  identifier_fields:
+  - code
+- name: PhysicalLocation
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 7
+  identifier_fields:
+  - countryCode
+  - stateCode
+  - zipCode
+- name: ProfessionalClaim
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 14
+  identifier_fields:
+  - customerId
+  - id
+  - requestTypeCode
+  relationships:
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+- name: Provider
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 21
+  identifier_fields:
+  - countryCode
+  - locationNumber
+  - payerAssignedProviderId
+  - specialtyCode
+  - stateCode
+  - stateLicenseNumber
+  - zipCode
+- name: Subscriber
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 19
+  identifier_fields:
+  - countryCode
+  - groupNumber
+  - memberId
+  - stateCode
+  - zipCode
+  relationships:
+  - kind: has_many
+    via: holdReasons
+    target: ItemDescription
+- name: SupplementalInformation
+  spec: availity-care-cost-estimator-professional-swagger.json
+  field_count: 3
+  identifier_fields:
+  - controlNumber
+  - reportTransmissionCode
+  - reportTypeCode
+- name: ClaimStatus
+  spec: availity-claim-statuses-swagger.json
+  field_count: 24
+  identifier_fields:
+  - claimNumber
+  - controlNumber
+  - customerId
+  - facilityTypeCode
+  - frequencyTypeCode
+  - id
+  - statusCode
+  - userId
+  relationships:
+  - kind: has_many
+    via: claimStatuses
+    target: ClaimStatusResult
+  - kind: has_one
+    via: patient
+    target: Patient
+  - kind: has_one
+    via: payer
+    target: Payer
+  - kind: has_many
+    via: providers
+    target: Provider
+  - kind: has_one
+    via: submitter
+    target: Submitter
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+- name: ClaimStatusDetail
+  spec: availity-claim-statuses-swagger.json
+  field_count: 14
+  identifier_fields:
+  - categoryCode
+  - checkNumber
+  - entityCode
+  - statusCode
+- name: ClaimStatusResult
+  spec: availity-claim-statuses-swagger.json
+  field_count: 14
+  identifier_fields:
+  - claimControlNumber
+  - claimIdentificationNumber
+  - facilityTypeCode
+  - frequencyTypeCode
+  - patientControlNumber
+  - pharmacyPrescriptionNumber
+  - traceId
+  - voucherNumber
+  relationships:
+  - kind: has_many
+    via: serviceLines
+    target: ServiceLine
+  - kind: has_many
+    via: statusDetails
+    target: ClaimStatusDetail
+- name: ClaimStatusSummary
+  spec: availity-claim-statuses-swagger.json
+  field_count: 22
+  identifier_fields:
+  - claimNumber
+  - controlNumber
+  - customerId
+  - facilityTypeCode
+  - frequencyTypeCode
+  - id
+  - statusCode
+- name: ErrorResponse
+  spec: availity-claim-statuses-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-claim-statuses-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: Link
+  spec: availity-claim-statuses-swagger.json
+  field_count: 1
+- name: Patient
+  spec: availity-claim-statuses-swagger.json
+  field_count: 10
+  identifier_fields:
+  - accountNumber
+  - genderCode
+  - subscriberRelationshipCode
+- name: Payer
+  spec: availity-claim-statuses-swagger.json
+  field_count: 8
+  identifier_fields:
+  - ediAccessNumber
+  - id
+- name: Provider
+  spec: availity-claim-statuses-swagger.json
+  field_count: 9
+  identifier_fields:
+  - payerAssignedProviderId
+  - taxId
+  - traceId
+  relationships:
+  - kind: has_many
+    via: statusDetails
+    target: ClaimStatusDetail
+- name: ResultSet
+  spec: availity-claim-statuses-swagger.json
+  field_count: 6
+  relationships:
+  - kind: has_many
+    via: claimStatuses
+    target: ClaimStatusSummary
+- name: ServiceLine
+  spec: availity-claim-statuses-swagger.json
+  field_count: 23
+  identifier_fields:
+  - controlNumber
+  - modifier1Code
+  - modifier2Code
+  - modifier3Code
+  - modifier4Code
+  - procedureCode
+  - procedureQualifierCode
+  - serviceCode
+  relationships:
+  - kind: has_many
+    via: statusDetails
+    target: ClaimStatusDetail
+- name: Submitter
+  spec: availity-claim-statuses-swagger.json
+  field_count: 7
+  identifier_fields:
+  - id
+  - traceId
+  relationships:
+  - kind: has_many
+    via: statusDetails
+    target: ClaimStatusDetail
+- name: Subscriber
+  spec: availity-claim-statuses-swagger.json
+  field_count: 6
+  identifier_fields:
+  - memberId
+  - taxId
+- name: Configuration
+  spec: availity-configurations-swagger.json
+  field_count: 12
+  identifier_fields:
+  - categoryId
+  - payerId
+  - sourceId
+  - subtypeId
+- name: Element
+  spec: availity-configurations-swagger.json
+  field_count: 30
+  identifier_fields:
+  - helpTopicId
+- name: ErrorResponse
+  spec: availity-configurations-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldCondition
+  spec: availity-configurations-swagger.json
+  field_count: 9
+- name: FieldError
+  spec: availity-configurations-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: Link
+  spec: availity-configurations-swagger.json
+  field_count: 1
+- name: ObjectType
+  spec: availity-configurations-swagger.json
+  field_count: 9
+- name: ResultSet
+  spec: availity-configurations-swagger.json
+  field_count: 6
+  relationships:
+  - kind: has_many
+    via: configurations
+    target: Configuration
+- name: Address
+  spec: availity-coverages-swagger.json
+  field_count: 6
+  identifier_fields:
+  - stateCode
+  - zipCode
+- name: Amounts
+  spec: availity-coverages-swagger.json
+  field_count: 4
+  relationships:
+  - kind: has_one
+    via: coInsurance
+    target: BenefitDetail
+  - kind: has_one
+    via: coPayment
+    target: BenefitDetail
+  - kind: has_one
+    via: deductibles
+    target: BenefitDetail
+  - kind: has_one
+    via: outOfPocket
+    target: BenefitDetail
+- name: Benefit
+  spec: availity-coverages-swagger.json
+  field_count: 18
+  identifier_fields:
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: additionalPayers
+    target: Payer
+  - kind: has_one
+    via: amounts
+    target: Amounts
+  - kind: has_one
+    via: benefitDescriptions
+    target: BenefitDetail
+  - kind: has_many
+    via: contacts
+    target: HealthCareContact
+  - kind: has_one
+    via: costContainment
+    target: BenefitDetail
+  - kind: has_one
+    via: coverageBasis
+    target: BenefitDetail
+  - kind: has_one
+    via: exclusions
+    target: BenefitDetail
+  - kind: has_one
+    via: limitations
+    target: BenefitDetail
+  - kind: has_one
+    via: nonCovered
+    target: BenefitDetail
+  - kind: has_many
+    via: payerNotes
+    target: PayerNote
+  - kind: has_one
+    via: preexistingConditions
+    target: BenefitDetail
+  - kind: has_one
+    via: reserve
+    target: BenefitDetail
+  - kind: has_one
+    via: statusDetails
+    target: BenefitDetail
+- name: BenefitDetail
+  spec: availity-coverages-swagger.json
+  field_count: 4
+  relationships:
+  - kind: has_many
+    via: inNetwork
+    target: NetworkBenefit
+  - kind: has_many
+    via: noNetwork
+    target: NetworkBenefit
+  - kind: has_many
+    via: notApplicableNetwork
+    target: NetworkBenefit
+  - kind: has_many
+    via: outOfNetwork
+    target: NetworkBenefit
+- name: ContactInformation
+  spec: availity-coverages-swagger.json
+  field_count: 7
+  identifier_fields:
+  - ediAccessNumber
+- name: Coverage
+  spec: availity-coverages-swagger.json
+  field_count: 22
+  identifier_fields:
+  - controlNumber
+  - customerId
+  - id
+  - procedureCode
+  - statusCode
+  - submitterStatecode
+  relationships:
+  - kind: has_one
+    via: payer
+    target: Payer
+  - kind: has_one
+    via: requestingProvider
+    target: HealthCareContact
+  - kind: has_many
+    via: validationMessages
+    target: FieldError
+- name: CoverageSummary
+  spec: availity-coverages-swagger.json
+  field_count: 20
+  identifier_fields:
+  - controlNumber
+  - customerId
+  - id
+  - procedureCode
+  - statusCode
+  - submitterStatecode
+  relationships:
+  - kind: has_many
+    via: validationMessages
+    target: FieldError
+- name: ErrorResponse
+  spec: availity-coverages-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-coverages-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: HealthCareContact
+  spec: availity-coverages-swagger.json
+  field_count: 78
+  identifier_fields:
+  - alternateListId
+  - categoryCode
+  - contractNumber
+  - coverageListlId
+  - drugFormularyNumber
+  - facilityId
+  - facilityNetworkId
+  - familyUnitNumber
+  - groupNumber
+  - healthInsuranceClaimNumber
+  - medicaidProviderNumber
+  - medicaidRecipientId
+  relationships:
+  - kind: has_one
+    via: address
+    target: Address
+  - kind: has_many
+    via: contactInformation
+    target: ContactInformation
+  - kind: has_many
+    via: deliveryInformation
+    target: HealthCareServiceDelivery
+- name: HealthCareServiceDelivery
+  spec: availity-coverages-swagger.json
+  field_count: 13
+  identifier_fields:
+  - patternCode
+  - perCode
+  - quantityQualifierCode
+  - timeCode
+  - timePeriodCode
+- name: Link
+  spec: availity-coverages-swagger.json
+  field_count: 1
+- name: NetworkBenefit
+  spec: availity-coverages-swagger.json
+  field_count: 62
+  identifier_fields:
+  - amountTimePeriodCode
+  - familyUnitNumber
+  - groupNumber
+  - healthInsuranceClaimNumber
+  - insurancePolicyNumber
+  - insuranceTypeCode
+  - levelCode
+  - medicaidRecipientIdentificationNumber
+  - memberIdentificationNumber
+  - placeOfServiceCode
+  - planNetworkId
+  - planNumber
+  relationships:
+  - kind: has_many
+    via: contacts
+    target: ContactInformation
+  - kind: has_many
+    via: deliveryInformation
+    target: HealthCareServiceDelivery
+- name: Payer
+  spec: availity-coverages-swagger.json
+  field_count: 52
+  identifier_fields:
+  - familyUnitNumber
+  - groupNumber
+  - healthInsuranceClaimNumber
+  - insuredMemberId
+  - medicaidRecipientIdentificationNumber
+  - memberIdentificationNumber
+  - payerId
+  - planNetworkId
+  - planNumber
+  - policyNumber
+  - responsePayerId
+  - serviceTypeCode
+  relationships:
+  - kind: has_one
+    via: address
+    target: Address
+  - kind: has_many
+    via: contactInformation
+    target: ContactInformation
+  - kind: has_one
+    via: insuredAddress
+    target: Address
+  - kind: has_many
+    via: insuredContactInformation
+    target: ContactInformation
+- name: PayerNote
+  spec: availity-coverages-swagger.json
+  field_count: 3
+  identifier_fields:
+  - typeCode
+- name: ResultSet
+  spec: availity-coverages-swagger.json
+  field_count: 6
+  relationships:
+  - kind: has_many
+    via: coverages
+    target: CoverageSummary
+- name: AdjudicationInformation
+  spec: availity-dental-claims-swagger.json
+  field_count: 13
+  identifier_fields:
+  - lineNumber
+  - payerId
+  - procedureCode
+  relationships:
+  - kind: has_many
+    via: claimAdjustmentGroups
+    target: AdjustmentGroup
+- name: Adjustment
+  spec: availity-dental-claims-swagger.json
+  field_count: 3
+  identifier_fields:
+  - reasonCode
+- name: AdjustmentGroup
+  spec: availity-dental-claims-swagger.json
+  field_count: 2
+  identifier_fields:
+  - groupCode
+  relationships:
+  - kind: has_many
+    via: adjustments
+    target: Adjustment
+- name: BillingProvider
+  spec: availity-dental-claims-swagger.json
+  field_count: 24
+  identifier_fields:
+  - countryCode
+  - locationNumber
+  - payerAssignedProviderId
+  - specialtyCode
+  - stateCode
+  - stateLicenseNumber
+  - zipCode
+- name: ClaimInformation
+  spec: availity-dental-claims-swagger.json
+  field_count: 42
+  identifier_fields:
+  - accidentStateCode
+  - contractCode
+  - contractTypeCode
+  - controlNumber
+  - delayReasonCode
+  - frequencyTypeCode
+  - informationReleaseCode
+  - payerClaimControlNumber
+  - placeOfServiceCode
+  - priorAuthorizationNumber
+  - providerAcceptAssignmentCode
+  - serviceAuthorizationExceptionCode
+  relationships:
+  - kind: has_one
+    via: assistantSurgeon
+    target: Provider
+  - kind: has_many
+    via: diagnoses
+    target: Diagnosis
+  - kind: has_many
+    via: notes
+    target: Note
+  - kind: has_many
+    via: otherPayers
+    target: OtherPayer
+  - kind: has_one
+    via: primaryCareProvider
+    target: Provider
+  - kind: has_one
+    via: referringProvider
+    target: Provider
+  - kind: has_one
+    via: renderingProvider
+    target: Provider
+  - kind: has_one
+    via: serviceFacility
+    target: Provider
+  - kind: has_many
+    via: serviceLines
+    target: ServiceLine
+  - kind: has_one
+    via: supervisingProvider
+    target: Provider
+  - kind: has_many
+    via: supplementalInformation
+    target: SupplementalInformation
+  - kind: has_many
+    via: toothStatuses
+    target: ToothStatus
+- name: DentalClaim
+  spec: availity-dental-claims-swagger.json
+  field_count: 13
+  identifier_fields:
+  - customerId
+  - id
+  - requestTypeCode
+  relationships:
+  - kind: has_one
+    via: billingProvider
+    target: BillingProvider
+  - kind: has_one
+    via: claimInformation
+    target: ClaimInformation
+  - kind: has_one
+    via: patient
+    target: Patient
+  - kind: has_one
+    via: payer
+    target: Payer
+  - kind: has_one
+    via: submitter
+    target: Submitter
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+- name: Diagnosis
+  spec: availity-dental-claims-swagger.json
+  field_count: 2
+  identifier_fields:
+  - code
+  - qualifierCode
+- name: ErrorResponse
+  spec: availity-dental-claims-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-dental-claims-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: Note
+  spec: availity-dental-claims-swagger.json
+  field_count: 1
+- name: OtherPayer
+  spec: availity-dental-claims-swagger.json
+  field_count: 27
+  identifier_fields:
+  - claimControlNumber
+  - claimFilingIndicatorCode
+  - claimOfficeNumber
+  - countryCode
+  - id
+  - informationReleaseCode
+  - insuranceTypeCode
+  - naicCode
+  - priorAuthorizationNumber
+  - referralNumber
+  - responsibilitySequenceCode
+  - stateCode
+  relationships:
+  - kind: has_many
+    via: claimAdjustmentGroups
+    target: AdjustmentGroup
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+- name: Patient
+  spec: availity-dental-claims-swagger.json
+  field_count: 14
+  identifier_fields:
+  - agencyClaimNumber
+  - countryCode
+  - genderCode
+  - stateCode
+  - subscriberRelationshipCode
+  - zipCode
+- name: Payer
+  spec: availity-dental-claims-swagger.json
+  field_count: 14
+  identifier_fields:
+  - claimFilingIndicatorCode
+  - claimOfficeNumber
+  - countryCode
+  - id
+  - insuranceTypeCode
+  - naicCode
+  - responsibilitySequenceCode
+  - stateCode
+  - zipCode
+- name: Provider
+  spec: availity-dental-claims-swagger.json
+  field_count: 17
+  identifier_fields:
+  - countryCode
+  - locationNumber
+  - payerAssignedProviderId
+  - referralNumber
+  - specialtyCode
+  - stateCode
+  - stateLicenseNumber
+  - zipCode
+- name: ServiceLine
+  spec: availity-dental-claims-swagger.json
+  field_count: 41
+  identifier_fields:
+  - contractCode
+  - contractTypeCode
+  - controlNumber
+  - placeOfServiceCode
+  - priorAuthorizationNumber
+  - procedureCode
+  - prostheticCode
+  - referralNumber
+  relationships:
+  - kind: has_many
+    via: adjudicationInformation
+    target: AdjudicationInformation
+  - kind: has_one
+    via: assistantSurgeon
+    target: Provider
+  - kind: has_one
+    via: renderingProvider
+    target: Provider
+  - kind: has_one
+    via: serviceFacility
+    target: Provider
+  - kind: has_one
+    via: supervisingProvider
+    target: Provider
+  - kind: has_many
+    via: toothInformation
+    target: ToothInformation
+- name: Submitter
+  spec: availity-dental-claims-swagger.json
+  field_count: 9
+  identifier_fields:
+  - id
+- name: Subscriber
+  spec: availity-dental-claims-swagger.json
+  field_count: 14
+  identifier_fields:
+  - countryCode
+  - groupNumber
+  - memberId
+  - stateCode
+  - zipCode
+- name: SupplementalInformation
+  spec: availity-dental-claims-swagger.json
+  field_count: 3
+  identifier_fields:
+  - controlNumber
+  - reportTransmissionCode
+  - reportTypeCode
+- name: ToothInformation
+  spec: availity-dental-claims-swagger.json
+  field_count: 6
+  identifier_fields:
+  - toothCode
+- name: ToothStatus
+  spec: availity-dental-claims-swagger.json
+  field_count: 2
+  identifier_fields:
+  - toothCode
+  - toothStatusCode
+- name: ErrorResponse
+  spec: availity-dfs-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-dfs-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: AmbulanceCertification
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 6
+- name: ClaimAdjustmentGroup
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 3
+  identifier_fields:
+  - groupCode
+- name: CoveragePlanCandidates
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 1
+- name: ErrorResponse
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 3
+  identifier_fields:
+  - id
+  relationships:
+  - kind: has_many
+    via: candidates
+    target: CoveragePlanCandidates
+- name: ItemDescription
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 6
+  identifier_fields:
+  - code
+- name: PhysicalLocation
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 7
+  identifier_fields:
+  - countryCode
+  - stateCode
+  - zipCode
+- name: PollingResponse
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 2
+  identifier_fields:
+  - id
+- name: ProfessionalClaimBase
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 5
+  relationships:
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+- name: ProfessionalPCERequest
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 0
+- name: ProfessionalPCEResponse
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 4
+  identifier_fields:
+  - id
+- name: Provider
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 21
+  identifier_fields:
+  - countryCode
+  - locationNumber
+  - payerAssignedProviderId
+  - specialtyCode
+  - stateCode
+  - stateLicenseNumber
+  - zipCode
+- name: Subscriber
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 19
+  identifier_fields:
+  - countryCode
+  - groupNumber
+  - memberId
+  - stateCode
+  - zipCode
+  relationships:
+  - kind: has_many
+    via: holdReasons
+    target: ItemDescription
+- name: SupplementalInformation
+  spec: availity-patient-cost-estimator-professional-swagger.json
+  field_count: 3
+  identifier_fields:
+  - controlNumber
+  - reportTransmissionCode
+  - reportTypeCode
+- name: Payer
+  spec: availity-payer-list-swagger.json
+  field_count: 5
+  identifier_fields:
+  - payerId
+- name: Diagnosis
+  spec: availity-service-reviews-swagger.json
+  field_count: 5
+  identifier_fields:
+  - code
+  - qualifierCode
+- name: ErrorResponse
+  spec: availity-service-reviews-swagger.json
+  field_count: 5
+  identifier_fields:
+  - reasonCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: errors
+    target: FieldError
+- name: FieldError
+  spec: availity-service-reviews-swagger.json
+  field_count: 4
+  identifier_fields:
+  - code
+- name: Link
+  spec: availity-service-reviews-swagger.json
+  field_count: 1
+- name: Note
+  spec: availity-service-reviews-swagger.json
+  field_count: 3
+  identifier_fields:
+  - typeCode
+- name: Patient
+  spec: availity-service-reviews-swagger.json
+  field_count: 22
+  identifier_fields:
+  - conditionCode
+  - genderCode
+  - prognosisCode
+  - stateCode
+  - statusCode
+  - subscriberRelationshipCode
+  - zipCode
+- name: Payer
+  spec: availity-service-reviews-swagger.json
+  field_count: 8
+  identifier_fields:
+  - id
+- name: Procedures
+  spec: availity-service-reviews-swagger.json
+  field_count: 29
+  identifier_fields:
+  - certificationNumber
+  - code
+  - qualifierCode
+  - quantityTypeCode
+  - revenueCode
+  - statusCode
+  relationships:
+  - kind: has_many
+    via: notes
+    target: Note
+- name: RenderingProvider
+  spec: availity-service-reviews-swagger.json
+  field_count: 23
+  identifier_fields:
+  - payerAssignedProviderId
+  - roleCode
+  - specialtyCode
+  - stateCode
+  - taxId
+  - zipCode
+- name: RequestingProvider
+  spec: availity-service-reviews-swagger.json
+  field_count: 22
+  identifier_fields:
+  - payerAssignedProviderId
+  - specialtyCode
+  - stateCode
+  - submitterId
+  - taxId
+  - zipCode
+- name: ResultSet
+  spec: availity-service-reviews-swagger.json
+  field_count: 6
+  relationships:
+  - kind: has_many
+    via: serviceReviews
+    target: ServiceReview
+- name: ServiceReview
+  spec: availity-service-reviews-swagger.json
+  field_count: 75
+  identifier_fields:
+  - admissionSourceCode
+  - admissionTypeCode
+  - beginningSubluxationLevelCode
+  - certificationNumber
+  - controlNumber
+  - customerId
+  - endingSubluxationLevelCode
+  - id
+  - nursingHomeResidentialStatusCode
+  - oxygenDeliverySystemTypeCode
+  - oxygenEquipmentTypeCode
+  - placeOfServiceCode
+  relationships:
+  - kind: has_many
+    via: diagnoses
+    target: Diagnosis
+  - kind: has_one
+    via: patient
+    target: Patient
+  - kind: has_one
+    via: payer
+    target: Payer
+  - kind: has_many
+    via: payerNotes
+    target: Note
+  - kind: has_many
+    via: procedures
+    target: Procedures
+  - kind: has_many
+    via: providerNotes
+    target: Note
+  - kind: has_many
+    via: renderingProviders
+    target: RenderingProvider
+  - kind: has_one
+    via: requestingProvider
+    target: RequestingProvider
+  - kind: has_one
+    via: subscriber
+    target: Subscriber
+  - kind: has_one
+    via: supplementalInformation
+    target: SupplementalInformation
+  - kind: has_many
+    via: transportLocations
+    target: TransportLocation
+  - kind: has_many
+    via: validationMessages
+    target: FieldError
+- name: Subscriber
+  spec: availity-service-reviews-swagger.json
+  field_count: 11
+  identifier_fields:
+  - memberId
+  - stateCode
+  - zipCode
+- name: SupplementalInformation
+  spec: availity-service-reviews-swagger.json
+  field_count: 5
+  identifier_fields:
+  - refAuthNumber
+  relationships:
+  - kind: has_many
+    via: diagnoses
+    target: Diagnosis
+  - kind: has_many
+    via: procedures
+    target: Diagnosis
+- name: TransportLocation
+  spec: availity-service-reviews-swagger.json
+  field_count: 7
+  identifier_fields:
+  - stateCode
+  - zipCode
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

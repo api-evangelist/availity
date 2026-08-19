@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Availity Claim Attachments Auth Attachments Is Auth Required API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.availity.com/availity/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Is Auth Required",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity Check if Authorization is Required",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/value-adds/v1/isauthrequired",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query whether a payer requires prior authorization before submitting a service review request."
+        },
+        {
+          "info": {
+            "name": "Availity Get Authorization Requirement Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/value-adds/v1/isauthrequired/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "500123",
+                "type": "path",
+                "description": "Job ID from POST response"
+              }
+            ]
+          },
+          "docs": "Poll for the result of an IsAuthRequired check."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

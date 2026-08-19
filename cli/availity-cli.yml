@@ -1,0 +1,77 @@
+generated: '2026-08-15'
+method: searched
+source: https://github.com/Availity/availity-workflow, https://registry.npmjs.org/@availity/workflow
+docs: https://github.com/Availity/availity-workflow
+provider: Availity
+providerId: availity
+summary: >-
+  Availity ships one first-party CLI, `av` (also aliased `workflow`), distributed as the npm package
+  @availity/workflow. IMPORTANT SCOPE CAVEAT: it is a FRONTEND BUILD TOOLKIT for React applications
+  that run inside the Availity Essentials portal — "heavily inspired by create-react-app". It is NOT
+  a CLI for the Availity REST APIs. There is no `av coverages`, no `av claim-status`, no token
+  helper, no request runner and no webhook forwarder. An integrator working against
+  api.availity.com gets no command-line tooling from Availity at all; the API Guide teaches raw
+  cURL.
+cli:
+  name: av
+  aliases:
+    - workflow
+  package: '@availity/workflow'
+  registry: npm
+  registry_url: https://www.npmjs.com/package/@availity/workflow
+  version: 14.2.1
+  published: '2026-06-30'
+  official: true
+  repository: https://github.com/Availity/availity-workflow
+  license_source: repository
+  purpose: build/dev toolkit and project scaffolding for Availity portal React applications
+  api_client: false
+install:
+  - method: npx (scaffold a new project)
+    command: npx @availity/workflow init <your-project-name>
+    note: '`-t` / `--template` selects an alternate template, for example a TypeScript starter.'
+  - method: npm (add to an existing project)
+    command: npm install @availity/workflow
+  - method: upgrade an existing project
+    command: npx @availity/workflow-upgrade
+commands:
+  - group: project
+    commands:
+      - name: init
+        usage: npx @availity/workflow init <project-name> [-t <template>]
+        description: Scaffold a new Availity web project from a template.
+      - name: upgrade
+        usage: npx @availity/workflow-upgrade
+        description: Upgrade an existing project's workflow tooling to a newer version.
+  - group: develop
+    commands:
+      - name: start
+        usage: av start
+        description: >-
+          Run the development server with hot reloading (React Fast Refresh). Supports proxy
+          configuration for API requests and an integrated mock server with configurable latency.
+      - name: build
+        usage: av build
+        description: >-
+          Produce a production bundle (webpack 5). Copies project/app/static into the build output
+          and injects a global APP_VERSION variable.
+      - name: test
+        usage: av test
+        description: Run unit tests with Vitest (Jest/Vitest setup with overridable configuration).
+notable_features:
+  - >-
+    The dev server ships a MOCK SERVER with configurable latency and a request proxy. This is the
+    closest thing Availity offers to local API simulation, but it mocks whatever you configure — it
+    is not preloaded with Availity API fixtures and it is not connected to the Demo environment. The
+    real sandbox is the OAuth-scope-selected Demo plan; see sandbox/availity-sandbox.yml.
+gaps:
+  - No CLI for the public REST APIs — no token acquisition, no request execution, no response inspection.
+  - No CLI for X12/EDI file submission or retrieval.
+  - No event/webhook forwarding command, because Availity ships no events or webhooks.
+cross_links:
+  packages: packages/availity-packages.yml
+  components: components/availity-components.yml
+  sandbox: sandbox/availity-sandbox.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

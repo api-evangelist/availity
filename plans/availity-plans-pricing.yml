@@ -4,12 +4,31 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Availity
 providerId: availity
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
-notes: Availity does not publish public per-call API pricing. Provider portal access (Availity
-  Essentials) is free to providers because participating health plans pay for it. Premium offerings
-  (Essentials Pro, Clearinghouse, RCM, Extend) are quote-based and depend on transaction volume,
-  payer mix, and integration scope.
+modified: '2026-08-15'
+generated: '2026-08-15'
+method: searched
+source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1, https://developer.availity.com/portal/catalogue-products/aws-availity-payer-list-1, https://developer.availity.com/blog/2025/3/25/availity-api-guide
+docs: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+reconciled: true
+supersedes: >-
+  This file previously carried method: generated from the 2026-05-04 bulk sweep and described only
+  the corporate product lines (Essentials, Essentials Pro, Clearinghouse, RCM, Extend) with no
+  numbers. Upgraded to method: searched on 2026-08-15 by reading the API PRODUCT CATALOGUE plans
+  Availity publishes on its developer portal, which do carry published quotas.
+plan_count: 7
+summary: >-
+  Availity publishes plan TIERS with real quota numbers on its developer portal product pages, and
+  publishes NO PRICE for any of them. That combination is the whole finding: an integrator can learn
+  exactly how many calls a plan allows and cannot learn what a call costs. The Demo plan is free,
+  self-serve and auto-approved. Every production plan is sales-gated — a portal request plus a sales
+  conversation plus contracting through Trading Partner Management. The corporate product lines
+  (Essentials, Essentials Pro, Clearinghouse, RCM, Extend) are separately quote-based.
+pricing_published: false
+pricing_note: >-
+  No price, no rate card, no per-transaction cost and no currency appears on any public Availity
+  page for any API plan or product. Availity Essentials (the provider portal, not the API) is free
+  to providers because participating health plans pay for it — that is the only price Availity
+  states publicly, and it is not an API price.
 tags:
   - Healthcare
   - HIPAA
@@ -18,22 +37,176 @@ tags:
   - Claims
   - Clearinghouse
   - Revenue Cycle Management
-description: Availity is a healthcare network connecting providers, health plans, and trading partners.
-  Availity Essentials (provider portal) is free to providers — paid for by participating health plans.
-  Premium offerings (Essentials Pro, Clearinghouse / Trading Partner Network, Revenue Cycle Management,
-  Extend orchestration) are subscription / per-transaction priced and quote-based.
+description: >-
+  Availity's API business is sold as subscribable PRODUCTS on the developer portal, each carrying
+  plan tiers with published call quotas but no published price, plus a set of quote-based corporate
+  product lines. The Demo tier is genuinely self-serve; production is contract-gated.
 sources:
+  - https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - https://developer.availity.com/portal/catalogue-products/aws-availity-payer-list-1
+  - https://developer.availity.com/blog/2025/3/25/availity-api-guide
   - https://www.availity.com/
-  - https://www.availity.com/essentials
-  - https://www.availity.com/products
 plans:
+  - id: healthcare-hipaa-transactions-standard
+    name: Healthcare HIPAA Transactions — Standard
+    type: subscription
+    kind: api-product-plan
+    scope: healthcare-hipaa-transactions-standard
+    description: >-
+      Production tier of the core API product covering Coverages (270/271), Claim Statuses
+      (276/277), Service Reviews (278), Dental Claims, professional and institutional claim
+      predeterminations, Configurations, Payer List and Dfs.
+    quota:
+      calls: 100000
+      period: day
+      published: true
+    rate_limit:
+      calls: 100
+      period: second
+      published: true
+    price: not published
+    currency: null
+    self_serve: false
+    gate: >-
+      Portal subscription request AND a sales conversation; Trading Partner Management completes
+      contracting before the subscription is activated. A BAA is required.
+    entries:
+      - label: Standard plan subscription
+        name: healthcare_hipaa_transactions_standard
+        type: subscription
+        metric: transaction
+        limit: 100000
+        timeFrame: day
+        geo: US
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+  - id: healthcare-hipaa-transactions-demo
+    name: Healthcare HIPAA Transactions — Demo
+    type: free
+    kind: api-product-plan
+    scope: healthcare-hipaa-transactions-demo
+    description: >-
+      Free, PHI-free sandbox tier returning canned responses. Selected by requesting the -demo plan
+      scope at the token endpoint; same host and token format as production.
+    quota:
+      calls: null
+      period: null
+      published: false
+      note: >-
+        Availity documents the Demo plan and its behaviour but does not publish its quota or rate
+        limit on the public product page. Recorded as null rather than guessed.
+    price: '0.00'
+    currency: USD
+    self_serve: true
+    gate: auto-approved, no contract
+    entries:
+      - label: Demo plan subscription
+        name: healthcare_hipaa_transactions_demo
+        type: subscription
+        metric: transaction
+        limit: -1
+        timeFrame: day
+        geo: US
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+  - id: healthcare-hipaa-transactions-highvolume
+    name: Healthcare HIPAA Transactions High Volume
+    type: subscription
+    kind: api-product-plan
+    scope: healthcare-hipaa-transactions-highvolume
+    description: >-
+      Elevated-throughput variant of the core product. Its plan scopes (-standard and -unlimited)
+      appear in Availity's own published Swagger securityDefinitions, but the product is not listed
+      on the public catalogue page.
+    quota:
+      calls: null
+      period: null
+      published: false
+    price: not published
+    currency: null
+    self_serve: false
+    gate: contract-only; not offered on the public catalogue
+    entries:
+      - label: High Volume subscription
+        name: healthcare_hipaa_transactions_highvolume
+        type: subscription
+        metric: transaction
+        limit: -1
+        timeFrame: day
+        geo: US
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+  - id: aws-availity-payer-list-standard
+    name: AWS Availity Payer List — Standard
+    type: subscription
+    kind: api-product-plan
+    scope: aws-availity-payer-list-standard
+    description: >-
+      Separately subscribable product exposing the payer list through an AWS-hosted route at
+      basePath /epdm-payer-list-aws/v1.
+    quota:
+      calls: 1000000
+      period: day
+      published: true
+    rate_limit:
+      calls: 100
+      period: second
+      published: true
+    price: not published
+    currency: null
+    self_serve: false
+    entries:
+      - label: AWS Payer List Standard subscription
+        name: aws_availity_payer_list_standard
+        type: subscription
+        metric: transaction
+        limit: 1000000
+        timeFrame: day
+        geo: US
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+  - id: rcm-coverages-standard
+    name: RCM Coverages — Standard
+    type: subscription
+    kind: api-product-plan
+    scope: rcm-coverages-standard
+    description: >-
+      Revenue-cycle-management-specific entitlement over the Coverages (270/271) API. Declared in
+      Availity's Coverages Swagger securityDefinitions but not offered as a public catalogue product.
+    quota:
+      calls: null
+      period: null
+      published: false
+    price: not published
+    currency: null
+    self_serve: false
+    gate: contract-only; visible only inside the machine-readable document
+    entries:
+      - label: RCM Coverages subscription
+        name: rcm_coverages_standard
+        type: subscription
+        metric: transaction
+        limit: -1
+        timeFrame: day
+        geo: US
+        unit: 1
+        price: contact sales
+        userMultiplied: false
   - id: availity-essentials
     name: Availity Essentials
     type: freemium
-    description: Free multi-payer provider portal. Providers access eligibility, claim status, ERA, and
-      authorizations across participating payers. Cost is borne by the payers, not the provider.
+    kind: corporate-product
+    description: >-
+      Free multi-payer provider portal (not an API plan). Providers access eligibility, claim
+      status, ERA and authorizations across participating payers; the cost is borne by the payers.
+    price: '0.00'
+    currency: USD
     entries:
-      - label: Provider Portal Access
+      - label: Provider portal access
         name: provider_portal
         type: subscription
         metric: seat
@@ -49,77 +222,20 @@ plans:
       - name: Electronic Remittance Advice (835)
       - name: Authorizations
       - name: Multi-Payer Reporting
-  - id: availity-essentials-pro
-    name: Availity Essentials Pro
-    type: subscription
-    description: Paid upgrade to Essentials with deeper RCM workflows, expanded reporting, and value-add
-      tools for provider organizations. Quote-based pricing.
-    entries:
-      - label: Essentials Pro Subscription
-        name: essentials_pro
-        type: subscription
-        metric: seat
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: true
-    elements:
-      - name: Advanced Claim Status workflows
-      - name: Coverage Discovery
-      - name: Worklist Management
-      - name: Enhanced Reporting
-  - id: availity-clearinghouse
-    name: Clearinghouse / Trading Partner Network
-    type: usage-based
-    description: National-scale X12 transaction processing for trading partners. Per-transaction or
-      volume-tier pricing under bilateral agreement.
-    entries:
-      - label: X12 Transaction
-        name: x12_transaction
-        type: metered
-        metric: transaction
-        limit: -1
-        timeFrame: usage
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: '270/271 Eligibility'
-      - name: '276/277 Claim Status'
-      - name: '278 Authorization'
-      - name: '835 ERA'
-      - name: '837 Claim Submission'
-  - id: availity-rcm
-    name: Revenue Cycle Management
-    type: subscription
-    description: Pre-service, post-service, and post-adjudication RCM tooling. Quote-based pricing.
-    entries:
-      - label: RCM Subscription
-        name: rcm_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: Pre-service eligibility & estimation
-      - name: Claim editing & submission
-      - name: Denial management
-      - name: Post-adjudication reconciliation
-  - id: availity-extend
-    name: Availity Extend
+  - id: availity-commercial-lines
+    name: Essentials Pro / Clearinghouse / RCM / Extend
     type: enterprise
-    description: Orchestration layer for building automated healthcare workflows on top of the Availity
-      network. Enterprise pricing.
+    kind: corporate-product
+    description: >-
+      Availity's paid product lines — Essentials Pro (expanded portal workflows), Clearinghouse /
+      Trading Partner Network (per-transaction X12 processing), Revenue Cycle Management, and
+      Availity Extend (workflow orchestration). All quote-based; no price, tier structure or
+      transaction rate is published.
+    price: not published
+    currency: null
     entries:
-      - label: Extend Platform
-        name: extend_platform
+      - label: Quote-based commercial engagement
+        name: commercial_engagement
         type: subscription
         metric: month
         limit: -1
@@ -129,9 +245,10 @@ plans:
         price: contact sales
         userMultiplied: false
     elements:
-      - name: Workflow orchestration
-      - name: Real-time API integration
-      - name: Event-driven automation
+      - name: Essentials Pro — advanced claim status, coverage discovery, worklists, reporting
+      - name: Clearinghouse / Trading Partner Network — 270/271, 276/277, 278, 835, 837
+      - name: Revenue Cycle Management — pre-service estimation, claim editing, denial management
+      - name: Availity Extend — workflow orchestration and real-time API integration
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

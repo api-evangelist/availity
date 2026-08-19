@@ -4,53 +4,133 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Availity
 providerId: availity
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
-notes: Availity does not publish public per-second rate limit numbers on its public site. Limits are
-  per trading-partner / per-application, governed by the trading-partner agreement. Trading-partner
-  developer docs (apicraft.availity.com) require authenticated access.
+modified: '2026-08-15'
+generated: '2026-08-15'
+method: searched
+source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1, https://developer.availity.com/portal/catalogue-products/aws-availity-payer-list-1, https://developer.availity.com/blog/2025/3/25/availity-api-guide
+docs: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+reconciled: true
+supersedes: >-
+  This file previously carried method: generated from the 2026-05-04 bulk sweep and asserted that
+  Availity "does not publish public per-second rate limit numbers". That was wrong. Availity
+  publishes exact per-plan quotas on its public developer-portal product pages. Upgraded to
+  method: searched on 2026-08-15 with the real numbers.
+limit_count: 4
+summary: >-
+  Availity publishes the NUMBERS and withholds the SIGNAL. Exact per-plan ceilings are printed on
+  the public product pages, and 429 is documented in the status-code table, but the API returns NO
+  rate-limit response headers of any kind — no X-RateLimit-*, no RateLimit-* (draft), and no
+  documented Retry-After. A client therefore has zero runtime visibility into remaining budget and
+  must throttle client-side against the published ceiling and back off blind on 429.
+response_headers:
+  published: false
+  x_ratelimit: false
+  ratelimit_draft: false
+  retry_after: false
+  note: >-
+    Checked against the Availity API Guide (the authoritative cross-cutting reference, including its
+    full HTTP status-code table and its header documentation) and against all eleven first-party
+    Swagger 2.0 documents in openapi/_harvested/ — no rate-limit header is declared on any response
+    in any document. This is a recorded absence, not an unchecked gap.
+  agent_impact: >-
+    An agent looping over Availity cannot discover how much budget it has left, cannot learn when
+    the window resets, and gets no server-specified wait on exhaustion. Exponential backoff with
+    jitter plus a client-side token bucket sized to the plan ceiling is the only correct strategy.
+responseCodes:
+  throttled: 429
+  throttled_message: The transaction rate limit has been exceeded.
+  serviceUnavailable: 503
+  serviceUnavailable_note: >-
+    503 on Availity generally means the upstream PAYER is unavailable or in a maintenance window,
+    not that Availity is throttling. Distinguish the two: 429 is your budget, 503 is the payer.
 tags:
   - Healthcare
   - HIPAA
   - X12 EDI
   - Rate Limiting
-description: Rate limits for the Availity REST and X12 surfaces. Limits are per registered application
-  / trading-partner, with separate ceilings for batch X12 vs real-time transactions. Numeric limits
-  are not posted publicly; they are enforced via Availity's trading-partner agreement and gateway.
-responseCodes:
-  throttled: 429
-  serviceUnavailable: 503
+description: >-
+  Published per-plan rate limits and quotas for the Availity REST APIs, read from the developer
+  portal product catalogue. Limits are enforced per subscribed application/plan; the plan itself is
+  governed by the trading-partner agreement.
 limits:
-  - name: REST API per-application
-    scope: application
-    metric: varies
-    limit: see trading-partner agreement
-    notes: Availity gates real-time eligibility / claim-status REST APIs per registered application;
-      numeric ceilings depend on the partner agreement.
-  - name: X12 batch
-    scope: trading-partner
-    metric: varies
-    limit: see trading-partner agreement
-    notes: Batch X12 submissions are sized by file size and submission frequency rather than per-second
-      RPS.
-  - name: Real-time X12 (270/271, 276/277, 278)
-    scope: trading-partner
-    metric: varies
-    limit: see trading-partner agreement
-    notes: Real-time 270/276/278 transactions are intended for point-of-care lookups and shaped to
-      sub-second latency; volume is bounded by partner contract.
+  - name: Healthcare HIPAA Transactions — Standard plan, daily quota
+    scope: application-plan
+    plan: healthcare-hipaa-transactions-standard
+    metric: calls
+    limit: 100000
+    window: 1 day
+    published: true
+    source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - name: Healthcare HIPAA Transactions — Standard plan, burst rate
+    scope: application-plan
+    plan: healthcare-hipaa-transactions-standard
+    metric: calls
+    limit: 100
+    window: 1 second
+    published: true
+    source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - name: AWS Availity Payer List — Standard plan, daily quota
+    scope: application-plan
+    plan: aws-availity-payer-list-standard
+    metric: calls
+    limit: 1000000
+    window: 1 day
+    published: true
+    source: https://developer.availity.com/portal/catalogue-products/aws-availity-payer-list-1
+  - name: AWS Availity Payer List — Standard plan, burst rate
+    scope: application-plan
+    plan: aws-availity-payer-list-standard
+    metric: calls
+    limit: 100
+    window: 1 second
+    published: true
+    source: https://developer.availity.com/portal/catalogue-products/aws-availity-payer-list-1
+unpublished_limits:
+  - plan: healthcare-hipaa-transactions-demo
+    note: >-
+      The Demo plan's quota and burst rate are not published on the public product page. Availity
+      documents the Demo environment's behaviour but not its ceiling. Recorded as unknown rather
+      than guessed.
+  - plan: healthcare-hipaa-transactions-highvolume (-standard, -unlimited)
+    note: >-
+      The High Volume product's scopes appear in Availity's own Swagger securityDefinitions but the
+      product is not listed on the public catalogue, so no ceiling is published.
+  - plan: rcm-coverages-standard
+    note: Declared in the Coverages Swagger only; no public catalogue page and no published ceiling.
+  - surface: token endpoint
+    note: >-
+      POST /v1/token is not documented as exempt from the plan quota. A naive per-request token
+      fetch may therefore consume plan budget on top of the API call. Availity does not state this
+      either way; recorded as an open question, not an assertion.
 policies:
-  - name: Backoff Strategy
-    description: Implement exponential backoff with jitter on 429 / 503. Honor Retry-After when present.
-  - name: Trading Partner Agreement Governs
-    description: Sustained throughput must be authorized in the Availity trading-partner agreement;
-      uncoordinated bursts may be throttled even if within the technical ceiling.
-  - name: HIPAA / PHI Handling
-    description: All requests carry PHI; clients must operate under a BAA with Availity and adhere to
-      HIPAA Security Rule controls in addition to rate posture.
-  - name: Idempotency for Claims
-    description: 837 claim submissions should use payer-assigned tracking identifiers (ICN / Claim ID)
-      to prevent duplicate adjudication on retry.
+  - name: Client-side throttle against the published ceiling
+    description: >-
+      Because there is no header signal, size a client-side token bucket to the plan ceiling
+      (100 calls/sec on both published Standard plans) rather than reacting to the server.
+  - name: Backoff strategy
+    description: >-
+      Exponential backoff with jitter on 429 and 503. Honor Retry-After if one ever appears, but do
+      not depend on it — it is not documented.
+  - name: Cache the token
+    description: >-
+      Tokens live 300 seconds with no refresh token. Cache and refresh at ~80% of life, serialized,
+      so a burst does not stampede the token endpoint. See authentication/availity-authentication.yml.
+  - name: Never retry a write to recover from a timeout
+    description: >-
+      Availity ships no idempotency key. On 504 or a timeout on a submit, re-poll the transaction id
+      instead of re-submitting, or risk duplicate adjudication. See conventions/availity-conventions.yml.
+  - name: Trading partner agreement governs
+    description: >-
+      Sustained production throughput must be authorized in the Availity trading-partner agreement;
+      the plan tier is assigned during contracting, not self-selected.
+  - name: HIPAA / PHI handling
+    description: >-
+      All requests carry PHI. Clients must operate under a BAA with Availity and meet HIPAA Security
+      Rule controls in addition to rate posture.
+cross_links:
+  plans: plans/availity-plans-pricing.yml
+  conventions: conventions/availity-conventions.yml
+  errors: errors/availity-problem-types.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

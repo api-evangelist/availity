@@ -1,0 +1,109 @@
+generated: '2026-08-15'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  Availity ships a real, self-serve, PHI-free sandbox called the DEMO environment. It is not a
+  separate host and not a separate key prefix — the same api.availity.com host and the same OAuth
+  client-credentials token are used, and the environment is selected entirely by the SCOPE
+  requested at token time. That design choice is the single most important thing to know about
+  testing Availity: a caller who requests the wrong scope hits production PHI with the same code.
+separation_model:
+  mechanism: oauth-scope
+  host: https://api.availity.com
+  note: >-
+    Test and live are NOT separated by hostname, by base path, or by a key prefix. There is no
+    sk_test/sk_live style token marker. The Demo plan and the Standard plan are different
+    SUBSCRIPTIONS on the same registered application, and the environment is chosen by which plan
+    scope is sent in the token request.
+  demo_scope_example: 'scope=healthcare-hipaa-transactions healthcare-hipaa-transactions-demo'
+  live_scope_example: 'scope=healthcare-hipaa-transactions healthcare-hipaa-transactions-standard'
+  cross_link: scopes/availity-scopes.yml
+access:
+  self_serve: true
+  cost: free
+  approval: auto-approved
+  contract_required: false
+  quote: >-
+    "Availity offers a trial package that allows you to begin exploring our APIs without completing
+    a formal application process."
+  steps:
+    - Create a developer.availity.com account (email verification plus mandatory MFA via an authenticator app).
+    - Create an Organization.
+    - Register an application under My Apps to obtain the client id / client secret.
+    - Subscribe the application to an API product on the DEMO plan — auto-approved, no contract.
+    - Request a token with the demo plan scope and call api.availity.com normally.
+  production_gate: >-
+    Moving to the Standard plan requires a portal request AND a sales conversation; Trading Partner
+    Management completes contracting before activation. See lifecycle/availity-lifecycle.yml.
+data:
+  phi_free: true
+  canned: true
+  quote: >-
+    "The Demo environment returns canned responses; therefore, the data you receive does not change
+    based on the request."
+  agent_note: >-
+    Because responses are canned rather than computed, the Demo environment validates AUTH, SHAPE
+    and ERROR HANDLING but does NOT validate payer-specific X12 field requirements. A request that
+    passes in Demo can still be rejected 422 in production by a payer's own edits. Use the
+    Configurations API (findConfigurations) to fetch a payer's real field requirements before
+    going live.
+  published_test_values:
+    - kind: mock payer
+      name: Mock Payer A
+      id: '100000001'
+      source: Availity API Guide sample Payer List demo response
+    - kind: mock payer
+      name: Mock Payer B
+      id: '100000002'
+      source: Availity API Guide sample Payer List demo response
+  test_value_note: >-
+    Availity publishes no test member IDs, no magic subscriber numbers, no test NPIs and no test
+    claim numbers. The only test identifiers visible on the public surface are the mock payer ids
+    above, which appear inside the guide's sample demo response. Nothing here is invented — the
+    absence of a published test-data table is itself the finding, and it means an integrator
+    cannot construct a meaningful Demo request from public documentation alone.
+scenario_selection:
+  supported: true
+  request_header:
+    name: X-Api-Mock-Scenario-ID
+    direction: request
+    description: >-
+      Send the scenario id of the demo response you want. This is how a caller drives the Demo
+      environment through more than its default canned answer — for example an eligibility hit
+      versus a not-covered response.
+  response_header:
+    name: X-Api-Mock-Response
+    value: 'true'
+    direction: response
+    description: >-
+      Inspect this response header to confirm the payload you received is a demo response and not
+      live payer data. This is the ONLY runtime signal that distinguishes sandbox from production,
+      because the host and the token format are identical in both.
+  agent_note: >-
+    Any agent or test harness running against Availity should assert
+    `X-Api-Mock-Response: true` on every response in a non-production run. Without that assertion
+    a mis-scoped token silently transacts against live payers with real PHI.
+  scenario_catalog_published: false
+  scenario_catalog_note: >-
+    Availity documents the MECHANISM (send a scenario id) but publishes no list of scenario ids on
+    the public developer portal. The available scenarios are visible only after subscribing an
+    application to a demo plan. Recorded as an absence.
+time_simulation:
+  supported: false
+  note: No test clocks, no time travel, no date simulation is published.
+fixtures_and_triggers:
+  supported: false
+  note: >-
+    No fixture generator, no CLI trigger command, no event replay. The @availity/workflow CLI is a
+    frontend build tool, not an API test harness — see cli/availity-cli.yml.
+soap_sandbox:
+  note: >-
+    The SOAP/CAQH CORE surface (Claim Statuses, Dental Claims, Service Reviews, Care Cost
+    Estimator) is subscribed through the same product and plan, so the same demo scope governs it.
+    No separate SOAP test endpoint is published.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

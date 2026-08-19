@@ -1,0 +1,115 @@
+generated: '2026-08-15'
+method: searched
+source: https://github.com/Availity/element, https://availity.github.io/element/, https://github.com/availity/availity-uikit, https://github.com/availity/sdk-js, https://registry.npmjs.org/
+docs: https://availity.github.io/element/
+provider: Availity
+providerId: availity
+summary: >-
+  Availity ships two generations of a first-party client-side component estate: Availity Element
+  (current — a React design system on Material UI and @availity/design-tokens) and Availity UI Kit
+  (previous — Bootstrap 4 SCSS). Both are aimed at applications that RUN INSIDE the Availity
+  Essentials portal, not at consumers of the public REST APIs. Availity publishes NO embeddable
+  drop-in widget, NO hosted/prebuilt UI surface, NO iframe embed and NO web component that a third
+  party could drop into their own site to expose Availity data. Every component below requires a
+  React build and portal session context.
+scope_note: >-
+  This distinction matters for the agent/embedding story. A provider like Stripe ships Elements that
+  a stranger can embed with a publishable key; Availity ships an internal design system that
+  presumes you are building a portal application under a trading-partner relationship. There is no
+  self-serve embed path.
+families:
+  - name: Availity Element
+    status: current
+    kind: react-component-library
+    package: '@availity/element'
+    registry: npm
+    registry_url: https://www.npmjs.com/package/@availity/element
+    version: 3.0.2
+    published: '2026-08-05'
+    official: true
+    repository: https://github.com/Availity/element
+    docs: https://availity.github.io/element/
+    docs_tool: Storybook
+    built_on:
+      - Material UI
+      - '@availity/design-tokens'
+    install:
+      - npm install @availity/element
+      - yarn add @availity/element
+    usage_requirement: >-
+      Every component must be wrapped in a `ThemeProvider`, normally at the application root, or
+      theming does not resolve.
+    build_stack:
+      monorepo: Nx
+      package_manager: Yarn v4
+      docs: Storybook
+    provides:
+      - React UI components (the Availity design system surface)
+      - React hooks
+      - design tokens for styling
+    component_catalog_published: partial
+    component_catalog_note: >-
+      The Storybook at availity.github.io/element renders the full component catalog client-side;
+      the repository README names components only by example (Button) and does not publish a static
+      list. No machine-readable component manifest (custom-elements.json or equivalent) is served.
+  - name: Availity UI Kit
+    status: previous-generation
+    kind: css-framework
+    package: '@availity/uikit'
+    registry: npm
+    registry_url: https://github.com/availity/availity-uikit
+    version: null
+    published: null
+    official: true
+    repository: https://github.com/availity/availity-uikit
+    language: SCSS
+    built_on:
+      - Bootstrap 4
+    note: >-
+      The GitHub repository is public and was updated 2026-07-28, but registry.npmjs.org returns
+      HTTP 404 for @availity/uikit, so no published version or date could be read. Recorded with
+      null rather than guessed. Superseded by Availity Element for new work.
+supporting_libraries:
+  note: >-
+    These are not UI components but they are the client-side runtime the components sit on, shipped
+    from the same sdk-js monorepo. Full registry metadata in packages/availity-packages.yml.
+  libraries:
+    - name: '@availity/api-axios'
+      role: axios wrappers for calling Availity services from a portal app
+      version: 13.2.0
+      published: '2026-06-15'
+    - name: '@availity/upload-core'
+      role: resumable file upload (tus-js-client wrapper) — the attachment upload path in portal UIs
+      version: 9.2.0
+      published: '2026-06-15'
+    - name: '@availity/yup'
+      role: additional yup validators used by Availity form components
+      version: 8.2.0
+      published: '2026-06-15'
+    - name: '@availity/message-core'
+      role: postMessage wrapper — cross-frame communication with the portal shell
+      version: 9.2.0
+      published: '2026-06-15'
+    - name: '@availity/user-activity-broadcaster'
+      role: broadcasts user activity to the portal navigation (session/idle handling)
+      version: 2.2.0
+      published: '2026-06-15'
+absent:
+  - kind: embeddable web component / custom element
+    result: none published
+  - kind: hosted or prebuilt UI (hosted checkout / hosted form equivalent)
+    result: none published
+  - kind: iframe embed or embed script tag for third-party sites
+    result: none published
+  - kind: embedded dashboard / analytics embed
+    result: none published
+  - kind: CDN distribution (unpkg/jsDelivr script tag)
+    result: >-
+      Not documented by Availity. Both libraries are distributed for a bundler-based React build;
+      no pinned or floating CDN URL is published, so there is no CDN version to record.
+cross_links:
+  packages: packages/availity-packages.yml
+  cli: cli/availity-cli.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

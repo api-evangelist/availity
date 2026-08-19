@@ -1,0 +1,56 @@
+generated: '2026-08-15'
+method: generated
+source: openapi/_harvested/*-swagger.json (Availity's own published Swagger 2.0) + https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  Five packaged Agent Skills for the Availity REST APIs, mirroring the arazzo/ workflow set. Every
+  operationId referenced below was verified verbatim against Availity's own published Swagger
+  documents in openapi/_harvested/ — none is invented. Availity publishes no skills, AGENTS.md or
+  agent guidance of its own; searched 2026-08-15 and found nothing.
+grounding_note: >-
+  These skills are grounded in openapi/_harvested/, NOT in the hand-authored specs at openapi/*.yml.
+  The hand-authored files carry paths and operationIds (for example
+  /availity/intelligent-payer-network/v1/eligibilities and checkEligibility) that do not appear in
+  any document Availity publishes. Availity's real eligibility operation is
+  POST /v1/coverages -> createCoverage.
+skills:
+  - file: availity-authenticate.md
+    name: Authenticate against the Availity APIs
+    api: openapi/_harvested/availity-coverages-swagger.json
+    operations: [createCoverage, getCustomPayerList]
+    summary: >-
+      OAuth 2.0 client credentials, the product+plan scope vocabulary that also selects sandbox vs
+      production, the 300-second token with no refresh, and the undefined "hipaa" scope trap in
+      Availity's own specs.
+  - file: availity-eligibility-and-benefits.md
+    name: Verify patient eligibility and benefits with Availity
+    api: openapi/_harvested/availity-coverages-swagger.json
+    operations: [getCustomPayerList, findConfigurations, createCoverage, getCoverageById, deleteCoverageById]
+    summary: >-
+      X12 270/271 real-time eligibility, including how to walk the four-level benefits graph and why
+      reading only the inNetwork bucket misquotes the patient.
+  - file: availity-claim-status-inquiry.md
+    name: Check claim status with Availity
+    api: openapi/_harvested/availity-claim-statuses-swagger.json
+    operations: [getCustomPayerList, findClaimStatus, getClaimStatusById]
+    summary: >-
+      X12 276/277 claim status, the 202-on-poll-means-pending rule, and the four levels at which
+      ClaimStatusDetail can carry a rejection.
+  - file: availity-prior-authorization.md
+    name: Submit and track a prior authorization with Availity
+    api: openapi/_harvested/availity-service-reviews-swagger.json
+    operations: [getCustomPayerList, findConfigurations, createServiceReview, getServiceReviewById, findServiceReviews, updateServiceReview, voidServiceReview]
+    summary: >-
+      X12 278 service reviews on /v2, attachment retrieval through Dfs, and the duplicate-submission
+      hazard created by Availity shipping no idempotency key.
+  - file: availity-patient-cost-estimate.md
+    name: Estimate patient cost with Availity
+    api: openapi/_harvested/availity-patient-cost-estimator-professional-swagger.json
+    operations: [submitProfPredetermination, getProfessionalClaim, createProfessionalClaim, createInstitutionalClaim, getInstitutionalClaim, createDentalClaim, getDentalClaim]
+    summary: >-
+      The three predetermination surfaces and two Patient Cost Estimator generations, the
+      getProfessionalClaim operationId collision across products, and what 502/503/504 each mean.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

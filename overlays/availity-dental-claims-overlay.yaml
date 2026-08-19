@@ -1,0 +1,49 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Availity Dental Claims
+  version: 1.0.0
+extends: openapi/_harvested/availity-dental-claims-swagger.json
+x-apievangelist:
+  generated: '2026-08-15'
+  method: generated
+  source: openapi/_harvested/availity-dental-claims-swagger.json
+  note: This overlay records API Evangelist annotations ON TOP of Availity's published document. Availity's document
+    is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provenance: Harvested verbatim from developer.availity.com on 2026-08-14; first-party Availity
+      document.
+    x-apievangelist-repo: https://github.com/api-evangelist/availity
+    x-apievangelist-spec-format: Swagger 2.0 as published by Availity; not converted to OpenAPI 3.x by Availity.
+    x-apievangelist-conventions: conventions/availity-conventions.yml
+    x-apievangelist-errors: errors/availity-problem-types.yml
+    x-apievangelist-authentication: authentication/availity-authentication.yml
+    x-apievangelist-scopes: scopes/availity-scopes.yml
+    x-apievangelist-sandbox: sandbox/availity-sandbox.yml
+- target: $.securityDefinitions.oauth2
+  update:
+    x-apievangelist-note: Operations in this document require the literal scope "hipaa", which is not defined in
+      this scopes map. The scope vocabulary Availity actually grants at the token endpoint is the product/plan pair
+      (e.g. "healthcare-hipaa-transactions healthcare-hipaa-transactions-demo"). Sending "hipaa" will not obtain
+      a token. See scopes/availity-scopes.yml.
+    x-apievangelist-token-ttl-seconds: 300
+- target: $.info
+  update:
+    x-apievangelist-rate-limits: 'No rate-limit response headers and no Retry-After are published. Standard plan
+      ceiling is 100,000 calls/day and 100 calls/second (AWS Payer List: 1,000,000/day, 100/second). Exhaustion
+      returns a bare 429. See rate-limits/availity-rate-limits.yml.'
+    x-apievangelist-idempotency: No idempotency key is published. Do not blind-retry an unsafe method; re-poll the
+      transaction id instead.
+- target: $.paths['/dental-claims'].post
+  update:
+    x-apievangelist-async:
+      pattern: 202-accepted-then-poll
+      note: 202 Accepted is returned BOTH on submission and on a poll that is not yet complete. Treat 202 on a GET
+        as "not finished, poll again", never as success.
+- target: $.paths['/dental-claims/{id}'].get
+  update:
+    x-apievangelist-async:
+      pattern: 202-accepted-then-poll
+      note: 202 Accepted is returned BOTH on submission and on a poll that is not yet complete. Treat 202 on a GET
+        as "not finished, poll again", never as success.

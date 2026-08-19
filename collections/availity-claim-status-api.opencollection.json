@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Availity Claim Attachments Auth Attachments Claim Status API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.availity.com/availity/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Claim Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Availity List Claim Status Inquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-statuses",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "2025-01-01",
+                "type": "query",
+                "description": "Start date filter (ISO 8601)"
+              },
+              {
+                "name": "toDate",
+                "value": "2025-12-31",
+                "type": "query",
+                "description": "End date filter (ISO 8601)"
+              },
+              {
+                "name": "payerId",
+                "value": "BCBS001",
+                "type": "query",
+                "description": "Filter by payer ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of previous claim status inquiries for the authenticated provider."
+        },
+        {
+          "info": {
+            "name": "Availity Create Claim Status Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.availity.com/availity/intelligent-payer-network/v1/claim-statuses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a claim status inquiry (equivalent to X12 276 transaction). Returns claim status and adjudication information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

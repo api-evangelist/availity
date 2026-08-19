@@ -1,0 +1,248 @@
+generated: '2026-08-14'
+method: searched
+source: https://registry.npmjs.org/ (per-package metadata endpoint), https://github.com/availity/sdk-js, https://github.com/availity/element
+provider: Availity
+providerId: availity
+summary: >-
+  Availity publishes an actively-maintained first-party JavaScript estate on npm under the
+  @availity scope, split across two monorepos: sdk-js (API/runtime helpers for calling Availity
+  services from a browser app) and element (the Availity Element design system). There is no
+  first-party server-side SDK for the Availity REST APIs in Python, Java, .NET, Go, Ruby, PHP or
+  Rust — the API Guide teaches raw cURL against https://api.availity.com and nothing else.
+  Registry check date 2026-08-14; every package below answered registry.npmjs.org unauthenticated.
+notes:
+  - >-
+    IMPORTANT SCOPE CAVEAT: these packages are client-side helpers for applications running inside
+    the Availity Essentials portal (axios wrappers, auth/session plumbing, analytics, file upload,
+    form validation, UI components). They are NOT generated clients for the public HIPAA
+    Transactions REST APIs documented at developer.availity.com. @availity/api-core /
+    @availity/api-axios are the closest thing to an API SDK and are described by Availity as
+    "Base API definitions for the Availity REST API".
+  - >-
+    Release cadence is healthy: the sdk-js monorepo published a coordinated 2026-06-15 release
+    across every package, and @availity/element shipped 2026-08-05 — nine days before this check.
+    No abandonment signal.
+  - >-
+    @availity/uikit is referenced by the availity-uikit GitHub repo but returns HTTP 404 from
+    registry.npmjs.org under the @availity scope; recorded below with version null.
+packages:
+  - name: '@availity/api-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/api-core
+    version: 13.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Base API definitions for the Availity REST API.
+  - name: '@availity/api-axios'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/api-axios
+    version: 13.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Wrappers for axios designed to work with the Availity portal.
+  - name: '@availity/element'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/element
+    version: 3.0.2
+    published: '2026-08-05'
+    official: true
+    language: TypeScript
+    repository: https://github.com/availity/element
+    description: Availity Element — the Availity design system component library for React.
+  - name: '@availity/workflow'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/workflow
+    version: 14.2.1
+    published: '2026-06-30'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/availity-workflow
+    description: Upgradable build/dev workflow and CLI (av) for Availity boilerplate projects.
+  - name: '@availity/authorizations-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/authorizations-core
+    version: 6.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Base configurations for Availity Authorizations.
+  - name: '@availity/authorizations-axios'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/authorizations-axios
+    version: 10.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Availity authorizations react logic.
+  - name: '@availity/analytics-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/analytics-core
+    version: 7.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Analytics base configuration for sdk-js.
+  - name: '@availity/dl-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/dl-core
+    version: 7.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Utility to download files from services.
+  - name: '@availity/dl-axios'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/dl-axios
+    version: 8.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Utility to download files from services (axios binding).
+  - name: '@availity/exceptions-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/exceptions-core
+    version: 7.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Availity class to log exceptions.
+  - name: '@availity/exceptions-axios'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/exceptions-axios
+    version: 7.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Availity class to log exceptions via axios.
+  - name: '@availity/upload-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/upload-core
+    version: 9.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Wrapper for tus-js-client (resumable upload), used for Availity attachment flows.
+  - name: '@availity/message-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/message-core
+    version: 9.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Availity wrapper for postMessage logic.
+  - name: '@availity/native-form'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/native-form
+    version: 8.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Submit JSON data via a native form rather than AJAX.
+  - name: '@availity/yup'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/yup
+    version: 8.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Additional methods for the yup validation library.
+  - name: '@availity/dockyard'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/dockyard
+    version: 4.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Convert a yup schema to a friendly docs object.
+  - name: '@availity/env-var'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/env-var
+    version: 6.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Availity-specific way to determine variables based on the current environment.
+  - name: '@availity/resolve-url'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/resolve-url
+    version: 5.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Resolve an absolute URL from relative URLs.
+  - name: '@availity/relay-id'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/relay-id
+    version: 5.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: >-
+      Decode/encode Relay global ids for Availity GraphQL microservices. Note: this implies an
+      internal GraphQL surface behind the Availity portal; no public GraphQL endpoint is documented
+      or reachable, so no GraphQL SDL is recorded in this repo.
+  - name: '@availity/user-activity-broadcaster'
+    registry: npm
+    url: https://www.npmjs.com/package/@availity/user-activity-broadcaster
+    version: 2.2.0
+    published: '2026-06-15'
+    official: true
+    language: JavaScript
+    repository: https://github.com/availity/sdk-js
+    description: Broadcasts user activity to the Availity portal navigation.
+  - name: '@availity/uikit'
+    registry: npm
+    url: https://github.com/availity/availity-uikit
+    version: null
+    published: null
+    official: true
+    language: SCSS
+    repository: https://github.com/availity/availity-uikit
+    description: >-
+      Availity UI Kit powered by Bootstrap 4. Repository is public and updated 2026-07-28, but
+      registry.npmjs.org returns HTTP 404 for @availity/uikit, so no published version or date
+      could be read. Checked 2026-08-14; recorded as an honest gap, not a guess.
+absent_registries:
+  - registry: PyPI
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: Maven Central
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: NuGet
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: pkg.go.dev
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: RubyGems
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: Packagist
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+  - registry: crates.io
+    checked: '2026-08-14'
+    result: no first-party Availity client library
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

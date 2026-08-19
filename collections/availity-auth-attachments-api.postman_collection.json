@@ -1,0 +1,359 @@
+{
+  "item": [
+    {
+      "id": "20b368fa-d421-409b-9723-96cd85ad9606",
+      "name": "Auth Attachments",
+      "description": {
+        "content": "Attach documentation to authorization requests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "62d8491d-7044-4ed2-94dd-d8d86ab4c889",
+          "name": "Availity Submit Authorization with Attachment",
+          "request": {
+            "name": "Availity Submit Authorization with Attachment",
+            "description": {
+              "content": "Submit an authorization request with supporting document attachments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "value-adds",
+                "v2",
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"patient\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"<string>\"\n  },\n  \"provider\": {\n    \"npi\": \"<string>\"\n  },\n  \"certificationNumber\": \"<string>\",\n  \"attachments\": [\n    {\n      \"contentType\": \"<string>\",\n      \"title\": \"<string>\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"<string>\",\n      \"title\": \"<string>\",\n      \"data\": \"<byte>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1eedecf4-b3db-46ae-9f05-c01dcfe9384d",
+              "name": "Attachment submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "value-adds",
+                    "v2",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"patient\": {\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"MEM123456\"\n  },\n  \"provider\": {\n    \"npi\": \"1234567890\"\n  },\n  \"certificationNumber\": \"AUTH-2025-001234\",\n  \"attachments\": [\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Clinical Notes\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Clinical Notes\",\n      \"data\": \"<byte>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"PROCESSING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b2abfa7-eece-4d77-8904-b834b6533089",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "value-adds",
+                    "v2",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"BCBS001\",\n  \"patient\": {\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\"\n  },\n  \"subscriber\": {\n    \"memberId\": \"MEM123456\"\n  },\n  \"provider\": {\n    \"npi\": \"1234567890\"\n  },\n  \"certificationNumber\": \"AUTH-2025-001234\",\n  \"attachments\": [\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Clinical Notes\",\n      \"data\": \"<byte>\"\n    },\n    {\n      \"contentType\": \"application/pdf\",\n      \"title\": \"Clinical Notes\",\n      \"data\": \"<byte>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c81147db-4aab-4f4d-a6e2-ef4f751db5f9",
+          "name": "Availity Get Attachment Processing Status",
+          "request": {
+            "name": "Availity Get Attachment Processing Status",
+            "description": {
+              "content": "Retrieve the processing status of a submitted authorization attachment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "value-adds",
+                "v2",
+                "attachments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Attachment job ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95853320-333e-46c6-9059-f390d91432ca",
+              "name": "Attachment status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "value-adds",
+                    "v2",
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Attachment job ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"500123\",\n  \"status\": \"AV_ACCEPTED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da3eb8ef-877e-48db-b383-1e4bdfd4f108",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "value-adds",
+                    "v2",
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Attachment job ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Required field missing\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.availity.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "hipaa"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.availity.com/availity/v1/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4290185-0719-4a9a-b9a8-2a65d423b6e3",
+    "name": "Availity Claim Attachments Auth Attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.\n\nContact Support:\n Name: Availity Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

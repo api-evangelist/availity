@@ -1,35 +1,110 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/availity-claim-attachments-openapi.yml, openapi/availity-claim-status-openapi.yml,
-  openapi/availity-eligibility-openapi.yml, openapi/availity-service-reviews-openapi.yml
+generated: '2026-08-14'
+method: searched
+source: openapi/_harvested/*-swagger.json (securityDefinitions.oauth2.scopes, first-party documents harvested from developer.availity.com), https://developer.availity.com/blog/2025/3/25/availity-api-guide
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+supersedes: >-
+  The previous derived version of this file (2026-07-11) listed a single scope "hipaa" read from
+  hand-authored specs. That was wrong. Availity's real scope vocabulary is the product/plan pair
+  vocabulary below, read from Availity's own published Swagger securityDefinitions.
+summary: >-
+  Availity's OAuth scopes are not permission verbs. They are PRODUCT and PLAN identifiers: one
+  scope names the API product you subscribed to, and a second, suffixed scope names the plan tier
+  within it. The API Guide instructs callers to send both, space-separated, in the token request:
+  `scope=healthcare-hipaa-transactions healthcare-hipaa-transactions-demo`. There is no read/write
+  split and no per-operation scoping — every operation in a product is reachable with the product
+  scope.
 schemes:
-- name: oauth2
-  source: openapi/availity-claim-attachments-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.availity.com/availity/v1/token
-- name: oauth2
-  source: openapi/availity-claim-status-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.availity.com/availity/v1/token
-- name: oauth2
-  source: openapi/availity-eligibility-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.availity.com/availity/v1/token
-- name: oauth2
-  source: openapi/availity-service-reviews-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.availity.com/availity/v1/token
+  - name: oauth2
+    type: oauth2
+    flow: application (client credentials)
+    tokenUrl: https://api.availity.com/v1/token
+    declared_in: all 11 harvested Swagger documents
+scope_model:
+  shape: '<product-scope> [<plan-scope>]'
+  request_parameter: scope
+  separator: single space
+  example_request: 'grant_type=client_credentials&client_id=$API_KEY&client_secret=$CLIENT_SECRET&scope=healthcare-hipaa-transactions healthcare-hipaa-transactions-demo'
+  note: >-
+    The token response echoes the granted scope string. Availity warns that the request body
+    parameters are case sensitive.
 scopes:
-- scope: hipaa
-  description: Access to HIPAA transaction APIs
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/availity-claim-attachments-openapi.yml
-  - openapi/availity-claim-status-openapi.yml
-  - openapi/availity-eligibility-openapi.yml
-  - openapi/availity-service-reviews-openapi.yml
+  - scope: healthcare-hipaa-transactions
+    kind: product
+    description: >-
+      Healthcare HIPAA Transactions — the core product covering Coverages (270/271), Claim Statuses
+      (276/277), Service Reviews (278), Dental Claims, Professional and Institutional claim
+      predeterminations, Configurations, Payer List and Dfs file download.
+    product: healthcare-hipaa-transactions
+    declared_in:
+      - availity-care-cost-estimator-institutional
+      - availity-care-cost-estimator-professional
+      - availity-claim-statuses
+      - availity-configurations
+      - availity-coverages
+      - availity-dental-claims
+      - availity-dfs
+      - availity-patient-cost-estimator-professional
+      - availity-payer-list
+      - availity-service-reviews
+  - scope: healthcare-hipaa-transactions-standard
+    kind: plan
+    description: Standard plan tier — 100,000 calls per day, 100 calls per second, production data.
+    product: healthcare-hipaa-transactions
+  - scope: healthcare-hipaa-transactions-demo
+    kind: plan
+    description: >-
+      Demo plan tier — 500 calls per day, 5 calls per second, sandbox environment returning canned
+      PHI-free responses. Auto-approved, no contract required.
+    product: healthcare-hipaa-transactions-demo
+  - scope: healthcare-hipaa-transactions-highvolume
+    kind: product
+    description: Healthcare HIPAA Transactions High Volume — the elevated-throughput variant of the core product.
+    product: healthcare-hipaa-transactions-highvolume
+  - scope: healthcare-hipaa-transactions-highvolume-standard
+    kind: plan
+    description: Standard plan tier within the High Volume product.
+    product: healthcare-hipaa-transactions-highvolume
+  - scope: healthcare-hipaa-transactions-highvolume-unlimited
+    kind: plan
+    description: >-
+      Unlimited plan tier within the High Volume product. No published quota; this tier is not
+      listed on the public catalogue page and is presumably contract-only.
+    product: healthcare-hipaa-transactions-highvolume
+  - scope: rcm-coverages
+    kind: product
+    description: >-
+      RCM Coverages — a revenue-cycle-management-specific entitlement over the Coverages (270/271)
+      API. Declared in the Coverages Swagger but not offered as a public catalogue product; visible
+      only inside the machine-readable document.
+    product: rcm-coverages
+    declared_in:
+      - availity-coverages
+  - scope: rcm-coverages-standard
+    kind: plan
+    description: Standard plan tier within the RCM Coverages product.
+    product: rcm-coverages
+  - scope: aws-availity-payer-list
+    kind: product
+    description: >-
+      AWS Availity Payer List — a separately subscribable product exposing the payer list through an
+      AWS-hosted route at basePath /epdm-payer-list-aws/v1.
+    product: aws-availity-payer-list
+    declared_in:
+      - availity-aws-payer-list
+  - scope: aws-availity-payer-list-standard
+    kind: plan
+    description: Standard plan tier — 1,000,000 calls per day, 100 calls per second.
+    product: aws-availity-payer-list
+anomalies:
+  - >-
+    Every harvested document declares its operation-level requirement as
+    `security: [{"oauth2": ["hipaa"]}]` — referencing a scope named "hipaa" that is NOT defined in
+    any securityDefinitions.scopes map. The scope vocabulary Availity actually issues at the token
+    endpoint is the product/plan vocabulary above. The "hipaa" reference appears to be a stale
+    literal in the gateway's spec-generation template. Recorded because a code generator reading
+    these specs will emit a token request for a scope Availity will not grant.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,213 @@
+generated: '2026-08-15'
+method: derived
+source: openapi/_harvested/*-swagger.json (Availity's own published Swagger 2.0 documents)
+provider: Availity
+providerId: availity
+status: candidate
+summary: >-
+  Availity publishes NO first-party MCP server. This file is a DERIVED CANDIDATE tool surface,
+  computed one-tool-per-operationId from the eleven first-party Swagger 2.0 documents Availity
+  serves from its developer portal. Nothing here is reachable by an agent today: there is no
+  endpoint to POST to and no package to install. It exists so the tool surface an Availity MCP
+  server would expose is documented and reviewable, and so the absence is recorded as a measured
+  absence rather than an unchecked gap.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: searched
+discovery:
+  searched:
+    - target: developer.availity.com documentation, blog and product catalogue
+      result: no MCP server, no /mcp endpoint, no agent tooling referenced
+    - target: https://github.com/availity (public GitHub organization)
+      result: no MCP server repository
+    - target: npm @availity scope
+      result: >-
+        21 published packages, all browser/portal helpers and UI components. No @availity/mcp,
+        no MCP server package.
+    - target: web search for "Availity MCP server"
+      result: no first-party or credible third-party Availity MCP server found
+  probed:
+    - url: https://api.availity.com/mcp
+      status: 401
+      note: >-
+        The api.availity.com gateway answers HTTP 401 "Unauthorized" (12 bytes, text/plain) for
+        EVERY path including paths that do not exist, so this 401 is NOT evidence that an MCP
+        endpoint exists. Recorded to show the probe ran and cannot distinguish.
+auth_model:
+  note: >-
+    Any Availity MCP server would have to carry OAuth 2.0 client-credentials with a 300-second
+    token lifetime and a product+plan scope pair — see authentication/availity-authentication.yml
+    and scopes/availity-scopes.yml. Every tool below is PHI-bearing and would require a signed
+    trading-partner agreement and a BAA before it could touch production data.
+agent_caveats:
+  - >-
+    ASYNC: most write tools answer HTTP 202 Accepted, and the follow-up read ALSO answers 202
+    while the payer response is still pending. An MCP tool wrapping these operations must model
+    "not finished, poll again" or an agent will read 202 as success. See
+    conventions/availity-conventions.yml#async_model.
+  - >-
+    NO IDEMPOTENCY: Availity publishes no idempotency-key header. A retried submit tool can
+    produce a duplicate claim or duplicate authorization request. Any MCP server over this API
+    needs a client-side dedupe contract keyed on the payer-assigned identifier.
+  - >-
+    NO RATE-LIMIT HEADERS: exhaustion is a bare 429 with no X-RateLimit-*/RateLimit-*/Retry-After,
+    so a tool loop has no runtime budget signal.
+tools:
+  - name: get_payer_list
+    description: Query the list of available payers and the transactions each supports under your Availity contract.
+    source_operation: openapi/_harvested/availity-payer-list-swagger.json#getCustomPayerList
+    method: GET
+    path: /v1/availity-payer-list
+    read_only: true
+  - name: get_aws_payer_list
+    description: Query the payer list through the separately-subscribed AWS-hosted Payer List product.
+    source_operation: openapi/_harvested/availity-aws-payer-list-swagger.json#getCustomPayerList
+    method: GET
+    path: /epdm-payer-list-aws/v1/availity-payer-list
+    read_only: true
+  - name: find_configurations
+    description: Retrieve payer-specific validation configurations by type, sub-type and payer before submitting a transaction.
+    source_operation: openapi/_harvested/availity-configurations-swagger.json#findConfigurations
+    method: GET
+    path: /v1/configurations
+    read_only: true
+  - name: create_coverage
+    description: Initiate a real-time eligibility and benefits request (X12 270) or view an existing request.
+    source_operation: openapi/_harvested/availity-coverages-swagger.json#createCoverage
+    method: POST
+    path: /v1/coverages
+    read_only: false
+    async: true
+  - name: get_coverage_by_id
+    description: Get the full eligibility and benefits response (X12 271) by id.
+    source_operation: openapi/_harvested/availity-coverages-swagger.json#getCoverageById
+    method: GET
+    path: /v1/coverages/{id}
+    read_only: true
+  - name: delete_coverage_by_id
+    description: Delete a stored coverage response by id.
+    source_operation: openapi/_harvested/availity-coverages-swagger.json#deleteCoverageById
+    method: DELETE
+    path: /v1/coverages/{id}
+    read_only: false
+  - name: find_claim_status
+    description: Initiate a claim status request (X12 276) or view an existing request.
+    source_operation: openapi/_harvested/availity-claim-statuses-swagger.json#findClaimStatus
+    method: POST
+    path: /v1/claim-statuses
+    read_only: false
+    async: true
+  - name: get_claim_status_by_id
+    description: Get the full claim status response (X12 277) by id.
+    source_operation: openapi/_harvested/availity-claim-statuses-swagger.json#getClaimStatusById
+    method: GET
+    path: /v1/claim-statuses/{id}
+    read_only: true
+  - name: find_service_reviews
+    description: Initiate a service review (prior authorization, X12 278) inquiry or view an existing request.
+    source_operation: openapi/_harvested/availity-service-reviews-swagger.json#findServiceReviews
+    method: GET
+    path: /v2/service-reviews
+    read_only: true
+  - name: create_service_review
+    description: Create a new service review — a prior authorization request (X12 278).
+    source_operation: openapi/_harvested/availity-service-reviews-swagger.json#createServiceReview
+    method: POST
+    path: /v2/service-reviews
+    read_only: false
+    async: true
+  - name: update_service_review
+    description: Update an existing service review.
+    source_operation: openapi/_harvested/availity-service-reviews-swagger.json#updateServiceReview
+    method: PUT
+    path: /v2/service-reviews
+    read_only: false
+    async: true
+  - name: void_service_review
+    description: Void a service review.
+    source_operation: openapi/_harvested/availity-service-reviews-swagger.json#voidServiceReview
+    method: DELETE
+    path: /v2/service-reviews/{id}
+    read_only: false
+  - name: get_service_review_by_id
+    description: Get a service review and its authorization decision by id.
+    source_operation: openapi/_harvested/availity-service-reviews-swagger.json#getServiceReviewById
+    method: GET
+    path: /v2/service-reviews/{id}
+    read_only: true
+  - name: create_institutional_claim
+    description: Create an institutional claim predetermination / cost estimate (Patient Cost Estimator 1.0.0).
+    source_operation: openapi/_harvested/availity-care-cost-estimator-institutional-swagger.json#createInstitutionalClaim
+    method: POST
+    path: /v1/institutional-claims
+    read_only: false
+    async: true
+  - name: get_institutional_claim
+    description: Poll an institutional claim predetermination by id.
+    source_operation: openapi/_harvested/availity-care-cost-estimator-institutional-swagger.json#getInstitutionalClaim
+    method: GET
+    path: /v1/institutional-claims/{id}
+    read_only: true
+  - name: create_professional_claim
+    description: Create a professional claim predetermination / cost estimate (Patient Cost Estimator 1.0.0).
+    source_operation: openapi/_harvested/availity-care-cost-estimator-professional-swagger.json#createProfessionalClaim
+    method: POST
+    path: /v1/professional-claims
+    read_only: false
+    async: true
+  - name: get_professional_claim
+    description: Poll a professional claim predetermination by id.
+    source_operation: openapi/_harvested/availity-care-cost-estimator-professional-swagger.json#getProfessionalClaim
+    method: GET
+    path: /v1/professional-claims/{id}
+    read_only: true
+  - name: submit_prof_predetermination
+    description: Submit a professional predetermination to the async Patient Cost Estimator 2.0.0 pipeline.
+    source_operation: openapi/_harvested/availity-patient-cost-estimator-professional-swagger.json#submitProfPredetermination
+    method: POST
+    path: /v2/patient-cost-estimates/prof
+    read_only: false
+    async: true
+  - name: get_prof_predetermination
+    description: Poll for the status and result of a submitted professional predetermination (Patient Cost Estimator 2.0.0).
+    source_operation: openapi/_harvested/availity-patient-cost-estimator-professional-swagger.json#getProfessionalClaim
+    method: GET
+    path: /v2/patient-cost-estimates/prof/{id}
+    read_only: true
+  - name: create_dental_claim
+    description: Create a dental claim predetermination.
+    source_operation: openapi/_harvested/availity-dental-claims-swagger.json#createDentalClaim
+    method: POST
+    path: /v1/dental-claims
+    read_only: false
+    async: true
+  - name: get_dental_claim
+    description: Poll a dental claim predetermination by id.
+    source_operation: openapi/_harvested/availity-dental-claims-swagger.json#getDentalClaim
+    method: GET
+    path: /v1/dental-claims/{id}
+    read_only: true
+  - name: download_file
+    description: Download a stored file (for example an attachment or report) using an encrypted Availity DFS URL.
+    source_operation: openapi/_harvested/availity-dfs-swagger.json#download
+    method: GET
+    path: /sdk/v1/dfs/{id}
+    read_only: true
+coverage:
+  specs_read: 11
+  operations_in_harvested_specs: 23
+  operations_with_operation_id: 22
+  candidate_tools: 22
+  unmapped_operations:
+    - operation: DELETE /v1/claim-statuses/{id}
+      reason: >-
+        Availity's own Claim Statuses document declares this operation with no operationId, no
+        summary and no description. It is not exposed as a candidate tool because there is no
+        published name or contract to bind a tool to.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

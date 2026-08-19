@@ -1,0 +1,158 @@
+generated: '2026-08-14'
+method: probed
+source: direct HTTP probe of every host named in apis.yml baseURL / humanURL and in the harvested OpenAPI servers block
+provider: Availity
+providerId: availity
+result: none
+summary: >-
+  Availity serves no /.well-known documents on any of its three public hosts. This is a recorded
+  ABSENCE, not a presence: no WellKnown or SecurityTxt pointer is emitted in apis.yml.
+false_positive_warning: >-
+  Two of the three hosts answer HTTP 200 for EVERY path, including paths that do not exist. Reading
+  the status code alone would credit Availity with a full set of well-known documents it does not
+  serve. developer.availity.com is a single-page app whose catch-all returns an identical 10,700-byte
+  HTML shell (verified with the control probe /definitely-not-a-real-path-xyz123 -> 200, same 10,700
+  bytes). www.availity.com is a WordPress site whose catch-all returns an identical ~133,860-byte
+  HTML page. Neither is a document. Every 200 below is therefore scored as a MISS.
+hosts:
+  - host: developer.availity.com
+    role: developer portal / documentation host
+    catch_all: soft-200 SPA shell (10,700 bytes) on every unknown path
+    control_probe:
+      path: /definitely-not-a-real-path-xyz123
+      status: 200
+      verdict: confirms catch-all; all 200s on this host are soft-404s
+    probes:
+      - path: /.well-known/security.txt
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell)
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell)
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        bytes: 4320
+        document: false
+        verdict: miss (SPA shell / error view)
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell)
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell)
+        file: null
+      - path: /security.txt
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell)
+        file: null
+      - path: /llms.txt
+        status: 200
+        bytes: 10700
+        document: false
+        verdict: miss (SPA shell) — see note below
+        file: null
+  - host: www.availity.com
+    role: corporate website
+    catch_all: soft-200 WordPress page (~133,860 bytes) on every unknown path under /
+    probes:
+      - path: /.well-known/security.txt
+        status: 404
+        document: false
+        verdict: miss (hard 404, nginx)
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        bytes: 133866
+        document: false
+        verdict: miss (WordPress catch-all)
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        bytes: 133872
+        document: false
+        verdict: miss (WordPress catch-all)
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        bytes: 133857
+        document: false
+        verdict: miss (WordPress catch-all)
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        bytes: 133860
+        document: false
+        verdict: miss (WordPress catch-all)
+        file: null
+      - path: /security.txt
+        status: 404
+        document: false
+        verdict: miss (hard 404, nginx)
+        file: null
+      - path: /llms.txt
+        status: 404
+        document: false
+        verdict: miss (hard 404, nginx)
+        file: null
+  - host: api.availity.com
+    role: production API host (servers[] / baseURL on every apis[] entry)
+    catch_all: 'HTTP 401 "Unauthorized" (12 bytes, text/plain) on every path — the gateway rejects anonymous requests before routing'
+    probes:
+      - path: /.well-known/security.txt
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+      - path: /.well-known/api-catalog
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+      - path: /security.txt
+        status: 401
+        document: false
+        verdict: miss (gateway requires a bearer token)
+        file: null
+notes:
+  - >-
+    DEFECT CORRECTED THIS ROUND: apis.yml previously carried `type: LlmsText` pointing at
+    https://developer.availity.com/llms.txt. That URL returns HTTP 200, but the body is the same
+    10,700-byte SPA shell the portal returns for every non-existent path — Availity publishes no
+    llms.txt. The pointer was false credit and has been removed. A generated llms.txt now lives at
+    llms/availity-llms.txt and is wired instead.
+  - >-
+    Availity's OAuth 2.0 authorization server metadata is not published at
+    /.well-known/oauth-authorization-server on any host. The token endpoint is documented in prose
+    only, in the public Availity API Guide, and is recorded in authentication/availity-authentication.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

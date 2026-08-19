@@ -1,0 +1,242 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  Cross-cutting runtime semantics for the Availity REST APIs, read from the public Availity API
+  Guide and corroborated against the eleven first-party Swagger 2.0 documents harvested into
+  openapi/_harvested/. Availity documents its conventions unusually well for a clearinghouse:
+  pagination, the error envelope, the async/polling model and the demo-response mechanism are all
+  specified in prose with worked cURL examples.
+authentication:
+  style: oauth2-client-credentials
+  header: 'Authorization: Bearer <access_token>'
+  token_endpoint: https://api.availity.com/v1/token
+  token_ttl_seconds: 300
+  note: >-
+    Application-only auth (OAuth 2.0 Client Credentials Grant). Tokens live five minutes, so any
+    long-running agent must refresh aggressively. Scope is requested at token time; multiple scopes
+    are space-separated in the `scope` form parameter. See authentication/availity-authentication.yml
+    and scopes/availity-scopes.yml.
+  cross_link: authentication/availity-authentication.yml
+transport:
+  protocol: HTTPS only
+  media_types:
+    request:
+      - application/json
+      - application/xml
+      - application/x-www-form-urlencoded
+    response:
+      - application/json
+      - application/xml
+      - text/csv
+      - application/pdf
+      - image/png
+      - application/vnd.ms-excel
+  note: >-
+    "These APIs all return JSON and XML representations, including errors, while some have the
+    ability to return CSV, PDF, PNG, and XLS representations." Several POST operations in the
+    harvested specs (for example POST /v1/coverages) take `formData` parameters rather than a JSON
+    request body, which is a Swagger 2.0 artifact of a form-encoded submission model.
+date_time:
+  format: ISO 8601
+  example: '2014-06-16T18:38:12.000+0000'
+  note: Availity's own documented example carries a +0000 offset with no colon.
+pagination:
+  style: offset-limit
+  supported: true
+  request_params:
+    - name: offset
+      in: query
+      type: integer
+      minimum: 0
+      default: 0
+      description: Zero-based starting index in the collection of the first item to return.
+    - name: limit
+      in: query
+      type: integer
+      minimum: 1
+      maximum: 50
+      default: 50
+      description: Maximum number of collection items to return for a single request.
+  response_fields:
+    - name: links
+      type: object
+      description: Set of resource URIs (link relations).
+    - name: offset
+      type: integer
+    - name: limit
+      type: integer
+    - name: count
+      type: integer
+      description: Number of items actually returned in this page.
+    - name: totalCount
+      type: integer
+      description: Total number of items available that match the parameters specified.
+    - name: <resource-plural>
+      type: array
+      description: >-
+        The page of resources. The attribute name is the PLURAL NAME OF THE RESOURCE TYPE, not a
+        fixed key — `payers`, `coverages`, `claimStatuses`. A generic client cannot hard-code
+        `data` or `results`; it must read the plural resource name.
+  link_relations:
+    - self
+    - first
+    - last
+    - next
+    - prev
+  link_relation_note: >-
+    Unavailable relations return null rather than being omitted, so a client should null-check
+    rather than key-check.
+  discrepancy_note: >-
+    Availity's collection-resource table gives limit a default of 50 and a max of 50. The
+    hand-authored specs previously in openapi/ declared `limit` default 25; the published guide is
+    authoritative.
+async_model:
+  supported: true
+  pattern: 202-accepted-then-poll
+  description: >-
+    Most write operations across the HIPAA transaction APIs answer 202 Accepted rather than 200/201.
+    The Location response header carries the URI to poll for status updates. Claim, dental-claim,
+    service-review, claim-status and patient-cost-estimator submissions all follow this shape:
+    POST returns 202 with an id, then GET /{id} returns 202 while still processing and 200 when the
+    payer response is available.
+  poll_header: Location
+  operations_returning_202:
+    - createInstitutionalClaim
+    - createProfessionalClaim
+    - createDentalClaim
+    - createServiceReview
+    - updateServiceReview
+    - voidServiceReview
+    - findClaimStatus
+    - createCoverage
+    - submitProfPredetermination
+  agent_note: >-
+    An agent MUST treat 202 on the GET-by-id as "not finished, poll again" rather than as success.
+    This is the single most common integration mistake against Availity, because the same status
+    code is used for both the initial accept and the not-yet-ready poll.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Availity publishes NO idempotency-key header and no request-replay contract. Duplicate
+    suppression is a payer-side concern: the API Guide and the X12 implementation guides push
+    de-duplication onto payer-assigned tracking identifiers (ICN / Claim ID / patientAccountNumber)
+    carried in the transaction body. Retrying a POST /v1/professional-claims without a
+    payer-assigned identifier risks duplicate adjudication. This is a real gap for a clearinghouse
+    processing 11 billion transactions a year, and it is recorded as an absence, not inferred.
+request_tracing:
+  supported: true
+  headers:
+    - name: X-Availity-Transaction-ID
+      direction: response
+      description: Availity's per-transaction correlation identifier.
+    - name: X-Global-Transaction-ID
+      direction: response
+      description: Cross-system correlation identifier carried through the gateway.
+    - name: X-Availity-Customer-Id
+      direction: request
+      description: Identifies the customer organization on whose behalf the call is made.
+    - name: X-Session-ID
+      direction: request/response
+    - name: X-Status-Message
+      direction: response
+  note: Quote X-Availity-Transaction-ID when opening an Availity Client Services support ticket.
+field_expansion:
+  supported: false
+  note: No `expand`, `fields` or sparse-fieldset parameter is documented.
+metadata:
+  supported: false
+  note: No free-form customer metadata bag; every field is X12-derived and schema-constrained.
+versioning:
+  style: uri-path
+  current:
+    - v1
+    - v2
+  note: >-
+    Version lives in the URI path (/v1/..., /v2/...) and products are ALSO versioned by name
+    ("Patient Cost Estimator 1.0.0 - Professional" vs "Patient Cost Estimator 2.0.0 - Professional"),
+    which are distinct APIs with distinct base paths sold in the same product. No version header,
+    no date-pinned versioning. See lifecycle/availity-lifecycle.yml.
+  cross_link: lifecycle/availity-lifecycle.yml
+  base_path_caveat: >-
+    Two base-path forms appear in Availity's own published material: the harvested Swagger declares
+    host api.availity.com with basePath /v1 (matching the API Guide's cURL example
+    https://api.availity.com/v1/availity-payer-list), while the HIPAA Transactions reference pages
+    show https://api.availity.com/availity/v1/... . Both are Availity-published. The Swagger form
+    is treated as authoritative here because it is the machine-readable document.
+error_envelope:
+  format: custom
+  rfc9457: false
+  content_type: application/json
+  fields:
+    - name: statusCode
+      type: integer
+      description: HTTP status code, repeated in the body.
+    - name: reasonCode
+      type: integer
+      description: Internal error code. Availity states it is "currently not used".
+    - name: userMessage
+      type: string
+      description: Error message appropriate for displaying to an end user.
+    - name: developerMessage
+      type: string
+      description: More detailed error message appropriate for a developer.
+    - name: url
+      type: string
+      description: URL where more information on the error can be found.
+    - name: errors
+      type: array
+      description: Collection of extended, service-specific error messages.
+    - name: errors[].code
+      type: integer
+    - name: errors[].errorMessage
+      type: string
+  note: >-
+    This predates and does not conform to RFC 9457 problem+json — there is no `type`, `title`,
+    `detail` or `instance`, and the media type is application/json rather than
+    application/problem+json. Recorded as non-conformant in conformance/availity-conformance.yml.
+  cross_link: errors/availity-problem-types.yml
+rate_limit_signaling:
+  exhaustion_status: 429
+  documented_response_headers: []
+  note: >-
+    Availity publishes the NUMBERS (100,000 calls/day and 100 calls/sec on the Standard plan) on the
+    product catalogue page, and documents 429 "Too Many Requests — The transaction rate limit has
+    been exceeded" in the status-code table, but publishes NO rate-limit response headers. There is
+    no X-RateLimit-*, no RateLimit-*, and no documented Retry-After. An agent gets no runtime signal
+    of remaining budget and must implement blind exponential backoff on 429/503.
+  cross_link: rate-limits/availity-rate-limits.yml
+security_conventions:
+  response_encoding:
+    header: X-Response-Encoding-Context
+    direction: request
+    default: off
+    values:
+      - HTML
+      - HTML_ATTRIBUTE
+      - CSS
+      - URL
+      - JAVA_SCRIPT
+      - XML
+      - XML_ATTRIBUTE
+    note: >-
+      Contextual output encoding is OPT-IN. Availity does not encode response resources by default;
+      a client rendering API data directly into a page must send this header or perform its own
+      contextual escaping. Notable because the payload is PHI rendered in clinical UIs.
+  input_validation:
+    note: >-
+      Availity applies allow-list input validation and answers HTTP 400 with an "inbound injection"
+      error message when a request carries characters it deems unsafe.
+  method_override:
+    header: X-HTTP-Method-Override
+mock_and_demo:
+  request_header: X-Api-Mock-Scenario-ID
+  response_header: 'X-Api-Mock-Response: true'
+  cross_link: sandbox/availity-sandbox.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,21 +1,108 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/availity-claim-attachments-openapi.yml, openapi/availity-claim-status-openapi.yml,
-  openapi/availity-eligibility-openapi.yml, openapi/availity-service-reviews-openapi.yml
+generated: '2026-08-14'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide (Authentication + Availity API workflow sections), openapi/_harvested/*-swagger.json
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+supersedes: >-
+  The previous derived version (2026-07-11) recorded tokenUrl
+  https://api.availity.com/availity/v1/token, read from hand-authored specs. Availity's own
+  published documents give https://api.availity.com/v1/token — corrected here from both the API
+  Guide cURL example and the securityDefinitions.oauth2.tokenUrl of all eleven harvested Swagger
+  documents.
 summary:
   types:
-  - oauth2
+    - oauth2
   oauth2_flows:
-  - clientCredentials
+    - clientCredentials
+  user_auth: false
+  mtls: false
+  api_key_direct: false
 schemes:
-- name: oauth2
-  type: oauth2
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.availity.com/availity/v1/token
-    scopes: 1
-  sources:
-  - openapi/availity-claim-attachments-openapi.yml
-  - openapi/availity-claim-status-openapi.yml
-  - openapi/availity-eligibility-openapi.yml
-  - openapi/availity-service-reviews-openapi.yml
+  - name: oauth2
+    type: oauth2
+    description: >-
+      Application-only authentication based on the OAuth 2.0 Client Credentials Grant. This is the
+      only authentication method Availity's public REST APIs support, including for demo/sandbox
+      resources.
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://api.availity.com/v1/token
+        token_request:
+          method: POST
+          content_type: application/x-www-form-urlencoded
+          parameters:
+            - name: grant_type
+              value: client_credentials
+              required: true
+            - name: client_id
+              value: your API key (from the registered application in the developer portal)
+              required: true
+            - name: client_secret
+              value: your client secret
+              required: true
+            - name: scope
+              value: 'space-separated product and plan scopes, e.g. "healthcare-hipaa-transactions healthcare-hipaa-transactions-demo"'
+              required: true
+          case_sensitive: true
+          note: >-
+            Availity explicitly warns that the request body parameter names and values are case
+            sensitive.
+        token_response:
+          fields:
+            - access_token
+            - token_type
+            - expires_in
+            - scope
+            - consented_on
+          token_type: Bearer
+          expires_in: 300
+        call_pattern: 'Authorization: Bearer <access_token>'
+    scopes_ref: scopes/availity-scopes.yml
+    declared_in:
+      - openapi/_harvested/availity-aws-payer-list-swagger.json
+      - openapi/_harvested/availity-care-cost-estimator-institutional-swagger.json
+      - openapi/_harvested/availity-care-cost-estimator-professional-swagger.json
+      - openapi/_harvested/availity-claim-statuses-swagger.json
+      - openapi/_harvested/availity-configurations-swagger.json
+      - openapi/_harvested/availity-coverages-swagger.json
+      - openapi/_harvested/availity-dental-claims-swagger.json
+      - openapi/_harvested/availity-dfs-swagger.json
+      - openapi/_harvested/availity-patient-cost-estimator-professional-swagger.json
+      - openapi/_harvested/availity-payer-list-swagger.json
+      - openapi/_harvested/availity-service-reviews-swagger.json
+token_lifetime:
+  seconds: 300
+  minutes: 5
+  refresh_token: false
+  operational_note: >-
+    Five minutes is short. Availity issues no refresh token — the client re-runs the client
+    credentials grant. Any agent or batch job running longer than five minutes must re-authenticate
+    mid-run, and a 401 in the middle of a working session should be interpreted as an expired token
+    before it is interpreted as a credential problem. Token acquisition itself is not documented as
+    exempt from the rate limit, so a naive per-request token fetch burns plan quota.
+onboarding:
+  self_serve_to_demo: true
+  self_serve_to_production: false
+  steps:
+    - Create an account at developer.availity.com (email verification + mandatory MFA via an authenticator app).
+    - Create an Organization. Adding users to an organization requires a support ticket with case reason "API".
+    - Register an application under My Apps to obtain the API key / client secret.
+    - Subscribe to an API product and choose a plan. Demo subscriptions are auto-approved.
+    - For the Standard plan, submit the portal request AND contact sales; Trading Partner Management completes contracting before activation.
+  gate: >-
+    Production access is sales-gated and contract-gated. The Demo plan is genuinely self-serve.
+transport_security:
+  tls_required: true
+  note: >-
+    "All Availity REST APIs support OAuth 2.0 over HTTPS for authentication." Every harvested
+    Swagger declares schemes: [https] only. See security/availity-domain-security.yml for the TLS
+    /HSTS/DNSSEC/CAA/SPF/DMARC probe.
+related_headers:
+  - name: X-Availity-Customer-Id
+    purpose: Identifies the customer organization on whose behalf the call is made.
+  - name: X-Response-Encoding-Context
+    purpose: Opt-in contextual output encoding (XSS mitigation). See conventions/availity-conventions.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

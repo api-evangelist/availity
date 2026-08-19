@@ -1,0 +1,249 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide, https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1, openapi/_harvested/*-swagger.json
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  Availity's conformance posture is strong on healthcare-domain standards (ASC X12N HIPAA
+  transaction sets, CAQH CORE SOAP envelopes) and weak on modern web-API standards (no RFC 9457,
+  no OpenAPI 3.x, no idempotency, no OIDC discovery, no FHIR). This is the classic clearinghouse
+  shape: the EDI side is rigorously standardized because regulation requires it, and the REST
+  wrapper around it is bespoke.
+conformance:
+  - id: x12n-hipaa-005010
+    name: ASC X12N HIPAA transaction sets, version 005010
+    conforms: true
+    evidence:
+      - >-
+        The Availity API Guide publishes a table of supported HIPAA transactions with explicit
+        implementation-guide versions: 837 005010X223A2 (institutional claims), 837 005010X222A1
+        (professional claims), 837 005010X224A2 (dental claims), 270/271 005010X279A1 (eligibility
+        and benefits), 275 005010X210 (claim attachments), 276/277 005010X212 (claim status),
+        278 005010X217 (services review request/response), 278 005010X216 (services review
+        notification/acknowledgement), 835 005010X221A1 (claim payment/advice).
+      - >-
+        "The Availity Health Information Network is operationally HIPAA compliant, accepting and
+        processing in a secure environment all American National Standards Institute (ANSI)
+        Accredited Standards Committee (ASC) X12N standard transactions mandated by the Health
+        Insurance Portability and Accountability Act (HIPAA)."
+      - source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+  - id: caqh-core
+    name: CAQH CORE connectivity rule (SOAP + WSDL envelope)
+    conforms: true
+    evidence:
+      - >-
+        Availity publishes a CAQH CORE WSDL on the public Healthcare HIPAA Transactions product
+        page, targetNamespace http://www.caqh.org/SOAP/WSDL/, importing CORERule2.2.0.xsd, binding
+        CoreSoapBinding over SOAP 1.2, with the standard CORE portType operations
+        RealTimeTransaction, BatchSubmitTransaction, BatchSubmitAckRetrievalTransaction,
+        BatchResultsRetrievalTransaction, BatchResultsAckSubmitTransaction and the Generic* variants.
+      - >-
+        SOAP endpoints are offered alongside REST for Care Cost Estimator (Institutional and
+        Professional), Service Reviews, Dental Claims and Claim Statuses.
+      - source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - id: hipaa
+    name: HIPAA (Health Insurance Portability and Accountability Act)
+    conforms: true
+    evidence:
+      - >-
+        Availity publicly states the network is operationally HIPAA compliant and processes PHI
+        under trading-partner agreement. Demo/sandbox data is explicitly PHI-free. A BAA is required
+        of API consumers.
+      - source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+    caveat: >-
+      This is Availity's own published compliance statement. No third-party attestation document
+      (SOC 2 report, HITRUST certificate, ISO 27001 certificate) is published at a public URL — see
+      the compliance-program entry below and the trust-center probe result.
+  - id: compliance-program
+    name: Published corporate compliance program
+    conforms: true
+    added: '2026-08-15'
+    method: searched
+    evidence:
+      - >-
+        Availity publishes a substantive regulatory-compliance page naming HIPAA Privacy and
+        Security, CMS requirements and standards, EHNAC, HITRUST, the HHS OIG standards, the Seven
+        Elements of an Effective Compliance Program from the Federal Sentencing Guidelines, and the
+        Transparency in Coverage final rules. It documents the program structure, risk-assessment
+        methodology, PHI identifiers, ethics training, and a compliance helpline plus reporting
+        address.
+      - source: https://www.availity.com/regulatory-compliance/
+    caveat: >-
+      The page NAMES HITRUST and EHNAC as standards Availity follows; it does not publish a
+      certificate, a certification number, an attestation letter, an audit report, or a trust
+      center from which any of them could be downloaded or verified. SOC 2 and ISO 27001 are not
+      mentioned at all. A buyer must request evidence through sales. This is why a `Compliance`
+      pointer is emitted in apis.yml and a `TrustCenter` pointer is NOT.
+    probe_note: >-
+      trust.availity.com and security.availity.com do not resolve. www.availity.com/security/,
+      /trust/, /security-and-compliance/ and /responsible-disclosure/ all return HTTP 200 with the
+      WordPress catch-all page (identical ~133.8KB body and title "Availity" as a control probe of
+      /definitely-not-real-xyz123/), so none of them exists.
+  - id: vulnerability-disclosure
+    name: Published vulnerability disclosure policy / bug bounty
+    conforms: false
+    added: '2026-08-15'
+    method: probed
+    evidence:
+      - >-
+        No /.well-known/security.txt on any host (www.availity.com returns a hard nginx 404;
+        developer.availity.com returns its SPA shell; api.availity.com returns 401 for every path).
+        No responsible-disclosure page, no HackerOne/Bugcrowd/Intigriti program, no published
+        security@ contact. Probed 2026-08-15 with 0-working/probe-security-programs.py — result
+        vdp=none trust=none.
+      - source: well-known/availity-well-known.yml
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749) Client Credentials Grant
+    conforms: true
+    evidence:
+      - >-
+        "Availity REST APIs support the application-only authentication method, which is based on
+        the Client Credentials Grant flow of the OAuth 2.0 spec."
+      - >-
+        POST https://api.availity.com/v1/token with
+        grant_type=client_credentials&scope=...&client_id=...&client_secret=... returns
+        access_token / token_type=Bearer / expires_in=300 / scope. Every harvested Swagger declares
+        securityDefinitions.oauth2 with flow "application" and this tokenUrl.
+      - source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+  - id: bearer-token-rfc6750
+    name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+    conforms: true
+    evidence:
+      - 'Documented call pattern is `-H "Authorization: Bearer $ACCESS_TOKEN"`; token_type is returned as "Bearer".'
+      - source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence:
+      - >-
+        No /.well-known/openid-configuration is served on any Availity host (developer.availity.com
+        and www.availity.com return SPA/WordPress catch-all HTML, api.availity.com returns 401).
+        Availity uses OAuth 2.0 for machine-to-machine API access only; there is no end-user
+        identity layer on the public API.
+      - source: well-known/availity-well-known.yml
+  - id: oauth-authorization-server-metadata
+    name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: false
+    evidence:
+      - >-
+        /.well-known/oauth-authorization-server is not served. The token endpoint is discoverable
+        only from prose documentation and from the tokenUrl field inside each Swagger document.
+      - source: well-known/availity-well-known.yml
+  - id: openapi
+    name: OpenAPI Specification
+    conforms: partial
+    evidence:
+      - >-
+        Availity publishes real, machine-readable API descriptions — eleven of them, harvested to
+        openapi/_harvested/ — but they are Swagger 2.0 ("swagger": "2.0"), not OpenAPI 3.x. They
+        are also not linked from any stable, documented URL: the document URLs are timestamped
+        (…/oasdocument/coverages-prd.20260625010641579301.json) and embedded in the client-side
+        rendering of the product page, so they change when Availity republishes.
+      - source: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence:
+      - >-
+        Availity's error envelope is a bespoke JSON object
+        {statusCode, reasonCode, userMessage, developerMessage, url, errors[]} served as
+        application/json. No type/title/detail/instance members and no application/problem+json
+        media type.
+      - source: errors/availity-problem-types.yml
+  - id: json-api
+    name: JSON:API
+    conforms: false
+    evidence:
+      - >-
+        Collection responses use Availity's own shape (links/offset/limit/count/totalCount plus a
+        pluralized resource array), not JSON:API's data/included/relationships envelope.
+      - source: conventions/availity-conventions.yml
+  - id: pagination
+    name: Documented, consistent collection pagination
+    conforms: true
+    evidence:
+      - >-
+        The API Guide specifies a single collection-resource contract for all APIs: offset (min 0,
+        default 0) and limit (min 1, max 50, default 50) query parameters; response fields links,
+        offset, limit, count, totalCount and a pluralized resource array; and self/first/last/next/prev
+        link relations with worked HREF examples.
+      - source: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+  - id: idempotency
+    name: Idempotency keys for unsafe methods
+    conforms: false
+    evidence:
+      - >-
+        No idempotency header is documented anywhere in the API Guide or declared in any of the
+        eleven harvested Swagger documents. Duplicate suppression is delegated to payer-assigned
+        transaction identifiers inside the X12 payload. Material risk given that 504 Gateway Timeout
+        is a declared response on claim-submission APIs.
+      - source: conventions/availity-conventions.yml
+  - id: rate-limit-headers
+    name: RateLimit header fields for HTTP (draft) / X-RateLimit-*
+    conforms: false
+    evidence:
+      - >-
+        429 Too Many Requests is documented, and per-plan ceilings are published on the product
+        catalogue page, but no rate-limit response header and no Retry-After is documented.
+      - source: rate-limits/availity-rate-limits.yml
+  - id: rfc8594
+    name: RFC 8594 Sunset header / RFC 9745 Deprecation header
+    conforms: false
+    evidence:
+      - >-
+        No deprecation or sunset policy, header, or dated changelog is published on the public
+        developer portal. Version transitions (Patient Cost Estimator 1.0.0 -> 2.0.0) are handled by
+        shipping a separate product with a separate base path.
+      - source: lifecycle/availity-lifecycle.yml
+  - id: fhir
+    name: HL7 FHIR
+    conforms: false
+    evidence:
+      - >-
+        No FHIR capability statement, no /metadata endpoint, no FHIR resource in any harvested
+        Swagger. Availity's public API surface is X12-derived REST, not FHIR. Recorded because a
+        US healthcare clearinghouse is commonly assumed to expose FHIR — for the public developer
+        portal surface measured here, it does not.
+      - source: openapi/_harvested/
+  - id: scim
+    name: SCIM
+    conforms: false
+    evidence: [no user-provisioning surface published]
+  - id: odata
+    name: OData
+    conforms: false
+    evidence: [no OData metadata document or $-query convention]
+  - id: fapi
+    name: FAPI (Financial-grade API)
+    conforms: false
+    evidence: [not applicable — healthcare EDI, not open banking]
+  - id: psd2
+    name: PSD2 / Open Banking
+    conforms: false
+    evidence: [not applicable — US healthcare]
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    evidence:
+      - >-
+        The developer portal loads @asyncapi/react-component on its product pages, so the platform
+        can render AsyncAPI documents, but no AsyncAPI document is referenced from any public page
+        and no event/streaming surface is published. Availity's asynchronous model is HTTP polling
+        (202 + Location), not events or webhooks.
+      - source: conventions/availity-conventions.yml#async_model
+  - id: mcp
+    name: Model Context Protocol
+    conforms: false
+    evidence: [no first-party MCP server published — see mcp/availity-mcp.yml]
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence:
+      - >-
+        /.well-known/agent-card.json and /.well-known/agent.json probed on developer.availity.com
+        (200, SPA shell — not an agent card) and api.availity.com (401). No agent card is served.
+      - source: well-known/availity-well-known.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

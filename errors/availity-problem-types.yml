@@ -1,0 +1,207 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide (HTTP status and error codes section) + openapi/_harvested/*.json response objects
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+format: custom
+rfc9457: false
+content_type: application/json
+summary: >-
+  Availity returns a single custom JSON error envelope across every REST API. It is NOT RFC 9457
+  problem+json — there is no type/title/detail/instance and no application/problem+json media type.
+  The catalogue below merges Availity's published HTTP status table (authoritative, prose) with the
+  4xx/5xx responses actually declared in the eleven harvested Swagger documents.
+envelope:
+  example:
+    userMessage: The requested resource does not exist.
+    developerMessage: The requested resource does not exist. Please check that you're using the proper resource ID.
+    reasonCode: 0
+    statusCode: 404
+  fields:
+    statusCode: HTTP status code, repeated in the body (integer).
+    reasonCode: Internal error code — Availity states it is currently not used (integer).
+    userMessage: Error message appropriate for displaying to an end user (string).
+    developerMessage: More detailed error message appropriate for a developer (string).
+    url: URL where more information on the error can be found (string).
+    errors: Collection of extended, service-specific error messages (array).
+    errors[].code: Service-specific error code (integer).
+    errors[].errorMessage: Service-specific error message for the code (string).
+  schema_ref: openapi/_harvested/*-swagger.json#/definitions/ErrorResponse
+  field_error_ref: openapi/_harvested/*-swagger.json#/definitions/FieldError
+problem_types:
+  - status: 400
+    name: Bad Request
+    applies_to: [GET by id, POST, PUT]
+    title: Malformed request
+    detail: >-
+      The resource did not understand the request due to malformed syntax or malformed query
+      parameters. Also returned when Availity's allow-list input validation rejects characters it
+      considers unsafe, in which case developerMessage carries an "inbound injection" message.
+    remediation: >-
+      Validate and sanitize input before calling. Check query-parameter types and the X12-derived
+      field constraints published in the Configurations API for the target payer.
+    declared_in:
+      - availity-care-cost-estimator-institutional
+      - availity-care-cost-estimator-professional
+      - availity-claim-statuses
+      - availity-configurations
+      - availity-coverages
+      - availity-dental-claims
+      - availity-dfs
+      - availity-patient-cost-estimator-professional
+      - availity-service-reviews
+  - status: 401
+    name: Unauthorized
+    applies_to: [GET, POST, PUT, DELETE, PATCH]
+    title: Not authenticated
+    detail: The API client is not authorized to make this request; the request requires authentication.
+    remediation: >-
+      Fetch a fresh token from POST https://api.availity.com/v1/token. Availity access tokens expire
+      after 300 seconds, so a 401 mid-session almost always means an expired token rather than bad
+      credentials. Confirm the requested scope matches the subscribed product.
+    declared_in: all harvested specs
+  - status: 403
+    name: Forbidden
+    applies_to: [GET, POST, PUT, DELETE, PATCH]
+    title: Refused
+    detail: >-
+      The server understood the request but refuses to fulfill it. This may be temporary or
+      permanent depending on the use case.
+    remediation: >-
+      Usually a subscription/entitlement problem: the application is authenticated but not
+      subscribed to the API product, or the requested scope is not granted on the plan. Check the
+      product subscription in the developer portal.
+    declared_in: all harvested specs
+  - status: 404
+    name: Not Found
+    applies_to: [GET, PUT, DELETE, PATCH]
+    title: Resource not found
+    detail: >-
+      The service has not found anything matching the request URI. There is no indication whether
+      the condition is temporary or permanent.
+    remediation: Verify the resource id returned by the original POST; ids are long numeric strings.
+    declared_in:
+      - availity-care-cost-estimator-institutional
+      - availity-care-cost-estimator-professional
+      - availity-claim-statuses
+      - availity-coverages
+      - availity-dental-claims
+      - availity-patient-cost-estimator-professional
+      - availity-service-reviews
+  - status: 405
+    name: Method Not Allowed
+    applies_to: [GET, POST, PUT, DELETE, PATCH]
+    title: Method not allowed for this resource
+    detail: The method specified in the request line is not allowed for the resource identified by the request URI.
+    remediation: Consult the operation list; several Availity collections are POST-to-query rather than GET-to-query.
+    declared_in: documented in the API Guide status table only
+  - status: 406
+    name: Not Acceptable
+    applies_to: [GET, POST, PUT, DELETE, PATCH]
+    title: Unacceptable representation
+    detail: >-
+      The resource can only generate response entities with characteristics unacceptable according
+      to the Accept headers sent in the request.
+    remediation: Request application/json or application/xml; only some resources emit CSV/PDF/PNG/XLS.
+    declared_in: documented in the API Guide status table only
+  - status: 409
+    name: Conflict
+    applies_to: [POST, PUT, DELETE, PATCH]
+    title: State conflict
+    detail: The service could not complete the request due to a conflict with the current state of the resource.
+    remediation: >-
+      Re-read the resource before retrying. Availity ships no idempotency key, so a blind retry
+      after a 409 can produce a duplicate submission.
+    declared_in: documented in the API Guide status table only
+  - status: 410
+    name: Gone
+    applies_to: [GET, PUT, DELETE, PATCH]
+    title: Permanently removed
+    detail: The requested resource is no longer available and has no known forwarding URI. This condition is permanent.
+    remediation: Stop retrying; re-submit the underlying transaction if still required.
+    declared_in: documented in the API Guide status table only
+  - status: 415
+    name: Unsupported Media Type
+    applies_to: [GET, POST, PUT, PATCH, DELETE]
+    title: Unsupported media type
+    detail: The entity of the request is in a format not supported by the requested resource for the requested method.
+    remediation: >-
+      Several Availity POST operations are form-encoded (application/x-www-form-urlencoded) rather
+      than JSON — see the formData parameters on POST /v1/coverages in the harvested Swagger.
+    declared_in: documented in the API Guide status table only
+  - status: 422
+    name: Unprocessable Entity
+    applies_to: [POST, PUT, PATCH, DELETE]
+    title: Validation failed
+    detail: >-
+      The request entity is well-formed and the media type supported, but validation failed or the
+      entity is a different type/version than the service supports. In practice this is where a
+      payer-side rejection of an X12 transaction surfaces.
+    remediation: >-
+      Read errors[].errorMessage for the payer-specific rejection reason and correct the X12 field.
+      Use the Configurations API to fetch that payer's required fields and validation patterns
+      before resubmitting.
+    declared_in:
+      - availity-patient-cost-estimator-professional
+  - status: 429
+    name: Too Many Requests
+    applies_to: [GET, POST, PUT, PATCH, DELETE]
+    title: Rate limit exceeded
+    detail: The transaction rate limit has been exceeded.
+    remediation: >-
+      Back off exponentially with jitter. Availity publishes NO rate-limit response headers and no
+      documented Retry-After, so the client has no runtime budget signal — throttle against the
+      published plan ceiling instead (100 calls/sec, 100,000 calls/day on Standard).
+    declared_in: documented in the API Guide status table only
+  - status: 500
+    name: Internal Server Error
+    applies_to: [GET, POST, PUT, PATCH, DELETE]
+    title: Internal error
+    detail: The service encountered an unexpected condition that prevented it from fulfilling the request.
+    remediation: Retry with backoff; quote X-Availity-Transaction-ID when opening a support ticket.
+    declared_in: all harvested specs
+  - status: 502
+    name: Bad Gateway
+    applies_to: [GET]
+    title: Upstream payer error
+    detail: Declared on the Patient Cost Estimator 2.0.0 polling operation.
+    remediation: Retry the poll; the failure is between Availity and the payer.
+    declared_in:
+      - availity-patient-cost-estimator-professional
+  - status: 503
+    name: Service Unavailable
+    applies_to: [GET]
+    title: Upstream payer unavailable
+    detail: Declared on the Patient Cost Estimator 2.0.0 polling operation.
+    remediation: >-
+      Payer connectivity is down or in a maintenance window. Retry with backoff; the Payer List API
+      reports per-payer transaction availability.
+    declared_in:
+      - availity-patient-cost-estimator-professional
+  - status: 504
+    name: Gateway Timeout
+    applies_to: [GET]
+    title: Payer response timed out
+    detail: >-
+      Declared on the get-by-id operations of the claim and predetermination APIs. Real-time X12
+      round trips to a payer can exceed the gateway timeout.
+    remediation: >-
+      Do NOT re-submit the transaction — re-poll the same id. Re-submitting risks duplicate
+      adjudication because there is no idempotency key.
+    declared_in:
+      - availity-care-cost-estimator-institutional
+      - availity-care-cost-estimator-professional
+      - availity-dental-claims
+      - availity-patient-cost-estimator-professional
+non_error_statuses_worth_noting:
+  - status: 202
+    note: >-
+      Accepted. Used BOTH for the initial submission and for a poll that is not yet complete. Not an
+      error, but the most common source of client bugs against Availity. See
+      conventions/availity-conventions.yml#async_model.
+  - status: 303
+    note: See Other. Response can be found under a different URI provided in the Location header; retrieve with GET.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,99 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.availity.com/blog/2025/3/25/availity-api-guide, https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1, https://status.availity.com, openapi/_harvested/*-swagger.json
+docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
+provider: Availity
+providerId: availity
+summary: >-
+  Availity versions in the URI path and, more visibly, by shipping a numbered product ("Patient Cost
+  Estimator 1.0.0 - Professional" and "Patient Cost Estimator 2.0.0 - Professional" are sold in the
+  same product catalogue with different base paths). It runs a real status page, but that status
+  page is behind a login. It publishes no deprecation policy, no sunset headers, and no dated
+  changelog on the public developer portal.
+versioning:
+  scheme: uri-path + product-name version
+  current_versions:
+    - v1
+    - v2
+  documented_policy: false
+  detail: >-
+    The version segment sits in the path (https://api.availity.com/v1/coverages,
+    https://api.availity.com/v2/service-reviews). Separately, each API carries a semantic product
+    version in its Swagger info.version — Payer List 1.0.5, Coverages 1.0.0, Claim Statuses 1.0.0,
+    Configurations 1.0.0, Dental Claims 1.0.0, Service Reviews 2.0.0, Patient Cost Estimator 1.0.0
+    (Institutional and Professional) and 2.0.0 (Professional), AWS Payer List 2.0.0. There is no
+    version request header and no date-pinned versioning.
+  breaking_change_practice: >-
+    Observed rather than stated: a breaking revision ships as a NEW named API with a new base path
+    alongside the old one, rather than mutating the existing version. Patient Cost Estimator 2.0.0
+    - Professional lives at /v2/patient-cost-estimates/prof and changed the processing model to
+    async submit-then-poll, while Patient Cost Estimator 1.0.0 - Professional remains available at
+    /v1/professional-claims.
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  detail: >-
+    No deprecation policy page, no RFC 8594 Sunset header, no RFC 9745 Deprecation header, and no
+    `deprecated: true` flag on any operation in any of the eleven harvested Swagger documents. A
+    consumer has no published notice period. Because the Standard plan is only reachable through a
+    signed trading-partner contract, lifecycle notice is presumably delivered contractually via the
+    Trading Partner Management team rather than published — but that is not verifiable from the
+    public surface and is therefore recorded as absent.
+status_page:
+  published: true
+  url: https://status.availity.com
+  provider: Atlassian Statuspage
+  http_status: 200
+  public: false
+  detail: >-
+    status.availity.com is a real Atlassian Statuspage instance (status.availity.com/api/v2/summary.json
+    302-redirects to /access/login). The landing page reads "Availity Status — Login Authentication
+    Required To View This Page" and prompts for an email and a status-page-specific password. So
+    Availity DOES operate a status page, but incident history, component status and the Statuspage
+    JSON API are all gated behind authentication. An unauthenticated consumer or agent cannot
+    determine whether Availity is up.
+  probed: '2026-08-14'
+sla:
+  published: false
+  detail: >-
+    No public SLA, uptime target, or credit schedule. Availability commitments live in the
+    trading-partner agreement, which is not public.
+changelog:
+  published: false
+  detail: >-
+    No dated changelog or release-notes feed on the public developer portal. The documentation pages
+    carry an "Updated on" stamp (the Availity API Guide reads "Updated on Fri, 10/31/2025 - 15:59")
+    and the developer blog index holds twelve dated documentation entries across 2025-02-28,
+    2025-03-04, 2025-03-25 and 2025-10-31 — but these are documentation revisions, not an API
+    change log. No `type: ChangeLog` artifact is emitted because there is nothing dated and
+    API-scoped to record.
+  documentation_updates_observed:
+    - date: '2025-10-31'
+      pages: [availity-api-guide, hipaa-transactions, enhanced-claim-status, service-reviews, ebvalue-add-api, claim-attachment-api]
+    - date: '2025-03-25'
+      pages: [availity-api-guide, hipaa-transactions, enhanced-claim-status]
+    - date: '2025-03-04'
+      pages: [ebvalue-add-api, service-reviews]
+    - date: '2025-02-28'
+      pages: [claim-attachment-api]
+spec_stability:
+  stable_spec_urls: false
+  detail: >-
+    The published Swagger documents are served from timestamped URLs of the form
+    /system/api_details/<product>/oasdocument/<product>.<yyyymmddHHMMSSssssss>.json (all eleven
+    currently carry a 2026-06-25 stamp). There is no stable, versionless alias. Any consumer
+    pinning a spec URL will break silently the next time Availity republishes, and a machine
+    cannot discover the current URL without parsing the product page HTML.
+support:
+  channel: Availity Client Services support ticket via Availity Essentials (Help & Training > Availity Support), 24/7
+  developer_contact: https://developer.availity.com/partner/contact-us
+  sales_gate: >-
+    Moving from the Demo plan to the Standard plan requires submitting a request in the portal AND
+    contacting sales; the Trading Partner Management team completes contracting before the
+    subscription is activated.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
