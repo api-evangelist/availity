@@ -1,6 +1,7 @@
 aid: availity
 name: Availity
 created: '2026-04-20'
+specificationVersion: '0.23'
 tags:
   - Healthcare
   - Clearinghouse
