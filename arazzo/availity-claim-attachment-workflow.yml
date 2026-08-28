@@ -10,8 +10,8 @@ info:
     inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: availityClaimAttachments
-  url: ../openapi/availity-claim-attachments-openapi.yml
+- name: claimAttachmentsApi
+  url: ../openapi/availity-claim-attachments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: claim-attachment

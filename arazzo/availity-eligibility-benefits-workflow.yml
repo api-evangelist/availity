@@ -11,8 +11,8 @@ info:
     self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: availityEligibility
-  url: ../openapi/availity-eligibility-openapi.yml
+- name: eligibilityApi
+  url: ../openapi/availity-eligibility-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: eligibility-benefits

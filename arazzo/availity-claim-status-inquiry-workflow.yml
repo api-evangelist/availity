@@ -10,8 +10,8 @@ info:
     Every step inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: availityClaimStatus
-  url: ../openapi/availity-claim-status-openapi.yml
+- name: enhancedClaimStatusApi
+  url: ../openapi/availity-enhanced-claim-status-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: claim-status-inquiry

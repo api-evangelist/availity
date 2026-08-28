@@ -11,8 +11,14 @@ info:
     is read back. Every step inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: availityServiceReviews
-  url: ../openapi/availity-service-reviews-openapi.yml
+- name: authAttachmentsApi
+  url: ../openapi/availity-auth-attachments-api-openapi.yml
+  type: openapi
+- name: isAuthRequiredApi
+  url: ../openapi/availity-is-auth-required-api-openapi.yml
+  type: openapi
+- name: serviceReviewsApi
+  url: ../openapi/availity-service-reviews-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: prior-authorization
