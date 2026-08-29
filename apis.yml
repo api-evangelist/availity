@@ -318,6 +318,9 @@ apis:
   - type: Documentation
     url: https://developer.availity.com/blog/2025/3/4/service-reviews
 common:
+  - type: CapabilityMap
+    url: capabilities/availity-capability-edges.yml
+    name: Availity Business Capability Map
   - type: LinkedIn
     url: https://www.linkedin.com/company/availity
   - url: https://www.availity.com
