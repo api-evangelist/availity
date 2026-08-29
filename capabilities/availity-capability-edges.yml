@@ -11,18 +11,18 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 5
+edge_count: 6
 edges:
 - tag: Eligibility
   spec_file: availity-eligibility-api-openapi.yml
   capability_id: BC-2800.30
   capability_id_l1: BC-2800
   capability_name: Eligibility & Benefits Verification
-  confidence: 0.9
-  evidence: checkEligibility  Availity Check Member Eligibility; schemas Coverage, Benefit, PlanInformation,
-    Payer
-  reason: Real-time insurance coverage and benefit verification against payers before service, with subscriber/dependent/coverage/benefit
-    schemas — Eligibility & Benefits Verification.
+  confidence: 0.94
+  evidence: 'POST .../eligibilities  checkEligibility  Availity Check Member Eligibility; schemas: Coverage,
+    PlanInformation, Benefit'
+  reason: Real-time verification of member insurance coverage and benefits against payers — directly Eligibility
+    & Benefits Verification.
 - tag: Claim Status
   spec_file: availity-claim-status-api-openapi.yml
   capability_id: BC-2870.30
@@ -30,34 +30,46 @@ edges:
   capability_name: Claim Production & Submission
   confidence: 0.85
   evidence: createClaimStatusInquiry  Availity Create Claim Status Inquiry
-  reason: Creates and lists payer claim status inquiries (HIPAA 276/277 style), i.e. status tracking of
-    claims submitted to payers — Claim Production & Submission.
+  reason: Payer claim status inquiry (X12 276/277-style) is explicitly the status-tracking element of
+    claim production and submission.
 - tag: Enhanced Claim Status
   spec_file: availity-enhanced-claim-status-api-openapi.yml
   capability_id: BC-2870.30
   capability_id_l1: BC-2870
   capability_name: Claim Production & Submission
   confidence: 0.85
-  evidence: searchClaimBy276  Availity Search Claim by X12 276
-  reason: X12 276 claim status searches (summary and detail) against payers; this is claim status tracking
-    in the provider revenue cycle.
+  evidence: POST .../status/searchBy276  Availity Search Claim by X12 276
+  reason: X12 276 claim status search and detail/summary claim searches — claim submission status tracking
+    within healthcare revenue cycle.
 - tag: Claim Attachments
   spec_file: availity-claim-attachments-api-openapi.yml
   capability_id: BC-2870.30
   capability_id_l1: BC-2870
   capability_name: Claim Production & Submission
-  confidence: 0.8
-  evidence: submitClaimAttachment  Availity Submit Claim Attachment; 'enables electronic submission of
-    supporting documentation alongside healthcare claims'
-  reason: Electronic submission of documentation attached to healthcare claims to payers, with status
-    tracking — squarely claim production and submission within provider revenue cycle.
+  confidence: 0.82
+  evidence: POST /availity/intelligent-payer-network/v1/claim-attachments  submitClaimAttachment  Availity
+    Submit Claim Attachment
+  reason: Electronic submission of supporting documentation alongside healthcare claims to payers, with
+    status tracking — part of claim production and submission in provider revenue cycle.
 - tag: Is Auth Required
   spec_file: availity-is-auth-required-api-openapi.yml
   capability_id: BC-2800.30
   capability_id_l1: BC-2800
   capability_name: Eligibility & Benefits Verification
+  confidence: 0.8
+  evidence: POST /value-adds/v1/isauthrequired  checkIsAuthRequired  Availity Check if Authorization is
+    Required
+  reason: Determines whether payer prior authorization is required for a planned service — an authorisation-requirement
+    check before service delivery, i.e. eligibility/benefits verification. Not API auth despite the tag
+    string.
+- tag: Auth Attachments
+  spec_file: availity-auth-attachments-api-openapi.yml
+  capability_id: BC-2800.30
+  capability_id_l1: BC-2800
+  capability_name: Eligibility & Benefits Verification
   confidence: 0.7
-  evidence: checkIsAuthRequired  Availity Check if Authorization is Required
-  reason: Determines whether payer prior authorisation is required for a planned service — verification
-    of authorisation requirements before service delivery, part of patient access eligibility/benefits
-    verification rather than post-service billing.
+  evidence: POST /value-adds/v2/attachments  submitAuthAttachment  Availity Submit Authorization with
+    Attachment
+  reason: Operations submit a prior-authorization request with supporting documentation and poll its processing
+    status. Prior authorization sits under Eligibility & Benefits Verification (authorisation requirements
+    before service delivery). Some ambiguity vs. revenue-cycle claim documentation, hence moderate confidence.
