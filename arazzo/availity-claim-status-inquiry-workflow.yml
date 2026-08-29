@@ -9,6 +9,17 @@ info:
     returns a finalized 277 status response carrying the claim's disposition.
     Every step inlines its request so the flow is self-contained.
   version: 1.0.0
+  x-realizes-capability-ids:
+  - BC-2870.30
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-2870.30
+      capability_name: Claim Production & Submission
+      spec: availity-enhanced-claim-status-api-openapi.yml
+      confidence: 0.85
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: enhancedClaimStatusApi
   url: ../openapi/availity-enhanced-claim-status-api-openapi.yml
