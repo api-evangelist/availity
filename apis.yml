@@ -48,7 +48,6 @@ apis:
   - EDI
   - Healthcare
   - HIPAA
-  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
   humanURL: https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1
   baseURL: https://api.availity.com
   properties:
@@ -70,7 +69,6 @@ apis:
   - Healthcare
   - Patient Financial Responsibility
   - Price Transparency
-  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
@@ -91,7 +89,6 @@ apis:
   - Eligibility
   - Healthcare
   - Member ID Card
-  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
@@ -110,7 +107,6 @@ apis:
   - Healthcare
   - Payer Network
   - Reference Data
-  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
@@ -130,7 +126,6 @@ apis:
   - Healthcare
   - Payer Requirements
   - Provider Validation
-  image: https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/image.png
   humanURL: https://developer.availity.com/
   baseURL: https://api.availity.com
   properties:
