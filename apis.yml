@@ -14,6 +14,9 @@ deliveryModel:
   method: derived
 created: '2026-04-20'
 specificationVersion: '0.23'
+x-docs-platform: redocly
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-19
 tags:
   - Healthcare
   - Clearinghouse
