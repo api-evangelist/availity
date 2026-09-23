@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Availity Claim Attachments Auth Attachments Enhanced Claim Status API
-  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  title: Availity Claim Status Enhanced Claim Status API
+  description: The Availity Claim Status API enables the ASC X12N 276 and 277 transactions, allowing providers to submit and track claim status inquiries. Supports standard 276/277 workflows and enhanced claim status with summary search, detail search, and value-add 277 responses.
   version: 1.0.0
   contact:
     name: Availity Developer Portal
@@ -118,41 +118,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    SummarySearchRequest:
-      type: object
-      required:
-      - payerId
-      - requestType
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        requestType:
-          type: string
-          enum:
-          - SERVICE_DATE
-          - MEMBER_ID
-          example: SERVICE_DATE
-        memberId:
-          type: string
-          example: MEM123456
-        fromDate:
-          type: string
-          format: date
-          example: '2025-01-01'
-        toDate:
-          type: string
-          format: date
-          example: '2025-12-31'
-        providerNpi:
-          type: string
-          example: '1234567890'
-        checkNumber:
-          type: string
-          example: CHK-001234
-        requestedStatus:
-          type: string
-          example: PAID
     ClaimStatusList:
       type: object
       properties:
@@ -194,6 +159,44 @@ components:
           type: string
           format: date
           example: '2025-03-15'
+    SearchBy276Request:
+      type: object
+      required:
+      - payerId
+      - patientLastName
+      - patientFirstName
+      - patientBirthDate
+      - fromDate
+      - toDate
+      - providerLastName
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        patientLastName:
+          type: string
+          example: Smith
+        patientFirstName:
+          type: string
+          example: Jane
+        patientBirthDate:
+          type: string
+          format: date
+          example: '1980-01-15'
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerLastName:
+          type: string
+          example: Johnson
+        patientSameAsSubscriber:
+          type: boolean
+          example: true
     ClaimStatusResponse:
       type: object
       properties:
@@ -252,6 +255,16 @@ components:
                 type: string
               message:
                 type: string
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
     Error:
       type: object
       properties:
@@ -265,30 +278,24 @@ components:
           type: array
           items:
             type: string
-    SearchBy276Request:
+    SummarySearchRequest:
       type: object
       required:
       - payerId
-      - patientLastName
-      - patientFirstName
-      - patientBirthDate
-      - fromDate
-      - toDate
-      - providerLastName
+      - requestType
       properties:
         payerId:
           type: string
           example: BCBS001
-        patientLastName:
+        requestType:
           type: string
-          example: Smith
-        patientFirstName:
+          enum:
+          - SERVICE_DATE
+          - MEMBER_ID
+          example: SERVICE_DATE
+        memberId:
           type: string
-          example: Jane
-        patientBirthDate:
-          type: string
-          format: date
-          example: '1980-01-15'
+          example: MEM123456
         fromDate:
           type: string
           format: date
@@ -297,22 +304,15 @@ components:
           type: string
           format: date
           example: '2025-12-31'
-        providerLastName:
+        providerNpi:
           type: string
-          example: Johnson
-        patientSameAsSubscriber:
-          type: boolean
-          example: true
-    AsyncJobResponse:
-      type: object
-      properties:
-        id:
+          example: '1234567890'
+        checkNumber:
           type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
+          example: CHK-001234
+        requestedStatus:
           type: string
-          example: PROCESSING
+          example: PAID
   responses:
     NotFound:
       description: Not found

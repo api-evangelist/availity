@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Availity Claim Attachments Auth Attachments Eligibility API
-  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
+  title: Availity & Benefits Eligibility API
+  description: The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions, enabling real-time verification of member coverage, co-pays, deductibles, and benefits information. REST APIs connect provider systems to every major health plan nationwide for eligibility checks.
   version: 1.0.0
   contact:
     name: Availity Developer Portal
@@ -138,6 +138,64 @@ paths:
                 $ref: '#/components/schemas/PayerList'
 components:
   schemas:
+    PayerInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
+    Provider:
+      type: object
+      required:
+      - npi
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI)
+          pattern: ^\d{10}$
+        firstName:
+          type: string
+        lastName:
+          type: string
+        organizationName:
+          type: string
+        taxId:
+          type: string
+        serviceProviderNumber:
+          type: string
+    EligibilityError:
+      type: object
+      properties:
+        id:
+          type: string
+        rejectCode:
+          type: string
+        rejectReason:
+          type: string
+        followUpAction:
+          type: string
+    Payer:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Availity payer ID
+        name:
+          type: string
     Benefit:
       type: object
       properties:
@@ -173,32 +231,32 @@ components:
         timeQualifier:
           type: string
           description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
-    Dependent:
+    PlanInformation:
       type: object
       properties:
-        firstName:
+        planName:
           type: string
-        lastName:
+        groupName:
           type: string
-        dateOfBirth:
+        groupNumber:
+          type: string
+        planBeginDate:
           type: string
           format: date
-        gender:
+        planEndDate:
           type: string
-          enum:
-          - M
-          - F
-          - U
-        relationship:
+          format: date
+    Error:
+      type: object
+      properties:
+        code:
           type: string
-          enum:
-          - 1
-          - 19
-          - 20
-          - 21
-          - 39
-          - 40
-          - G8
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     PayerList:
       type: object
       properties:
@@ -217,81 +275,6 @@ components:
                 type: array
                 items:
                   type: string
-    Subscriber:
-      type: object
-      required:
-      - memberId
-      properties:
-        memberId:
-          type: string
-          description: Insurance member ID
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-          enum:
-          - M
-          - F
-          - U
-        ssn:
-          type: string
-          description: Social Security Number (last 4 or full)
-        groupNumber:
-          type: string
-    PayerInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            postalCode:
-              type: string
-    Coverage:
-      type: object
-      properties:
-        serviceTypeCodes:
-          type: array
-          items:
-            type: string
-        serviceTypeNames:
-          type: array
-          items:
-            type: string
-        insuranceType:
-          type: string
-        planCoverage:
-          type: string
-        coverageStatus:
-          type: string
-          enum:
-          - Active
-          - Inactive
-          - Cancelled
-        effectiveDate:
-          type: string
-          format: date
-        expirationDate:
-          type: string
-          format: date
-        benefits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Benefit'
     SubscriberInfo:
       type: object
       properties:
@@ -310,51 +293,6 @@ components:
           type: string
         groupName:
           type: string
-    Provider:
-      type: object
-      required:
-      - npi
-      properties:
-        npi:
-          type: string
-          description: National Provider Identifier (NPI)
-          pattern: ^\d{10}$
-        firstName:
-          type: string
-        lastName:
-          type: string
-        organizationName:
-          type: string
-        taxId:
-          type: string
-        serviceProviderNumber:
-          type: string
-    EligibilityError:
-      type: object
-      properties:
-        id:
-          type: string
-        rejectCode:
-          type: string
-        rejectReason:
-          type: string
-        followUpAction:
-          type: string
-    PlanInformation:
-      type: object
-      properties:
-        planName:
-          type: string
-        groupName:
-          type: string
-        groupNumber:
-          type: string
-        planBeginDate:
-          type: string
-          format: date
-        planEndDate:
-          type: string
-          format: date
     EligibilityRequest:
       type: object
       required:
@@ -389,17 +327,32 @@ components:
             endDate:
               type: string
               format: date
-    Error:
+    Dependent:
       type: object
       properties:
-        code:
+        firstName:
           type: string
-        message:
+        lastName:
           type: string
-        details:
-          type: array
-          items:
-            type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - U
+        relationship:
+          type: string
+          enum:
+          - 1
+          - 19
+          - 20
+          - 21
+          - 39
+          - 40
+          - G8
     EligibilityList:
       type: object
       properties:
@@ -411,16 +364,37 @@ components:
           type: integer
         offset:
           type: integer
-    Payer:
+    Coverage:
       type: object
-      required:
-      - id
       properties:
-        id:
+        serviceTypeCodes:
+          type: array
+          items:
+            type: string
+        serviceTypeNames:
+          type: array
+          items:
+            type: string
+        insuranceType:
           type: string
-          description: Availity payer ID
-        name:
+        planCoverage:
           type: string
+        coverageStatus:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Cancelled
+        effectiveDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        benefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Benefit'
     EligibilityResponse:
       type: object
       properties:
@@ -445,15 +419,41 @@ components:
             $ref: '#/components/schemas/Coverage'
         planInformation:
           $ref: '#/components/schemas/PlanInformation'
+    Subscriber:
+      type: object
+      required:
+      - memberId
+      properties:
+        memberId:
+          type: string
+          description: Insurance member ID
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - U
+        ssn:
+          type: string
+          description: Social Security Number (last 4 or full)
+        groupNumber:
+          type: string
   responses:
-    Unauthorized:
-      description: Unauthorized
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

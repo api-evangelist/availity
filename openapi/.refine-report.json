@@ -1,26 +1,38 @@
 {
   "provider": "availity",
   "sources": [
-    "availity-auth-attachments-api-openapi.yml",
-    "availity-claim-attachments-api-openapi.yml",
-    "availity-claim-status-api-openapi.yml",
-    "availity-eligibility-api-openapi.yml",
-    "availity-enhanced-claim-status-api-openapi.yml",
-    "availity-is-auth-required-api-openapi.yml",
-    "availity-service-reviews-api-openapi.yml"
+    "_original/availity-claim-attachments-openapi.yml",
+    "_original/availity-claim-status-openapi.yml",
+    "_original/availity-eligibility-openapi.yml",
+    "_original/availity-service-reviews-openapi.yml"
   ],
   "outputs": [
-    "availity-auth-attachments-api-openapi.yml",
     "availity-claim-attachments-api-openapi.yml",
     "availity-claim-status-api-openapi.yml",
-    "availity-eligibility-api-openapi.yml",
     "availity-enhanced-claim-status-api-openapi.yml",
+    "availity-eligibility-api-openapi.yml",
+    "availity-auth-attachments-api-openapi.yml",
     "availity-is-auth-required-api-openapi.yml",
     "availity-service-reviews-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "availity-claim-attachments-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "availity-claim-status-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "availity-eligibility-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "availity-service-reviews-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "availity-auth-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-claim-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-claim-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-eligibility-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-enhanced-claim-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-is-auth-required-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "availity-service-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

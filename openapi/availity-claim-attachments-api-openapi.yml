@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Availity Auth Attachments Claim Attachments API
+  title: Availity Claim Attachments API
   description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
   version: 1.0.0
   contact:
@@ -79,8 +79,8 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:
@@ -91,13 +91,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
     ClaimAttachmentResponse:
       type: object
       properties:
@@ -115,19 +128,6 @@ components:
         controlNumber:
           type: string
           example: ATT-2025-001234
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
     ClaimAttachmentRequest:
       type: object
       required:

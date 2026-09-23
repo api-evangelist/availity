@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Availity Claim Attachments Auth Attachments Is Auth Required API
-  description: The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims.
-  version: 1.0.0
+  title: Availity Service Reviews (Prior Authorization) Is Auth…
+  description: The Availity Service Reviews API enables the ASC X12N 278 transaction for prior authorization and healthcare service reviews. Includes IsAuthRequired and Attachments add-on APIs.
+  version: 2.0.0
   contact:
     name: Availity Developer Portal
     url: https://developer.availity.com/
@@ -69,32 +69,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    IsAuthRequiredRequest:
-      type: object
-      properties:
-        serviceReview:
-          type: object
-          description: Authorization details to check
-          properties:
-            payerId:
-              type: string
-              example: BCBS001
-            procedureCode:
-              type: string
-              example: '99213'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
     IsAuthRequiredResponse:
       type: object
       properties:
@@ -120,6 +94,32 @@ components:
         status:
           type: string
           example: PROCESSING
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
+    IsAuthRequiredRequest:
+      type: object
+      properties:
+        serviceReview:
+          type: object
+          description: Authorization details to check
+          properties:
+            payerId:
+              type: string
+              example: BCBS001
+            procedureCode:
+              type: string
+              example: '99213'
   responses:
     NotFound:
       description: Not found
