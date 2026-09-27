@@ -138,24 +138,17 @@ paths:
                 $ref: '#/components/schemas/PayerList'
 components:
   schemas:
-    PayerInfo:
+    Error:
       type: object
       properties:
-        id:
+        code:
           type: string
-        name:
+        message:
           type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            postalCode:
-              type: string
+        details:
+          type: array
+          items:
+            type: string
     Provider:
       type: object
       required:
@@ -175,88 +168,6 @@ components:
           type: string
         serviceProviderNumber:
           type: string
-    EligibilityError:
-      type: object
-      properties:
-        id:
-          type: string
-        rejectCode:
-          type: string
-        rejectReason:
-          type: string
-        followUpAction:
-          type: string
-    Payer:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Availity payer ID
-        name:
-          type: string
-    Benefit:
-      type: object
-      properties:
-        code:
-          type: string
-          description: X12 benefit information code
-        name:
-          type: string
-        coverageLevel:
-          type: string
-          enum:
-          - INDIVIDUAL
-          - FAMILY
-          - EMPLOYEE
-          - EMPLOYEE_AND_SPOUSE
-        benefitAmount:
-          type: object
-          properties:
-            value:
-              type: number
-            currency:
-              type: string
-        benefitPercent:
-          type: number
-          minimum: 0
-          maximum: 100
-        inPlanNetworkIndicator:
-          type: string
-          enum:
-          - Y
-          - N
-          - W
-        timeQualifier:
-          type: string
-          description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
-    PlanInformation:
-      type: object
-      properties:
-        planName:
-          type: string
-        groupName:
-          type: string
-        groupNumber:
-          type: string
-        planBeginDate:
-          type: string
-          format: date
-        planEndDate:
-          type: string
-          format: date
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
     PayerList:
       type: object
       properties:
@@ -275,6 +186,16 @@ components:
                 type: array
                 items:
                   type: string
+    Payer:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Availity payer ID
+        name:
+          type: string
     SubscriberInfo:
       type: object
       properties:
@@ -293,66 +214,24 @@ components:
           type: string
         groupName:
           type: string
-    EligibilityRequest:
+    PayerInfo:
       type: object
-      required:
-      - controlNumber
-      - provider
-      - subscriber
-      - payer
       properties:
-        controlNumber:
+        id:
           type: string
-          description: Unique transaction control number (up to 9 characters)
-          maxLength: 9
-        provider:
-          $ref: '#/components/schemas/Provider'
-        subscriber:
-          $ref: '#/components/schemas/Subscriber'
-        dependent:
-          $ref: '#/components/schemas/Dependent'
-        payer:
-          $ref: '#/components/schemas/Payer'
-        encounter:
+        name:
+          type: string
+        address:
           type: object
           properties:
-            serviceTypeCodes:
-              type: array
-              description: X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)
-              items:
-                type: string
-            beginningDate:
+            address1:
               type: string
-              format: date
-            endDate:
+            city:
               type: string
-              format: date
-    Dependent:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-          enum:
-          - M
-          - F
-          - U
-        relationship:
-          type: string
-          enum:
-          - 1
-          - 19
-          - 20
-          - 21
-          - 39
-          - 40
-          - G8
+            state:
+              type: string
+            postalCode:
+              type: string
     EligibilityList:
       type: object
       properties:
@@ -395,30 +274,86 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Benefit'
-    EligibilityResponse:
+    EligibilityRequest:
+      type: object
+      required:
+      - controlNumber
+      - provider
+      - subscriber
+      - payer
+      properties:
+        controlNumber:
+          type: string
+          description: Unique transaction control number (up to 9 characters)
+          maxLength: 9
+        provider:
+          $ref: '#/components/schemas/Provider'
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+        dependent:
+          $ref: '#/components/schemas/Dependent'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        encounter:
+          type: object
+          properties:
+            serviceTypeCodes:
+              type: array
+              description: X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)
+              items:
+                type: string
+            beginningDate:
+              type: string
+              format: date
+            endDate:
+              type: string
+              format: date
+    Benefit:
+      type: object
+      properties:
+        code:
+          type: string
+          description: X12 benefit information code
+        name:
+          type: string
+        coverageLevel:
+          type: string
+          enum:
+          - INDIVIDUAL
+          - FAMILY
+          - EMPLOYEE
+          - EMPLOYEE_AND_SPOUSE
+        benefitAmount:
+          type: object
+          properties:
+            value:
+              type: number
+            currency:
+              type: string
+        benefitPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        inPlanNetworkIndicator:
+          type: string
+          enum:
+          - Y
+          - N
+          - W
+        timeQualifier:
+          type: string
+          description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
+    EligibilityError:
       type: object
       properties:
         id:
           type: string
-          description: Availity transaction ID
-        controlNumber:
+        rejectCode:
           type: string
-        requestedDate:
+        rejectReason:
           type: string
-          format: date-time
-        serviceDate:
+        followUpAction:
           type: string
-          format: date
-        subscriber:
-          $ref: '#/components/schemas/SubscriberInfo'
-        payer:
-          $ref: '#/components/schemas/PayerInfo'
-        coverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coverage'
-        planInformation:
-          $ref: '#/components/schemas/PlanInformation'
     Subscriber:
       type: object
       required:
@@ -445,6 +380,71 @@ components:
           description: Social Security Number (last 4 or full)
         groupNumber:
           type: string
+    Dependent:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - U
+        relationship:
+          type: string
+          enum:
+          - 1
+          - 19
+          - 20
+          - 21
+          - 39
+          - 40
+          - G8
+    PlanInformation:
+      type: object
+      properties:
+        planName:
+          type: string
+        groupName:
+          type: string
+        groupNumber:
+          type: string
+        planBeginDate:
+          type: string
+          format: date
+        planEndDate:
+          type: string
+          format: date
+    EligibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Availity transaction ID
+        controlNumber:
+          type: string
+        requestedDate:
+          type: string
+          format: date-time
+        serviceDate:
+          type: string
+          format: date
+        subscriber:
+          $ref: '#/components/schemas/SubscriberInfo'
+        payer:
+          $ref: '#/components/schemas/PayerInfo'
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        planInformation:
+          $ref: '#/components/schemas/PlanInformation'
   responses:
     NotFound:
       description: Not found

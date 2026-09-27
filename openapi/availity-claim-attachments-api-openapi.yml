@@ -98,36 +98,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
-    ClaimAttachmentResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - SUBMITTED
-          - ACCEPTED
-          - REJECTED
-          - PENDING
-          example: ACCEPTED
-        controlNumber:
-          type: string
-          example: ATT-2025-001234
     ClaimAttachmentRequest:
       type: object
       required:
@@ -168,6 +138,36 @@ components:
               data:
                 type: string
                 format: byte
+    ClaimAttachmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - ACCEPTED
+          - REJECTED
+          - PENDING
+          example: ACCEPTED
+        controlNumber:
+          type: string
+          example: ATT-2025-001234
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
   securitySchemes:
     oauth2:
       type: oauth2

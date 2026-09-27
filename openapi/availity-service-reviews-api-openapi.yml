@@ -135,19 +135,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    ServiceReviewList:
       type: object
       properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
+        data:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ServiceReviewResponse'
+        total:
+          type: integer
+          example: 15
+        offset:
+          type: integer
+          example: 0
     ServiceReviewResponse:
       type: object
       properties:
@@ -174,19 +174,19 @@ components:
           type: string
           format: date
           example: '2025-10-01'
-    ServiceReviewList:
+    Error:
       type: object
       properties:
-        data:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
           type: array
           items:
-            $ref: '#/components/schemas/ServiceReviewResponse'
-        total:
-          type: integer
-          example: 15
-        offset:
-          type: integer
-          example: 0
+            type: string
     ServiceReviewRequest:
       type: object
       required:

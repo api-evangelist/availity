@@ -68,6 +68,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     IsAuthRequiredResponse:
       type: object
@@ -94,19 +107,6 @@ components:
         status:
           type: string
           example: PROCESSING
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
     IsAuthRequiredRequest:
       type: object
       properties:
@@ -120,19 +120,19 @@ components:
             procedureCode:
               type: string
               example: '99213'
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
   securitySchemes:
     oauth2:
       type: oauth2
