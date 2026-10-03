@@ -117,20 +117,42 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    SummarySearchRequest:
+      type: object
+      required:
+      - payerId
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        requestType:
+          type: string
+          enum:
+          - SERVICE_DATE
+          - MEMBER_ID
+          example: SERVICE_DATE
+        memberId:
+          type: string
+          example: MEM123456
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        checkNumber:
+          type: string
+          example: CHK-001234
+        requestedStatus:
+          type: string
+          example: PAID
     ClaimStatusResponse:
       type: object
       properties:
@@ -189,6 +211,70 @@ components:
                 type: string
               message:
                 type: string
+    DetailSearchRequest:
+      type: object
+      required:
+      - payerId
+      - claimNumber
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        claimNumber:
+          type: string
+          example: CLM-2025-001234
+        requestType:
+          type: string
+          enum:
+          - CLAIM_NUMBER
+          example: CLAIM_NUMBER
+        providerTaxId:
+          type: string
+          example: '123456789'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        processedDate:
+          type: string
+          format: date
+          example: '2025-03-15'
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: 'Required field missing: payerId'
+        details:
+          type: array
+          items:
+            type: string
+    ClaimStatusList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClaimStatusResponse'
+        total:
+          type: integer
+          example: 42
+        offset:
+          type: integer
+          example: 0
     SearchBy276Request:
       type: object
       required:
@@ -227,105 +313,19 @@ components:
         patientSameAsSubscriber:
           type: boolean
           example: true
-    AsyncJobResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
-          type: string
-          example: PROCESSING
-    SummarySearchRequest:
-      type: object
-      required:
-      - payerId
-      - requestType
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        requestType:
-          type: string
-          enum:
-          - SERVICE_DATE
-          - MEMBER_ID
-          example: SERVICE_DATE
-        memberId:
-          type: string
-          example: MEM123456
-        fromDate:
-          type: string
-          format: date
-          example: '2025-01-01'
-        toDate:
-          type: string
-          format: date
-          example: '2025-12-31'
-        providerNpi:
-          type: string
-          example: '1234567890'
-        checkNumber:
-          type: string
-          example: CHK-001234
-        requestedStatus:
-          type: string
-          example: PAID
-    ClaimStatusList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClaimStatusResponse'
-        total:
-          type: integer
-          example: 42
-        offset:
-          type: integer
-          example: 0
-    DetailSearchRequest:
-      type: object
-      required:
-      - payerId
-      - claimNumber
-      - requestType
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        claimNumber:
-          type: string
-          example: CLM-2025-001234
-        requestType:
-          type: string
-          enum:
-          - CLAIM_NUMBER
-          example: CLAIM_NUMBER
-        providerTaxId:
-          type: string
-          example: '123456789'
-        providerNpi:
-          type: string
-          example: '1234567890'
-        processedDate:
-          type: string
-          format: date
-          example: '2025-03-15'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: 'Required field missing: payerId'
-        details:
-          type: array
-          items:
-            type: string
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

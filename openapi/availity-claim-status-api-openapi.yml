@@ -163,6 +163,32 @@ components:
                 type: string
               message:
                 type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: 'Required field missing: payerId'
+        details:
+          type: array
+          items:
+            type: string
+    ClaimStatusList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClaimStatusResponse'
+        total:
+          type: integer
+          example: 42
+        offset:
+          type: integer
+          example: 0
     ClaimStatusRequest:
       type: object
       required:
@@ -212,32 +238,6 @@ components:
           type: string
           format: date
           example: '2025-12-31'
-    ClaimStatusList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClaimStatusResponse'
-        total:
-          type: integer
-          example: 42
-        offset:
-          type: integer
-          example: 0
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: 'Required field missing: payerId'
-        details:
-          type: array
-          items:
-            type: string
   responses:
     Unauthorized:
       description: Unauthorized

@@ -138,69 +138,14 @@ paths:
                 $ref: '#/components/schemas/PayerList'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    Provider:
+    Subscriber:
       type: object
       required:
-      - npi
-      properties:
-        npi:
-          type: string
-          description: National Provider Identifier (NPI)
-          pattern: ^\d{10}$
-        firstName:
-          type: string
-        lastName:
-          type: string
-        organizationName:
-          type: string
-        taxId:
-          type: string
-        serviceProviderNumber:
-          type: string
-    PayerList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              eligibilityUrl:
-                type: string
-              supportedTransactions:
-                type: array
-                items:
-                  type: string
-    Payer:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Availity payer ID
-        name:
-          type: string
-    SubscriberInfo:
-      type: object
+      - memberId
       properties:
         memberId:
           type: string
+          description: Insurance member ID
         firstName:
           type: string
         lastName:
@@ -210,39 +155,15 @@ components:
           format: date
         gender:
           type: string
+          enum:
+          - M
+          - F
+          - U
+        ssn:
+          type: string
+          description: Social Security Number (last 4 or full)
         groupNumber:
           type: string
-        groupName:
-          type: string
-    PayerInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            postalCode:
-              type: string
-    EligibilityList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EligibilityResponse'
-        total:
-          type: integer
-        offset:
-          type: integer
     Coverage:
       type: object
       properties:
@@ -274,6 +195,113 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Benefit'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+    EligibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Availity transaction ID
+        controlNumber:
+          type: string
+        requestedDate:
+          type: string
+          format: date-time
+        serviceDate:
+          type: string
+          format: date
+        subscriber:
+          $ref: '#/components/schemas/SubscriberInfo'
+        payer:
+          $ref: '#/components/schemas/PayerInfo'
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        planInformation:
+          $ref: '#/components/schemas/PlanInformation'
+    PlanInformation:
+      type: object
+      properties:
+        planName:
+          type: string
+        groupName:
+          type: string
+        groupNumber:
+          type: string
+        planBeginDate:
+          type: string
+          format: date
+        planEndDate:
+          type: string
+          format: date
+    PayerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              eligibilityUrl:
+                type: string
+              supportedTransactions:
+                type: array
+                items:
+                  type: string
+    Payer:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Availity payer ID
+        name:
+          type: string
+    EligibilityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityResponse'
+        total:
+          type: integer
+        offset:
+          type: integer
+    PayerInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
     EligibilityRequest:
       type: object
       required:
@@ -343,6 +371,25 @@ components:
         timeQualifier:
           type: string
           description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
+    Provider:
+      type: object
+      required:
+      - npi
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI)
+          pattern: ^\d{10}$
+        firstName:
+          type: string
+        lastName:
+          type: string
+        organizationName:
+          type: string
+        taxId:
+          type: string
+        serviceProviderNumber:
+          type: string
     EligibilityError:
       type: object
       properties:
@@ -354,14 +401,11 @@ components:
           type: string
         followUpAction:
           type: string
-    Subscriber:
+    SubscriberInfo:
       type: object
-      required:
-      - memberId
       properties:
         memberId:
           type: string
-          description: Insurance member ID
         firstName:
           type: string
         lastName:
@@ -371,14 +415,9 @@ components:
           format: date
         gender:
           type: string
-          enum:
-          - M
-          - F
-          - U
-        ssn:
-          type: string
-          description: Social Security Number (last 4 or full)
         groupNumber:
+          type: string
+        groupName:
           type: string
     Dependent:
       type: object
@@ -406,45 +445,6 @@ components:
           - 39
           - 40
           - G8
-    PlanInformation:
-      type: object
-      properties:
-        planName:
-          type: string
-        groupName:
-          type: string
-        groupNumber:
-          type: string
-        planBeginDate:
-          type: string
-          format: date
-        planEndDate:
-          type: string
-          format: date
-    EligibilityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Availity transaction ID
-        controlNumber:
-          type: string
-        requestedDate:
-          type: string
-          format: date-time
-        serviceDate:
-          type: string
-          format: date
-        subscriber:
-          $ref: '#/components/schemas/SubscriberInfo'
-        payer:
-          $ref: '#/components/schemas/PayerInfo'
-        coverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coverage'
-        planInformation:
-          $ref: '#/components/schemas/PlanInformation'
   responses:
     NotFound:
       description: Not found
@@ -452,14 +452,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

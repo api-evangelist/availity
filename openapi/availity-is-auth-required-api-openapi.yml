@@ -68,35 +68,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    IsAuthRequiredResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        authRequired:
-          type: string
-          enum:
-          - Auth Required
-          - No Auth Required
-          example: Auth Required
-        payerMessage:
-          type: string
-          example: Prior authorization required for this procedure
     AsyncJobResponse:
       type: object
       properties:
@@ -133,6 +105,34 @@ components:
           type: array
           items:
             type: string
+    IsAuthRequiredResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        authRequired:
+          type: string
+          enum:
+          - Auth Required
+          - No Auth Required
+          example: Auth Required
+        payerMessage:
+          type: string
+          example: Prior authorization required for this procedure
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
