@@ -252,3 +252,70 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - seat
+  - subscription
+  units:
+  - period
+  - seat
+  - transaction
+  plans:
+  - name: Healthcare HIPAA Transactions — Standard
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - day
+  - name: Healthcare HIPAA Transactions — Demo
+    access: free
+    model: subscription
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - day
+  - name: Healthcare HIPAA Transactions High Volume
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - day
+  - name: AWS Availity Payer List — Standard
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - day
+  - name: RCM Coverages — Standard
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - day
+  - name: Availity Essentials
+    access: freemium
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Essentials Pro / Clearinghouse / RCM / Extend
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month

@@ -1,20 +1,48 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/availity-claim-attachments-openapi.yml, openapi/availity-claim-status-openapi.yml,
-  openapi/availity-eligibility-openapi.yml, openapi/availity-service-reviews-openapi.yml
+source: openapi/availity-auth-attachments-api-openapi.yml, openapi/availity-claim-attachments-api-openapi.yml,
+  openapi/availity-claim-status-api-openapi.yml, openapi/availity-eligibility-api-openapi.yml,
+  openapi/availity-enhanced-claim-status-api-openapi.yml, openapi/availity-is-auth-required-api-openapi.yml,
+  openapi/availity-service-reviews-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 19
   by_action_class:
-    acting: 9
-    connected: 10
+    acting: 8
+    connected: 11
   by_consequence:
-    write: 9
-    read: 10
+    write: 8
+    read: 11
   human_in_the_loop_required: 0
 operations:
+- path: /value-adds/v2/attachments
+  method: post
+  operationId: submitAuthAttachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /value-adds/v2/attachments/{id}
+  method: get
+  operationId: getAttachmentStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /availity/intelligent-payer-network/v1/claim-attachments
   method: post
   operationId: submitClaimAttachment
@@ -67,64 +95,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /clmsmgmt/claim-status/claim-status/v1/status/searchBy276
-  method: post
-  operationId: searchClaimBy276
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /clmsmgmt/claim-status/claim-status/v1/status/searchBy276
-  method: get
-  operationId: pollSearchBy276
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /clmsmgmt/claim-status/claim-status/v1/status/summarySearch
-  method: post
-  operationId: summarySearchClaims
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /clmsmgmt/claim-status/claim-status/v1/status/detailSearch
-  method: post
-  operationId: detailSearchClaim
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /availity/intelligent-payer-network/v1/eligibilities
   method: post
   operationId: checkEligibility
@@ -171,6 +141,84 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /clmsmgmt/claim-status/claim-status/v1/status/searchBy276
+  method: post
+  operationId: searchClaimBy276
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /clmsmgmt/claim-status/claim-status/v1/status/searchBy276
+  method: get
+  operationId: pollSearchBy276
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /clmsmgmt/claim-status/claim-status/v1/status/summarySearch
+  method: post
+  operationId: summarySearchClaims
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /clmsmgmt/claim-status/claim-status/v1/status/detailSearch
+  method: post
+  operationId: detailSearchClaim
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /value-adds/v1/isauthrequired
+  method: post
+  operationId: checkIsAuthRequired
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /value-adds/v1/isauthrequired/{id}
+  method: get
+  operationId: getIsAuthRequiredResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /availity/intelligent-payer-network/v1/service-reviews
   method: post
   operationId: createServiceReview
@@ -200,58 +248,6 @@ operations:
 - path: /availity/intelligent-payer-network/v1/service-reviews/{id}
   method: get
   operationId: getServiceReview
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /value-adds/v1/isauthrequired
-  method: post
-  operationId: checkIsAuthRequired
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /value-adds/v1/isauthrequired/{id}
-  method: get
-  operationId: getIsAuthRequiredResult
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /value-adds/v2/attachments
-  method: post
-  operationId: submitAuthAttachment
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /value-adds/v2/attachments/{id}
-  method: get
-  operationId: getAttachmentStatus
   x-agentic-access:
     action-class: connected
     consequence: read
