@@ -68,30 +68,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    AsyncJobResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
-          type: string
-          example: PROCESSING
     IsAuthRequiredRequest:
       type: object
       properties:
@@ -105,6 +82,19 @@ components:
             procedureCode:
               type: string
               example: '99213'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
     IsAuthRequiredResponse:
       type: object
       properties:
@@ -120,19 +110,29 @@ components:
         payerMessage:
           type: string
           example: Prior authorization required for this procedure
-    Error:
+    AsyncJobResponse:
       type: object
       properties:
-        code:
+        id:
           type: string
-          example: INVALID_REQUEST
-        message:
+          description: Job ID for polling
+          example: '500123'
+        status:
           type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
+          example: PROCESSING
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

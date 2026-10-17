@@ -153,44 +153,19 @@ components:
         requestedStatus:
           type: string
           example: PAID
-    DetailSearchRequest:
-      type: object
-      required:
-      - payerId
-      - claimNumber
-      - requestType
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        claimNumber:
-          type: string
-          example: CLM-2025-001234
-        requestType:
-          type: string
-          enum:
-          - CLAIM_NUMBER
-          example: CLAIM_NUMBER
-        providerTaxId:
-          type: string
-          example: '123456789'
-        providerNpi:
-          type: string
-          example: '1234567890'
-        processedDate:
-          type: string
-          format: date
-          example: '2025-03-15'
-    AsyncJobResponse:
+    Error:
       type: object
       properties:
-        id:
+        code:
           type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
+          example: INVALID_REQUEST
+        message:
           type: string
-          example: PROCESSING
+          example: 'Required field missing: payerId'
+        details:
+          type: array
+          items:
+            type: string
     SearchBy276Request:
       type: object
       required:
@@ -287,19 +262,34 @@ components:
                 type: string
               message:
                 type: string
-    Error:
+    DetailSearchRequest:
       type: object
+      required:
+      - payerId
+      - claimNumber
+      - requestType
       properties:
-        code:
+        payerId:
           type: string
-          example: INVALID_REQUEST
-        message:
+          example: BCBS001
+        claimNumber:
           type: string
-          example: 'Required field missing: payerId'
-        details:
-          type: array
-          items:
-            type: string
+          example: CLM-2025-001234
+        requestType:
+          type: string
+          enum:
+          - CLAIM_NUMBER
+          example: CLAIM_NUMBER
+        providerTaxId:
+          type: string
+          example: '123456789'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        processedDate:
+          type: string
+          format: date
+          example: '2025-03-15'
     ClaimStatusList:
       type: object
       properties:
@@ -313,15 +303,25 @@ components:
         offset:
           type: integer
           example: 0
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

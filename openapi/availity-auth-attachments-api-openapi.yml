@@ -68,20 +68,35 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    AttachmentStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - AV_ACCEPTED
+          - AV_REJECTED
+          - PY_ACCEPTED
+          - PY_REJECTED
+          example: AV_ACCEPTED
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: INVALID_REQUEST
+        message:
+          type: string
+          example: Required field missing
+        details:
+          type: array
+          items:
+            type: string
     AttachmentRequest:
       type: object
       required:
@@ -143,34 +158,19 @@ components:
         status:
           type: string
           example: PROCESSING
-    AttachmentStatusResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - SUBMITTED
-          - AV_ACCEPTED
-          - AV_REJECTED
-          - PY_ACCEPTED
-          - PY_REJECTED
-          example: AV_ACCEPTED
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: INVALID_REQUEST
-        message:
-          type: string
-          example: Required field missing
-        details:
-          type: array
-          items:
-            type: string
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

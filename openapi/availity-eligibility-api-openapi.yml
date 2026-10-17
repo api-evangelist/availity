@@ -138,67 +138,31 @@ paths:
                 $ref: '#/components/schemas/PayerList'
 components:
   schemas:
-    EligibilityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Availity transaction ID
-        controlNumber:
-          type: string
-        requestedDate:
-          type: string
-          format: date-time
-        serviceDate:
-          type: string
-          format: date
-        subscriber:
-          $ref: '#/components/schemas/SubscriberInfo'
-        payer:
-          $ref: '#/components/schemas/PayerInfo'
-        coverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coverage'
-        planInformation:
-          $ref: '#/components/schemas/PlanInformation'
-    Provider:
+    Payer:
       type: object
       required:
-      - npi
-      properties:
-        npi:
-          type: string
-          description: National Provider Identifier (NPI)
-          pattern: ^\d{10}$
-        firstName:
-          type: string
-        lastName:
-          type: string
-        organizationName:
-          type: string
-        taxId:
-          type: string
-        serviceProviderNumber:
-          type: string
-    PayerInfo:
-      type: object
+      - id
       properties:
         id:
           type: string
+          description: Availity payer ID
         name:
           type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            postalCode:
-              type: string
+    PlanInformation:
+      type: object
+      properties:
+        planName:
+          type: string
+        groupName:
+          type: string
+        groupNumber:
+          type: string
+        planBeginDate:
+          type: string
+          format: date
+        planEndDate:
+          type: string
+          format: date
     Dependent:
       type: object
       properties:
@@ -225,123 +189,6 @@ components:
           - 39
           - 40
           - G8
-    PayerList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              eligibilityUrl:
-                type: string
-              supportedTransactions:
-                type: array
-                items:
-                  type: string
-    SubscriberInfo:
-      type: object
-      properties:
-        memberId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-        groupNumber:
-          type: string
-        groupName:
-          type: string
-    EligibilityRequest:
-      type: object
-      required:
-      - controlNumber
-      - provider
-      - subscriber
-      - payer
-      properties:
-        controlNumber:
-          type: string
-          description: Unique transaction control number (up to 9 characters)
-          maxLength: 9
-        provider:
-          $ref: '#/components/schemas/Provider'
-        subscriber:
-          $ref: '#/components/schemas/Subscriber'
-        dependent:
-          $ref: '#/components/schemas/Dependent'
-        payer:
-          $ref: '#/components/schemas/Payer'
-        encounter:
-          type: object
-          properties:
-            serviceTypeCodes:
-              type: array
-              description: X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)
-              items:
-                type: string
-            beginningDate:
-              type: string
-              format: date
-            endDate:
-              type: string
-              format: date
-    Payer:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Availity payer ID
-        name:
-          type: string
-    Subscriber:
-      type: object
-      required:
-      - memberId
-      properties:
-        memberId:
-          type: string
-          description: Insurance member ID
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-          enum:
-          - M
-          - F
-          - U
-        ssn:
-          type: string
-          description: Social Security Number (last 4 or full)
-        groupNumber:
-          type: string
-    EligibilityList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EligibilityResponse'
-        total:
-          type: integer
-        offset:
-          type: integer
     Error:
       type: object
       properties:
@@ -353,63 +200,30 @@ components:
           type: array
           items:
             type: string
-    PlanInformation:
-      type: object
-      properties:
-        planName:
-          type: string
-        groupName:
-          type: string
-        groupNumber:
-          type: string
-        planBeginDate:
-          type: string
-          format: date
-        planEndDate:
-          type: string
-          format: date
-    EligibilityError:
+    EligibilityResponse:
       type: object
       properties:
         id:
           type: string
-        rejectCode:
+          description: Availity transaction ID
+        controlNumber:
           type: string
-        rejectReason:
+        requestedDate:
           type: string
-        followUpAction:
-          type: string
-    Coverage:
-      type: object
-      properties:
-        serviceTypeCodes:
-          type: array
-          items:
-            type: string
-        serviceTypeNames:
-          type: array
-          items:
-            type: string
-        insuranceType:
-          type: string
-        planCoverage:
-          type: string
-        coverageStatus:
-          type: string
-          enum:
-          - Active
-          - Inactive
-          - Cancelled
-        effectiveDate:
+          format: date-time
+        serviceDate:
           type: string
           format: date
-        expirationDate:
-          type: string
-          format: date
-        benefits:
+        subscriber:
+          $ref: '#/components/schemas/SubscriberInfo'
+        payer:
+          $ref: '#/components/schemas/PayerInfo'
+        coverages:
           type: array
           items:
-            $ref: '#/components/schemas/Benefit'
+            $ref: '#/components/schemas/Coverage'
+        planInformation:
+          $ref: '#/components/schemas/PlanInformation'
     Benefit:
       type: object
       properties:
@@ -445,7 +259,199 @@ components:
         timeQualifier:
           type: string
           description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
+    PayerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              eligibilityUrl:
+                type: string
+              supportedTransactions:
+                type: array
+                items:
+                  type: string
+    Provider:
+      type: object
+      required:
+      - npi
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI)
+          pattern: ^\d{10}$
+        firstName:
+          type: string
+        lastName:
+          type: string
+        organizationName:
+          type: string
+        taxId:
+          type: string
+        serviceProviderNumber:
+          type: string
+    EligibilityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityResponse'
+        total:
+          type: integer
+        offset:
+          type: integer
+    Coverage:
+      type: object
+      properties:
+        serviceTypeCodes:
+          type: array
+          items:
+            type: string
+        serviceTypeNames:
+          type: array
+          items:
+            type: string
+        insuranceType:
+          type: string
+        planCoverage:
+          type: string
+        coverageStatus:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Cancelled
+        effectiveDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        benefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Benefit'
+    EligibilityRequest:
+      type: object
+      required:
+      - controlNumber
+      - provider
+      - subscriber
+      - payer
+      properties:
+        controlNumber:
+          type: string
+          description: Unique transaction control number (up to 9 characters)
+          maxLength: 9
+        provider:
+          $ref: '#/components/schemas/Provider'
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+        dependent:
+          $ref: '#/components/schemas/Dependent'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        encounter:
+          type: object
+          properties:
+            serviceTypeCodes:
+              type: array
+              description: X12 service type codes (e.g., 30 for Health Benefit Plan Coverage)
+              items:
+                type: string
+            beginningDate:
+              type: string
+              format: date
+            endDate:
+              type: string
+              format: date
+    EligibilityError:
+      type: object
+      properties:
+        id:
+          type: string
+        rejectCode:
+          type: string
+        rejectReason:
+          type: string
+        followUpAction:
+          type: string
+    Subscriber:
+      type: object
+      required:
+      - memberId
+      properties:
+        memberId:
+          type: string
+          description: Insurance member ID
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - U
+        ssn:
+          type: string
+          description: Social Security Number (last 4 or full)
+        groupNumber:
+          type: string
+    PayerInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
+    SubscriberInfo:
+      type: object
+      properties:
+        memberId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        groupNumber:
+          type: string
+        groupName:
+          type: string
   responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found
       content:
@@ -454,12 +460,6 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
       content:
         application/json:
           schema:
