@@ -1,0 +1,211 @@
+edges:
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@availity/analytics-core
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@availity/analytics-core'
+      version: 7.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/analytics-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/api-axios'
+      version: 13.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/api-axios
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/api-core'
+      version: 13.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/api-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/authorizations-axios'
+      version: 10.3.6
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/authorizations-axios
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/authorizations-core'
+      version: 6.3.2
+      released: '2026-10-01'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/authorizations-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/dl-axios'
+      version: 8.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/dl-axios
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/dl-core'
+      version: 7.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/dl-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/dockyard'
+      version: 4.3.1
+      released: '2026-09-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/dockyard
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/env-var'
+      version: 7.1.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/env-var
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/exceptions-axios'
+      version: 7.3.6
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/exceptions-axios
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/exceptions-core'
+      version: 7.3.2
+      released: '2026-10-01'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/exceptions-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/message-core'
+      version: 9.4.0
+      released: '2026-10-02'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/message-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/native-form'
+      version: 8.3.5
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/native-form
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/relay-id'
+      version: 5.4.0
+      released: '2026-10-02'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/relay-id
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/resolve-url'
+      version: 5.4.0
+      released: '2026-10-02'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/resolve-url
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/upload-core'
+      version: 9.3.2
+      released: '2026-10-02'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/upload-core
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/user-activity-broadcaster'
+      version: 2.3.2
+      released: '2026-09-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/user-activity-broadcaster
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/workflow'
+      version: 14.6.5
+      released: '2026-10-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/workflow
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    - name: '@availity/yup'
+      version: 8.3.2
+      released: '2026-09-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@availity/yup
+      repo_leg: github-org:availity
+      publisher_leg: email:availity.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+generated: '2026-10-18'
+method: searched
+source:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
+checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
