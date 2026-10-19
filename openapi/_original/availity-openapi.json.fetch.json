@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.availity.com/system/api_details/service-reviews-prd/oasdocument/service-reviews-prd.20261017095554490576.json",
+ "final": "https://developer.availity.com/system/api_details/service-reviews-prd/oasdocument/service-reviews-prd.20261017095554490576.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 29893,
+ "sha256": "d777ac0a7764470f7adbde40794b94617ba6f584fc3a2be6f1dd8ea853cbc7b6",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

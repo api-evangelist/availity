@@ -4,6 +4,7 @@
     "_original/availity-claim-attachments-openapi.yml",
     "_original/availity-claim-status-openapi.yml",
     "_original/availity-eligibility-openapi.yml",
+    "_original/availity-openapi.json",
     "_original/availity-service-reviews-openapi.yml"
   ],
   "outputs": [
@@ -11,19 +12,27 @@
     "availity-claim-status-api-openapi.yml",
     "availity-enhanced-claim-status-api-openapi.yml",
     "availity-eligibility-api-openapi.yml",
+    "availity-service-reviews-api-openapi.yml",
     "availity-auth-attachments-api-openapi.yml",
-    "availity-is-auth-required-api-openapi.yml",
-    "availity-service-reviews-api-openapi.yml"
+    "availity-is-auth-required-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (5 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "availity-claim-attachments-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "availity-claim-status-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "availity-eligibility-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "availity-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "availity-openapi.json: tagged paths GET /service-reviews -> Service Reviews",
+    "availity-openapi.json: tagged paths POST /service-reviews -> Service Reviews",
+    "availity-openapi.json: tagged paths PUT /service-reviews -> Service Reviews",
+    "availity-openapi.json: tagged paths DELETE /service-reviews/{id} -> Service Reviews",
+    "availity-openapi.json: tagged paths GET /service-reviews/{id} -> Service Reviews",
+    "availity-openapi.json: declared missing tag: Service Reviews",
     "availity-service-reviews-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Service Reviews' spans 2 source specs (availity-openapi.json, availity-service-reviews-openapi.yml): per-path servers applied",
     "apis.yml register: already-registered"
   ],
   "skipped": [

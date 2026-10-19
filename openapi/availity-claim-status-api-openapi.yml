@@ -104,19 +104,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClaimStatusList'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -131,55 +118,6 @@ components:
           type: array
           items:
             type: string
-    ClaimStatusRequest:
-      type: object
-      required:
-      - payerId
-      - provider
-      - subscriber
-      properties:
-        payerId:
-          type: string
-          description: Availity payer ID
-          example: BCBS001
-        provider:
-          type: object
-          properties:
-            npi:
-              type: string
-              description: National Provider Identifier
-              example: '1234567890'
-            taxId:
-              type: string
-              example: '123456789'
-        subscriber:
-          type: object
-          properties:
-            memberId:
-              type: string
-              example: MEM123456
-            firstName:
-              type: string
-              example: Jane
-            lastName:
-              type: string
-              example: Smith
-            dateOfBirth:
-              type: string
-              format: date
-              example: '1980-01-15'
-        claimNumber:
-          type: string
-          description: Payer claim number
-          example: CLM-2025-001234
-        fromDate:
-          type: string
-          format: date
-          example: '2025-01-01'
-        toDate:
-          type: string
-          format: date
-          example: '2025-12-31'
     ClaimStatusResponse:
       type: object
       properties:
@@ -238,6 +176,55 @@ components:
                 type: string
               message:
                 type: string
+    ClaimStatusRequest:
+      type: object
+      required:
+      - payerId
+      - provider
+      - subscriber
+      properties:
+        payerId:
+          type: string
+          description: Availity payer ID
+          example: BCBS001
+        provider:
+          type: object
+          properties:
+            npi:
+              type: string
+              description: National Provider Identifier
+              example: '1234567890'
+            taxId:
+              type: string
+              example: '123456789'
+        subscriber:
+          type: object
+          properties:
+            memberId:
+              type: string
+              example: MEM123456
+            firstName:
+              type: string
+              example: Jane
+            lastName:
+              type: string
+              example: Smith
+            dateOfBirth:
+              type: string
+              format: date
+              example: '1980-01-15'
+        claimNumber:
+          type: string
+          description: Payer claim number
+          example: CLM-2025-001234
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
     ClaimStatusList:
       type: object
       properties:
@@ -251,6 +238,19 @@ components:
         offset:
           type: integer
           example: 0
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

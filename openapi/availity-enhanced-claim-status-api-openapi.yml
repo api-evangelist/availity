@@ -118,41 +118,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    SummarySearchRequest:
-      type: object
-      required:
-      - payerId
-      - requestType
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        requestType:
-          type: string
-          enum:
-          - SERVICE_DATE
-          - MEMBER_ID
-          example: SERVICE_DATE
-        memberId:
-          type: string
-          example: MEM123456
-        fromDate:
-          type: string
-          format: date
-          example: '2025-01-01'
-        toDate:
-          type: string
-          format: date
-          example: '2025-12-31'
-        providerNpi:
-          type: string
-          example: '1234567890'
-        checkNumber:
-          type: string
-          example: CHK-001234
-        requestedStatus:
-          type: string
-          example: PAID
     Error:
       type: object
       properties:
@@ -166,44 +131,6 @@ components:
           type: array
           items:
             type: string
-    SearchBy276Request:
-      type: object
-      required:
-      - payerId
-      - patientLastName
-      - patientFirstName
-      - patientBirthDate
-      - fromDate
-      - toDate
-      - providerLastName
-      properties:
-        payerId:
-          type: string
-          example: BCBS001
-        patientLastName:
-          type: string
-          example: Smith
-        patientFirstName:
-          type: string
-          example: Jane
-        patientBirthDate:
-          type: string
-          format: date
-          example: '1980-01-15'
-        fromDate:
-          type: string
-          format: date
-          example: '2025-01-01'
-        toDate:
-          type: string
-          format: date
-          example: '2025-12-31'
-        providerLastName:
-          type: string
-          example: Johnson
-        patientSameAsSubscriber:
-          type: boolean
-          example: true
     ClaimStatusResponse:
       type: object
       properties:
@@ -262,6 +189,102 @@ components:
                 type: string
               message:
                 type: string
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+    SearchBy276Request:
+      type: object
+      required:
+      - payerId
+      - patientLastName
+      - patientFirstName
+      - patientBirthDate
+      - fromDate
+      - toDate
+      - providerLastName
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        patientLastName:
+          type: string
+          example: Smith
+        patientFirstName:
+          type: string
+          example: Jane
+        patientBirthDate:
+          type: string
+          format: date
+          example: '1980-01-15'
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerLastName:
+          type: string
+          example: Johnson
+        patientSameAsSubscriber:
+          type: boolean
+          example: true
+    ClaimStatusList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClaimStatusResponse'
+        total:
+          type: integer
+          example: 42
+        offset:
+          type: integer
+          example: 0
+    SummarySearchRequest:
+      type: object
+      required:
+      - payerId
+      - requestType
+      properties:
+        payerId:
+          type: string
+          example: BCBS001
+        requestType:
+          type: string
+          enum:
+          - SERVICE_DATE
+          - MEMBER_ID
+          example: SERVICE_DATE
+        memberId:
+          type: string
+          example: MEM123456
+        fromDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        toDate:
+          type: string
+          format: date
+          example: '2025-12-31'
+        providerNpi:
+          type: string
+          example: '1234567890'
+        checkNumber:
+          type: string
+          example: CHK-001234
+        requestedStatus:
+          type: string
+          example: PAID
     DetailSearchRequest:
       type: object
       required:
@@ -290,29 +313,6 @@ components:
           type: string
           format: date
           example: '2025-03-15'
-    ClaimStatusList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClaimStatusResponse'
-        total:
-          type: integer
-          example: 42
-        offset:
-          type: integer
-          example: 0
-    AsyncJobResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
-          type: string
-          example: PROCESSING
   responses:
     NotFound:
       description: Not found

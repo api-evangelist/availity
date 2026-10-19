@@ -69,19 +69,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    IsAuthRequiredRequest:
-      type: object
-      properties:
-        serviceReview:
-          type: object
-          description: Authorization details to check
-          properties:
-            payerId:
-              type: string
-              example: BCBS001
-            procedureCode:
-              type: string
-              example: '99213'
     Error:
       type: object
       properties:
@@ -95,6 +82,16 @@ components:
           type: array
           items:
             type: string
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
     IsAuthRequiredResponse:
       type: object
       properties:
@@ -110,16 +107,19 @@ components:
         payerMessage:
           type: string
           example: Prior authorization required for this procedure
-    AsyncJobResponse:
+    IsAuthRequiredRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
-          type: string
-          example: PROCESSING
+        serviceReview:
+          type: object
+          description: Authorization details to check
+          properties:
+            payerId:
+              type: string
+              example: BCBS001
+            procedureCode:
+              type: string
+              example: '99213'
   responses:
     NotFound:
       description: Not found
