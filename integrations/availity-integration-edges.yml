@@ -191,16 +191,65 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: IHE International (Connectathon)
+  partner: null
+  partner_match: register-name
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://connectathon-results.ihe.net/company-details?companykeyw=Availity
+  category: IHE Connectathon tested integration profiles
+  contract_reference:
+    register: IHE Connectathon Global Results (connectathon-results.ihe.net, custom search table)
+    standard: IHE integration profiles (IHE Technical Frameworks)
+    spec_file: null
+    role: ihe-connectathon-tested-vendor
+    registered_name: Availity LLC
+    register_id: Availity
+    matched_domain: null
+    matched_by: register-name
+    first_connectathon: 2013
+    latest_connectathon: 2013
+    editions_sample:
+    - North America 2013
+    certified_products:
+    - product: IHE Connectathon tested profiles (IT Infrastructure)
+      ihe_domain: IT Infrastructure
+      latest_connectathon: 2013
+      lapsed: true
+      profiles_sample:
+      - ATNA
+      - CT
+      - XDR
+    - product: IHE Connectathon tested profiles (Patient Care Coordination)
+      ihe_domain: Patient Care Coordination
+      latest_connectathon: 2013
+      lapsed: true
+      profiles_sample:
+      - XDS-MS
+      - XPHR
+    signal_note: certified_products = one entry per IHE DOMAIN with tested profiles, never per profile, actor or
+      year; lapsed when the domain's latest Connectathon is older than three years (< 2023). Profiles, actors and
+      editions are context, never counted
+    detected_by: sweep-medical-imaging-ihe.py
+    detected: '2026-10-20'
+    register_name_note: register-name 'availity' = availity; no wikidata P856
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-medical-imaging-ihe.py
+  first_seen: '2026-10-20'
 generated: '2026-10-18'
 method: searched
 source:
-- https://api.nuget.org/v3
-- https://crates.io/api/v1
-- https://proxy.golang.org
-- https://pypi.org/pypi
 - https://registry.npmjs.org
-- https://repo1.maven.org/maven2
+- https://pypi.org/pypi
 - https://rubygems.org/api/v1
+- https://crates.io/api/v1
+- https://repo1.maven.org/maven2
+- https://api.nuget.org/v3
+- https://proxy.golang.org
 checked:
 - https://api.nuget.org/v3
 - https://crates.io/api/v1
@@ -209,3 +258,5 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- https://connectathon-results.ihe.net/custom-search/
+- https://product-registry.ihe.net/
