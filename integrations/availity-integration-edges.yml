@@ -26,6 +26,10 @@ checked:
 - https://monid.ai/tools/availity
 - https://n8n.io/integrations/availity/
 - https://zapier.com/apps/availity/integrations
+- https://accreditation.directtrust.org/accredited-organizations
+- https://carequality.org/members
+- https://chpl.healthit.gov/rest
+- https://hitrustalliance.net/assurance-reports
 summary: null
 marketplace_apps: []
 edges:
@@ -269,5 +273,42 @@ edges:
     identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
       P856 not contradicting (Kin 2026-10-20 decision 2)
   detected_by: sweep-medical-imaging-ihe.py
+  first_seen: '2026-10-20'
+- partner_name: DirectTrust Accreditation (health IT)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://accreditation.directtrust.org/accredited-organization-detail/?accountID=6674830000002340060
+  category: Health IT accreditation (Direct exchange, health networks, privacy & security)
+  contract_reference:
+    register: DirectTrust Accredited Organizations (accreditation.directtrust.org; EHNAC merged into DirectTrust)
+    spec_file: null
+    standard: DirectTrust / EHNAC health IT accreditation
+    role: accredited
+    registered_name: Availity, LLC
+    register_id: '6674830000002340060'
+    website: http://www.availity.com
+    matched_domain: availity.com
+    matched_by: domain
+    identity_source: the website the organization filed on its DirectTrust detail page (no lookup)
+    programs:
+    - program: Healthcare Network-EHN
+      status: Accreditation
+      expiry: '2028-06-30'
+    certified_products:
+    - product: DirectTrust Healthcare Network-EHN
+      program: Healthcare Network-EHN
+      lapsed: false
+      expiry: '2028-06-30'
+    market_fit: own apis.yml tags carry a health IT term
+    signal_note: certified_products = one entry per granted DirectTrust PROGRAM (accreditation type); Candidate
+      / Provisional = participation only; lapsed when the expiry month has passed; e-Rx programs (EPCS, ePrescribing-EHN)
+      are counted by e-prescribing, never here
+    detected_by: sweep-certified-health-it.py
+    detected: '2026-10-20'
+  detected_by: sweep-certified-health-it.py
   first_seen: '2026-10-20'
 templates: []
