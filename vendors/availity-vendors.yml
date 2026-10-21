@@ -1,0 +1,77 @@
+generated: '2026-10-20'
+method: probed
+source: pre-flight dossier (docs platform, portal detections) + CNAME chains and response headers of the hosts apis.yml names
+registry: all/0-working/vendors.yml
+areas_vocabulary:
+- documentation
+- developer-portal
+- api-gateway
+- cdn
+- hosting
+- sdk-generation
+- api-collections
+- status-page
+- support
+- community
+- identity
+- mcp-hosting
+vendors:
+- vendor: tyk
+  name: Tyk
+  area: api-gateway
+  host: api.availity.com
+  evidence: header:x-tyk-
+  signal: header
+  confidence: high
+  kin_score: []
+- vendor: cloudflare
+  name: Cloudflare
+  area: cdn
+  host: www.availity.com
+  evidence: header:cf-ray
+  signal: header
+  confidence: high
+  kin_score:
+  - https_enforced
+  - hsts
+- vendor: redocly
+  name: Redocly
+  area: documentation
+  host: developer.availity.com
+  evidence: markup:redoc.standalone
+  signal: docs-platform
+  confidence: medium
+  kin_score:
+  - openapi_published
+  - rules_present
+- vendor: wpengine
+  name: WP Engine
+  area: hosting
+  host: www.availity.com
+  evidence: header:x-powered-by:wp engine
+  signal: header
+  confidence: high
+  kin_score: []
+reliance:
+  areas_vendor_served:
+  - api-gateway
+  - cdn
+  - documentation
+  - hosting
+  vendor_count: 4
+  areas_observed: 12
+  share_of_observable_areas: 0.333
+  note: areas where a third party was DETECTED serving this provider; an area absent here was either self-run or not observed, and this script
+    cannot tell those apart
+checked:
+- 'docs-platform: redocly'
+- www.availity.com (Website)
+- developer.availity.com (Portal)
+- developer.availity.com (Documentation)
+- developer.availity.com (GettingStarted)
+- developer.availity.com (Support)
+- developer.availity.com (DeveloperPortal)
+- developer.availity.com (APIReference)
+- developer.availity.com (SignUp)
+- status.availity.com (StatusPage)
+- api.availity.com (baseURL)

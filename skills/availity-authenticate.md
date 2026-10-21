@@ -1,5 +1,6 @@
 ---
-name: Authenticate against the Availity APIs
+name: availity-authenticate
+title: Authenticate against the Availity APIs
 description: >-
   Obtain and manage an Availity OAuth 2.0 client-credentials token — the scope vocabulary that
   selects product, plan and sandbox-vs-production, the 300-second lifetime, and the failure modes a

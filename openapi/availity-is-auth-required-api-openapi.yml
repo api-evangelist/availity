@@ -92,6 +92,19 @@ components:
         status:
           type: string
           example: PROCESSING
+    IsAuthRequiredRequest:
+      type: object
+      properties:
+        serviceReview:
+          type: object
+          description: Authorization details to check
+          properties:
+            payerId:
+              type: string
+              example: BCBS001
+            procedureCode:
+              type: string
+              example: '99213'
     IsAuthRequiredResponse:
       type: object
       properties:
@@ -107,28 +120,15 @@ components:
         payerMessage:
           type: string
           example: Prior authorization required for this procedure
-    IsAuthRequiredRequest:
-      type: object
-      properties:
-        serviceReview:
-          type: object
-          description: Authorization details to check
-          properties:
-            payerId:
-              type: string
-              example: BCBS001
-            procedureCode:
-              type: string
-              example: '99213'
   responses:
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

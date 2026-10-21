@@ -1,5 +1,6 @@
 ---
-name: Submit and track a prior authorization with Availity
+name: availity-prior-authorization
+title: Submit and track a prior authorization with Availity
 description: >-
   Run an X12 278 service review through the Availity clearinghouse — check the payer's requirements,
   create the authorization request, poll for the payer's decision, and update or void it. Includes

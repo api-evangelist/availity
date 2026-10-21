@@ -1,9 +1,14 @@
+generated: '2026-10-20'
+method: derived
+source: openapi/ tags
 name: Availity Domain Vocabulary
 provider: Availity
 providerId: availity
 description: Tag-derived vocabulary for the Availity API surface; sourced from openapi/ tags.
-terms:
-- term: Claim Status
-  description: Claim status inquiries and tracking
-- term: Enhanced Claim Status
-  description: Enhanced claim status with value-add data
+vocabulary:
+  terms:
+  - term: Claim Status
+    definition: Claim status inquiries and tracking
+  - term: Enhanced Claim Status
+    definition: Enhanced claim status with value-add data
+  name: Availity vocabulary

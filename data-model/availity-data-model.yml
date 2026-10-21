@@ -4,47 +4,35 @@ source: openapi/_harvested/*-swagger.json (Availity's own published Swagger 2.0 
 docs: https://developer.availity.com/blog/2025/3/25/availity-api-guide
 provider: Availity
 providerId: availity
-summary: >-
-  The entity-relationship graph of Availity's public REST surface, derived mechanically from the
-  `definitions` blocks of the eleven first-party Swagger 2.0 documents Availity publishes. Every
-  entity, field count, identifier field and relationship below was read out of Availity's own
-  documents; nothing is inferred from prose.
+summary: The entity-relationship graph of Availity's public REST surface, derived mechanically from the `definitions`
+  blocks of the eleven first-party Swagger 2.0 documents Availity publishes. Every entity, field count, identifier
+  field and relationship below was read out of Availity's own documents; nothing is inferred from prose.
 shape_notes:
-  - >-
-    THERE IS NO SHARED MODEL ACROSS PRODUCTS. Each Availity API document defines its OWN copy of
-    the common healthcare entities — Patient, Payer, Provider, Subscriber, Submitter, ServiceLine,
-    Diagnosis, Note, ErrorResponse, FieldError, Link, ResultSet all recur, with DIFFERENT field
-    sets, in Coverages, Claim Statuses, Service Reviews and Dental Claims. There is no
-    `components.schemas` reuse across products because each document is generated per product by
-    the gateway. A client cannot write one Payer type and reuse it; it needs a per-product type.
-  - >-
-    NO CROSS-RESOURCE ID GRAPH. Availity's resources are TRANSACTION envelopes, not persistent
-    domain objects. A Coverage does not reference a Claim, a ClaimStatus does not reference a
-    ServiceReview, and there is no customer/account object at the root. The only durable
-    identifier is the per-transaction `id` returned by a POST, which is then polled on the GET.
-    Correlation across transactions is done on X12 business identifiers carried INSIDE the payload
-    (member id, control number, patientAccountNumber, payer claim number), not on API-level ids.
-  - >-
-    THE ROOT ENTITIES ARE THE X12 TRANSACTIONS. Coverage (270/271), ClaimStatus (276/277),
-    ServiceReview (278), DentalClaim, InstitutionalClaim, ProfessionalClaim /
-    ProfessionalPCERequest, Configuration and Payer. Everything else hangs off one of these.
-  - >-
-    EVERY DOCUMENT SHARES ONE ERROR SHAPE: ErrorResponse has_many FieldError. That is the single
-    genuinely universal relationship in the estate. See errors/availity-problem-types.yml.
-  - >-
-    COLLECTION RESPONSES WRAP IN ResultSet. Coverages, Claim Statuses, Service Reviews and
-    Configurations each define a ResultSet whose array member is named for the plural resource
-    (`coverages`, `claimStatuses`, `serviceReviews`, `configurations`) — the pagination contract
-    described in conventions/availity-conventions.yml.
-  - >-
-    THE BENEFITS GRAPH IS THE DEEPEST STRUCTURE IN THE ESTATE. Coverage -> Benefit -> Amounts ->
-    BenefitDetail -> NetworkBenefit is four levels of nesting, and BenefitDetail fans out into
-    inNetwork / outOfNetwork / noNetwork / notApplicableNetwork arrays of NetworkBenefit. Anyone
-    reading co-pay or deductible values must walk all four network buckets, not just `inNetwork`.
-  - >-
-    THE DENTAL CLAIM IS THE WIDEST. DentalClaim -> ClaimInformation carries twelve relationships
-    including six distinct provider roles (rendering, referring, supervising, assistant surgeon,
-    primary care, service facility), and ServiceLine repeats four of those roles at line level.
+- THERE IS NO SHARED MODEL ACROSS PRODUCTS. Each Availity API document defines its OWN copy of the common healthcare
+  entities — Patient, Payer, Provider, Subscriber, Submitter, ServiceLine, Diagnosis, Note, ErrorResponse, FieldError,
+  Link, ResultSet all recur, with DIFFERENT field sets, in Coverages, Claim Statuses, Service Reviews and Dental
+  Claims. There is no `components.schemas` reuse across products because each document is generated per product
+  by the gateway. A client cannot write one Payer type and reuse it; it needs a per-product type.
+- NO CROSS-RESOURCE ID GRAPH. Availity's resources are TRANSACTION envelopes, not persistent domain objects. A Coverage
+  does not reference a Claim, a ClaimStatus does not reference a ServiceReview, and there is no customer/account
+  object at the root. The only durable identifier is the per-transaction `id` returned by a POST, which is then
+  polled on the GET. Correlation across transactions is done on X12 business identifiers carried INSIDE the payload
+  (member id, control number, patientAccountNumber, payer claim number), not on API-level ids.
+- THE ROOT ENTITIES ARE THE X12 TRANSACTIONS. Coverage (270/271), ClaimStatus (276/277), ServiceReview (278), DentalClaim,
+  InstitutionalClaim, ProfessionalClaim / ProfessionalPCERequest, Configuration and Payer. Everything else hangs
+  off one of these.
+- 'EVERY DOCUMENT SHARES ONE ERROR SHAPE: ErrorResponse has_many FieldError. That is the single genuinely universal
+  relationship in the estate. See errors/availity-problem-types.yml.'
+- COLLECTION RESPONSES WRAP IN ResultSet. Coverages, Claim Statuses, Service Reviews and Configurations each define
+  a ResultSet whose array member is named for the plural resource (`coverages`, `claimStatuses`, `serviceReviews`,
+  `configurations`) — the pagination contract described in conventions/availity-conventions.yml.
+- THE BENEFITS GRAPH IS THE DEEPEST STRUCTURE IN THE ESTATE. Coverage -> Benefit -> Amounts -> BenefitDetail ->
+  NetworkBenefit is four levels of nesting, and BenefitDetail fans out into inNetwork / outOfNetwork / noNetwork
+  / notApplicableNetwork arrays of NetworkBenefit. Anyone reading co-pay or deductible values must walk all four
+  network buckets, not just `inNetwork`.
+- THE DENTAL CLAIM IS THE WIDEST. DentalClaim -> ClaimInformation carries twelve relationships including six distinct
+  provider roles (rendering, referring, supervising, assistant surgeon, primary care, service facility), and ServiceLine
+  repeats four of those roles at line level.
 render: null
 counts:
   specs_read: 11
@@ -1134,5 +1122,426 @@ entities:
   - stateCode
   - zipCode
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+relationships:
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: ProfessionalClaim
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: Subscriber
+  to: ItemDescription
+  type: has_many
+  via: holdReasons
+- from: ClaimStatus
+  to: ClaimStatusResult
+  type: has_many
+  via: claimStatuses
+- from: ClaimStatus
+  to: Patient
+  type: has_one
+  via: patient
+- from: ClaimStatus
+  to: Payer
+  type: has_one
+  via: payer
+- from: ClaimStatus
+  to: Provider
+  type: has_many
+  via: providers
+- from: ClaimStatus
+  to: Submitter
+  type: has_one
+  via: submitter
+- from: ClaimStatus
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: ClaimStatusResult
+  to: ServiceLine
+  type: has_many
+  via: serviceLines
+- from: ClaimStatusResult
+  to: ClaimStatusDetail
+  type: has_many
+  via: statusDetails
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: Provider
+  to: ClaimStatusDetail
+  type: has_many
+  via: statusDetails
+- from: ResultSet
+  to: ClaimStatusSummary
+  type: has_many
+  via: claimStatuses
+- from: ServiceLine
+  to: ClaimStatusDetail
+  type: has_many
+  via: statusDetails
+- from: Submitter
+  to: ClaimStatusDetail
+  type: has_many
+  via: statusDetails
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: ResultSet
+  to: Configuration
+  type: has_many
+  via: configurations
+- from: Amounts
+  to: BenefitDetail
+  type: has_one
+  via: coInsurance
+- from: Amounts
+  to: BenefitDetail
+  type: has_one
+  via: coPayment
+- from: Amounts
+  to: BenefitDetail
+  type: has_one
+  via: deductibles
+- from: Amounts
+  to: BenefitDetail
+  type: has_one
+  via: outOfPocket
+- from: Benefit
+  to: Payer
+  type: has_many
+  via: additionalPayers
+- from: Benefit
+  to: Amounts
+  type: has_one
+  via: amounts
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: benefitDescriptions
+- from: Benefit
+  to: HealthCareContact
+  type: has_many
+  via: contacts
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: costContainment
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: coverageBasis
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: exclusions
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: limitations
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: nonCovered
+- from: Benefit
+  to: PayerNote
+  type: has_many
+  via: payerNotes
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: preexistingConditions
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: reserve
+- from: Benefit
+  to: BenefitDetail
+  type: has_one
+  via: statusDetails
+- from: BenefitDetail
+  to: NetworkBenefit
+  type: has_many
+  via: inNetwork
+- from: BenefitDetail
+  to: NetworkBenefit
+  type: has_many
+  via: noNetwork
+- from: BenefitDetail
+  to: NetworkBenefit
+  type: has_many
+  via: notApplicableNetwork
+- from: BenefitDetail
+  to: NetworkBenefit
+  type: has_many
+  via: outOfNetwork
+- from: Coverage
+  to: Payer
+  type: has_one
+  via: payer
+- from: Coverage
+  to: HealthCareContact
+  type: has_one
+  via: requestingProvider
+- from: Coverage
+  to: FieldError
+  type: has_many
+  via: validationMessages
+- from: CoverageSummary
+  to: FieldError
+  type: has_many
+  via: validationMessages
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: HealthCareContact
+  to: Address
+  type: has_one
+  via: address
+- from: HealthCareContact
+  to: ContactInformation
+  type: has_many
+  via: contactInformation
+- from: HealthCareContact
+  to: HealthCareServiceDelivery
+  type: has_many
+  via: deliveryInformation
+- from: NetworkBenefit
+  to: ContactInformation
+  type: has_many
+  via: contacts
+- from: NetworkBenefit
+  to: HealthCareServiceDelivery
+  type: has_many
+  via: deliveryInformation
+- from: Payer
+  to: Address
+  type: has_one
+  via: address
+- from: Payer
+  to: ContactInformation
+  type: has_many
+  via: contactInformation
+- from: Payer
+  to: Address
+  type: has_one
+  via: insuredAddress
+- from: Payer
+  to: ContactInformation
+  type: has_many
+  via: insuredContactInformation
+- from: ResultSet
+  to: CoverageSummary
+  type: has_many
+  via: coverages
+- from: AdjudicationInformation
+  to: AdjustmentGroup
+  type: has_many
+  via: claimAdjustmentGroups
+- from: AdjustmentGroup
+  to: Adjustment
+  type: has_many
+  via: adjustments
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: assistantSurgeon
+- from: ClaimInformation
+  to: Diagnosis
+  type: has_many
+  via: diagnoses
+- from: ClaimInformation
+  to: Note
+  type: has_many
+  via: notes
+- from: ClaimInformation
+  to: OtherPayer
+  type: has_many
+  via: otherPayers
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: primaryCareProvider
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: referringProvider
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: renderingProvider
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: serviceFacility
+- from: ClaimInformation
+  to: ServiceLine
+  type: has_many
+  via: serviceLines
+- from: ClaimInformation
+  to: Provider
+  type: has_one
+  via: supervisingProvider
+- from: ClaimInformation
+  to: SupplementalInformation
+  type: has_many
+  via: supplementalInformation
+- from: ClaimInformation
+  to: ToothStatus
+  type: has_many
+  via: toothStatuses
+- from: DentalClaim
+  to: BillingProvider
+  type: has_one
+  via: billingProvider
+- from: DentalClaim
+  to: ClaimInformation
+  type: has_one
+  via: claimInformation
+- from: DentalClaim
+  to: Patient
+  type: has_one
+  via: patient
+- from: DentalClaim
+  to: Payer
+  type: has_one
+  via: payer
+- from: DentalClaim
+  to: Submitter
+  type: has_one
+  via: submitter
+- from: DentalClaim
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: OtherPayer
+  to: AdjustmentGroup
+  type: has_many
+  via: claimAdjustmentGroups
+- from: OtherPayer
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: ServiceLine
+  to: AdjudicationInformation
+  type: has_many
+  via: adjudicationInformation
+- from: ServiceLine
+  to: Provider
+  type: has_one
+  via: assistantSurgeon
+- from: ServiceLine
+  to: Provider
+  type: has_one
+  via: renderingProvider
+- from: ServiceLine
+  to: Provider
+  type: has_one
+  via: serviceFacility
+- from: ServiceLine
+  to: Provider
+  type: has_one
+  via: supervisingProvider
+- from: ServiceLine
+  to: ToothInformation
+  type: has_many
+  via: toothInformation
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: ErrorResponse
+  to: CoveragePlanCandidates
+  type: has_many
+  via: candidates
+- from: ProfessionalClaimBase
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: Subscriber
+  to: ItemDescription
+  type: has_many
+  via: holdReasons
+- from: ErrorResponse
+  to: FieldError
+  type: has_many
+  via: errors
+- from: Procedures
+  to: Note
+  type: has_many
+  via: notes
+- from: ResultSet
+  to: ServiceReview
+  type: has_many
+  via: serviceReviews
+- from: ServiceReview
+  to: Diagnosis
+  type: has_many
+  via: diagnoses
+- from: ServiceReview
+  to: Patient
+  type: has_one
+  via: patient
+- from: ServiceReview
+  to: Payer
+  type: has_one
+  via: payer
+- from: ServiceReview
+  to: Note
+  type: has_many
+  via: payerNotes
+- from: ServiceReview
+  to: Procedures
+  type: has_many
+  via: procedures
+- from: ServiceReview
+  to: Note
+  type: has_many
+  via: providerNotes
+- from: ServiceReview
+  to: RenderingProvider
+  type: has_many
+  via: renderingProviders
+- from: ServiceReview
+  to: RequestingProvider
+  type: has_one
+  via: requestingProvider
+- from: ServiceReview
+  to: Subscriber
+  type: has_one
+  via: subscriber
+- from: ServiceReview
+  to: SupplementalInformation
+  type: has_one
+  via: supplementalInformation
+- from: ServiceReview
+  to: TransportLocation
+  type: has_many
+  via: transportLocations
+- from: ServiceReview
+  to: FieldError
+  type: has_many
+  via: validationMessages
+- from: SupplementalInformation
+  to: Diagnosis
+  type: has_many
+  via: diagnoses
+- from: SupplementalInformation
+  to: Diagnosis
+  type: has_many
+  via: procedures

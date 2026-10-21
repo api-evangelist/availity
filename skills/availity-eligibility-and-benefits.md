@@ -1,5 +1,6 @@
 ---
-name: Verify patient eligibility and benefits with Availity
+name: availity-eligibility-and-benefits
+title: Verify patient eligibility and benefits with Availity
 description: >-
   Run a real-time X12 270/271 eligibility and benefits check through the Availity clearinghouse —
   confirm the payer supports the transaction, fetch that payer's field requirements, submit the

@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: Availity Dfs API
+  version: 1.0.0
+  x-custom-api-description: The Availity DFS 1.0.0 API is designed for secure, real-time healthcare data exchange, specifically within the context of HIPAA-compliant transactions.
+  description: 'Operations tagged Dfs across 2 of this provider''s published API definitions: availity-dfs-openapi.json, availity-dfs-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.availity.com/sdk/v1
+security:
+- oauth2:
+  - hipaa
+tags:
+- name: Dfs
+paths:
+  /dfs/{id}:
+    get:
+      operationId: download
+      parameters:
+      - description: The ecrypted file identifier
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not Authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      summary: Download a stored file using an encrypted URL
+      tags:
+      - Dfs
+    servers:
+    - url: https://api.availity.com/sdk/v1
+components:
+  schemas:
+    FieldError:
+      properties:
+        code:
+          description: A code for the error.
+          type: string
+        errorMessage:
+          description: The message associated with this error.
+          type: string
+        field:
+          description: The field or parameter associated with this error.
+          type: string
+        index:
+          description: The array index of the item associated with this error.
+          type: integer
+      type: object
+    ErrorResponse:
+      properties:
+        developerMessage:
+          description: A more technical error message.
+          type: string
+        errors:
+          description: A list of detailed user friendly messages.
+          items:
+            $ref: '#/components/schemas/FieldError'
+          type: array
+        reasonCode:
+          description: A reason code.
+          type: integer
+        statusCode:
+          description: The status code.
+          type: integer
+        userMessage:
+          description: A high level error message.
+          type: string
+      type: object
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes:
+            healthcare-hipaa-transactions: Healthcare HIPAA Transactions
+            healthcare-hipaa-transactions-highvolume: Healthcare HIPAA Transactions High Volume
+            healthcare-hipaa-transactions-highvolume-standard: Standard
+            healthcare-hipaa-transactions-highvolume-unlimited: Unlimited
+            healthcare-hipaa-transactions-standard: Standard
+          tokenUrl: https://api.availity.com/v1/token
+x-refined-from:
+- availity-dfs-openapi.json
+- availity-dfs-openapi.yml

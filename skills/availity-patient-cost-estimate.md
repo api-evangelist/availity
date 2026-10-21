@@ -1,5 +1,6 @@
 ---
-name: Estimate patient cost with Availity
+name: availity-patient-cost-estimate
+title: Estimate patient cost with Availity
 description: >-
   Produce a pre-service patient cost estimate through Availity's predetermination APIs — professional,
   institutional and dental — including the two different Patient Cost Estimator generations (1.0.0

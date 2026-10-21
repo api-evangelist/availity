@@ -82,31 +82,6 @@ components:
           type: array
           items:
             type: string
-    AsyncJobResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Job ID for polling
-          example: '500123'
-        status:
-          type: string
-          example: PROCESSING
-    AttachmentStatusResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - SUBMITTED
-          - AV_ACCEPTED
-          - AV_REJECTED
-          - PY_ACCEPTED
-          - PY_REJECTED
-          example: AV_ACCEPTED
     AttachmentRequest:
       type: object
       required:
@@ -158,15 +133,40 @@ components:
               data:
                 type: string
                 format: byte
+    AsyncJobResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID for polling
+          example: '500123'
+        status:
+          type: string
+          example: PROCESSING
+    AttachmentStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - AV_ACCEPTED
+          - AV_REJECTED
+          - PY_ACCEPTED
+          - PY_REJECTED
+          example: AV_ACCEPTED
   responses:
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

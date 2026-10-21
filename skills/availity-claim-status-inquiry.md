@@ -1,5 +1,6 @@
 ---
-name: Check claim status with Availity
+name: availity-claim-status-inquiry
+title: Check claim status with Availity
 description: >-
   Run an X12 276/277 claim status inquiry through the Availity clearinghouse — submit the request,
   poll correctly through the 202 accept-then-poll cycle, and read the per-claim, per-service-line

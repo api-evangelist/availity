@@ -1,0 +1,162 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 11
+  own: 7
+  other_domain: 0
+  platform: 4
+  roles:
+  - api
+  - other
+  - portal
+  - source
+  - status
+  - website
+hosts:
+- host: api.availity.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types: []
+  serves:
+  - api
+  - api-gateway
+  vendor: tyk
+  registrable_domain: availity.com
+  role: api
+  relation: own
+- host: availity.github.io
+  found_by:
+  - pointer
+  types:
+  - SDKs
+  serves: []
+  registrable_domain: github.io
+  role: other
+  relation: platform
+- host: build.availity.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: availity.com
+  role: other
+  relation: own
+- host: developer.availity.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - spec-found
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Portal
+  - Documentation
+  - GettingStarted
+  - Support
+  - DeveloperPortal
+  - APIReference
+  - SignUp
+  serves:
+  - docs
+  - spec
+  - documentation
+  vendor: redocly
+  registrable_domain: availity.com
+  role: portal
+  relation: own
+- host: essentials.availity.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: availity.com
+  role: other
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: payernetworkstatus.availity.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: availity.com
+  role: other
+  relation: own
+- host: raw.githubusercontent.com
+  found_by:
+  - pointer
+  types:
+  - JSONSchema
+  - JSONLD
+  - SpectralRules
+  - Vocabulary
+  serves: []
+  registrable_domain: githubusercontent.com
+  role: other
+  relation: platform
+- host: status.availity.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: availity.com
+  role: status
+  relation: own
+- host: www.availity.com
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - TermsOfService
+  - PrivacyPolicy
+  - Blog
+  - Compliance
+  serves:
+  - cdn
+  - hosting
+  vendor: cloudflare
+  registrable_domain: availity.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform

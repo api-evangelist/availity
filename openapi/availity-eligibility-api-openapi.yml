@@ -138,162 +138,6 @@ paths:
                 $ref: '#/components/schemas/PayerList'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    SubscriberInfo:
-      type: object
-      properties:
-        memberId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-        groupNumber:
-          type: string
-        groupName:
-          type: string
-    Provider:
-      type: object
-      required:
-      - npi
-      properties:
-        npi:
-          type: string
-          description: National Provider Identifier (NPI)
-          pattern: ^\d{10}$
-        firstName:
-          type: string
-        lastName:
-          type: string
-        organizationName:
-          type: string
-        taxId:
-          type: string
-        serviceProviderNumber:
-          type: string
-    Benefit:
-      type: object
-      properties:
-        code:
-          type: string
-          description: X12 benefit information code
-        name:
-          type: string
-        coverageLevel:
-          type: string
-          enum:
-          - INDIVIDUAL
-          - FAMILY
-          - EMPLOYEE
-          - EMPLOYEE_AND_SPOUSE
-        benefitAmount:
-          type: object
-          properties:
-            value:
-              type: number
-            currency:
-              type: string
-        benefitPercent:
-          type: number
-          minimum: 0
-          maximum: 100
-        inPlanNetworkIndicator:
-          type: string
-          enum:
-          - Y
-          - N
-          - W
-        timeQualifier:
-          type: string
-          description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
-    PayerInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            postalCode:
-              type: string
-    PayerList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              eligibilityUrl:
-                type: string
-              supportedTransactions:
-                type: array
-                items:
-                  type: string
-    EligibilityList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EligibilityResponse'
-        total:
-          type: integer
-        offset:
-          type: integer
-    Subscriber:
-      type: object
-      required:
-      - memberId
-      properties:
-        memberId:
-          type: string
-          description: Insurance member ID
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-          enum:
-          - M
-          - F
-          - U
-        ssn:
-          type: string
-          description: Social Security Number (last 4 or full)
-        groupNumber:
-          type: string
     EligibilityResponse:
       type: object
       properties:
@@ -352,6 +196,122 @@ components:
             endDate:
               type: string
               format: date
+    PayerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              eligibilityUrl:
+                type: string
+              supportedTransactions:
+                type: array
+                items:
+                  type: string
+    SubscriberInfo:
+      type: object
+      properties:
+        memberId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        groupNumber:
+          type: string
+        groupName:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+    EligibilityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityResponse'
+        total:
+          type: integer
+        offset:
+          type: integer
+    Provider:
+      type: object
+      required:
+      - npi
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI)
+          pattern: ^\d{10}$
+        firstName:
+          type: string
+        lastName:
+          type: string
+        organizationName:
+          type: string
+        taxId:
+          type: string
+        serviceProviderNumber:
+          type: string
+    Payer:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Availity payer ID
+        name:
+          type: string
+    EligibilityError:
+      type: object
+      properties:
+        id:
+          type: string
+        rejectCode:
+          type: string
+        rejectReason:
+          type: string
+        followUpAction:
+          type: string
+    PayerInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
     Coverage:
       type: object
       properties:
@@ -383,6 +343,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Benefit'
+    Subscriber:
+      type: object
+      required:
+      - memberId
+      properties:
+        memberId:
+          type: string
+          description: Insurance member ID
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - U
+        ssn:
+          type: string
+          description: Social Security Number (last 4 or full)
+        groupNumber:
+          type: string
     PlanInformation:
       type: object
       properties:
@@ -398,6 +384,41 @@ components:
         planEndDate:
           type: string
           format: date
+    Benefit:
+      type: object
+      properties:
+        code:
+          type: string
+          description: X12 benefit information code
+        name:
+          type: string
+        coverageLevel:
+          type: string
+          enum:
+          - INDIVIDUAL
+          - FAMILY
+          - EMPLOYEE
+          - EMPLOYEE_AND_SPOUSE
+        benefitAmount:
+          type: object
+          properties:
+            value:
+              type: number
+            currency:
+              type: string
+        benefitPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        inPlanNetworkIndicator:
+          type: string
+          enum:
+          - Y
+          - N
+          - W
+        timeQualifier:
+          type: string
+          description: Benefit period (e.g., Calendar Year, Plan Year, Lifetime)
     Dependent:
       type: object
       properties:
@@ -424,34 +445,7 @@ components:
           - 39
           - 40
           - G8
-    Payer:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Availity payer ID
-        name:
-          type: string
-    EligibilityError:
-      type: object
-      properties:
-        id:
-          type: string
-        rejectCode:
-          type: string
-        rejectReason:
-          type: string
-        followUpAction:
-          type: string
   responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized
       content:
@@ -460,6 +454,12 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

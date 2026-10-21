@@ -688,30 +688,112 @@ paths:
       description: Availity Production API
 components:
   schemas:
-    ResultSet:
+    FieldError:
       properties:
-        count:
-          description: Number of assets in the result set.
+        code:
+          description: A code for the error.
+          type: string
+        errorMessage:
+          description: The message associated with this error.
+          type: string
+        field:
+          description: The field or parameter associated with this error.
+          type: string
+        index:
+          description: The array index of the item associated with this error.
           type: integer
-        limit:
-          description: Paging limit.
-          type: integer
-        links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          description: Links.
-          type: object
-        offset:
-          description: Paging offset.
-          type: integer
-        serviceReviews:
-          description: list of service reviews
+      type: object
+    ErrorResponse:
+      properties:
+        developerMessage:
+          description: A more technical error message.
+          type: string
+        errors:
+          description: A list of detailed user friendly messages.
           items:
-            $ref: '#/components/schemas/ServiceReview'
+            $ref: '#/components/schemas/FieldError'
           type: array
-        totalCount:
-          description: Total number of assets.
+        reasonCode:
+          description: A reason code.
           type: integer
+        statusCode:
+          description: The status code.
+          type: integer
+        userMessage:
+          description: A high level error message.
+          type: string
+      type: object
+    RenderingProvider:
+      properties:
+        addressLine1:
+          description: The street line 1.
+          type: string
+        addressLine2:
+          description: The street line 2.
+          type: string
+        city:
+          description: The city.
+          type: string
+        contactName:
+          description: Full Name
+          type: string
+        emailAddress:
+          description: E-mail Address
+          type: string
+        extension:
+          description: Phone Extension
+          type: string
+        fax:
+          description: fax
+          type: string
+        firstName:
+          description: The first name of an individual provider.
+          type: string
+        lastName:
+          description: The last name of an individual provider or the name of an organizational provider.
+          type: string
+        middleName:
+          description: The middle name of an individual provider.
+          type: string
+        npi:
+          description: The NPI of a provider.
+          type: string
+        payerAssignedProviderId:
+          description: The payer assigned provider id of a provider.
+          type: string
+        phone:
+          description: Phone Number
+          type: string
+        role:
+          description: The role of a provider.
+          type: string
+        roleCode:
+          description: The role code of a provider.
+          type: string
+        specialty:
+          description: The speciality of a provider.
+          type: string
+        specialtyCode:
+          description: The speciality code of a provider.
+          type: string
+        state:
+          description: The state.
+          type: string
+        stateCode:
+          description: The state code.
+          type: string
+        suffix:
+          description: The suffix of an individual provider.
+          type: string
+        taxId:
+          description: The tax id of a provider.
+          type: string
+        url:
+          description: Website URL
+          type: string
+        zipCode:
+          description: The ZIP code.
+          type: string
       type: object
     Procedures:
       properties:
@@ -821,76 +903,6 @@ components:
           description: the value or description for the procedure.
           type: string
       type: object
-    Patient:
-      properties:
-        addressLine1:
-          description: The street line 1.
-          type: string
-        addressLine2:
-          description: The street line 2.
-          type: string
-        birthDate:
-          description: The patient's date of birth.
-          format: date
-          type: string
-        city:
-          description: The city.
-          type: string
-        condition:
-          description: The condition
-          type: string
-        conditionCode:
-          description: The condition code
-          type: string
-        firstName:
-          description: The patient's first name.
-          type: string
-        gender:
-          description: The patient's gender.
-          type: string
-        genderCode:
-          description: The patient's gender code.
-          type: string
-        lastName:
-          description: The patient's last name.
-          type: string
-        medicareCoverage:
-          description: The patient is covered by Medicare
-          type: boolean
-        middleName:
-          description: The patient's middle name.
-          type: string
-        prognosis:
-          description: The prognosis
-          type: string
-        prognosisCode:
-          description: The prognosis code
-          type: string
-        state:
-          description: The state.
-          type: string
-        stateCode:
-          description: The state code.
-          type: string
-        status:
-          description: The patient's status
-          type: string
-        statusCode:
-          description: The patient's status code
-          type: string
-        subscriberRelationship:
-          description: The patient's relationship to the subscriber or policy holder.
-          type: string
-        subscriberRelationshipCode:
-          description: The patient's relationship code to the subscriber or policy holder.
-          type: string
-        suffix:
-          description: The patient's suffix.
-          type: string
-        zipCode:
-          description: The ZIP code.
-          type: string
-      type: object
     SupplementalInformation:
       properties:
         diagnoses:
@@ -913,132 +925,6 @@ components:
           description: The update type.
           type: string
       type: object
-    Subscriber:
-      properties:
-        addressLine1:
-          description: The street line 1.
-          type: string
-        addressLine2:
-          description: The street line 2.
-          type: string
-        city:
-          description: The city.
-          type: string
-        firstName:
-          description: The subscriber's first name.
-          type: string
-        lastName:
-          description: The subscriber's last name.
-          type: string
-        memberId:
-          description: The health plan member id of the subscriber.
-          type: string
-        middleName:
-          description: The subscriber's middle name.
-          type: string
-        state:
-          description: The state.
-          type: string
-        stateCode:
-          description: The state code.
-          type: string
-        suffix:
-          description: The subscriber's suffix.
-          type: string
-        zipCode:
-          description: The ZIP code.
-          type: string
-      type: object
-    RequestingProvider:
-      properties:
-        addressLine1:
-          description: The street line 1.
-          type: string
-        addressLine2:
-          description: The street line 2.
-          type: string
-        city:
-          description: The city.
-          type: string
-        contactName:
-          description: Full Name
-          type: string
-        emailAddress:
-          description: E-mail Address
-          type: string
-        extension:
-          description: Phone Extension
-          type: string
-        fax:
-          description: Fax
-          type: string
-        firstName:
-          description: The first name of an individual provider.
-          type: string
-        lastName:
-          description: The last name of an individual provider or the name of an organizational provider.
-          type: string
-        middleName:
-          description: The middle name of an individual provider.
-          type: string
-        npi:
-          description: The NPI of a provider.
-          type: string
-        payerAssignedProviderId:
-          description: The payer assigned provider id of the provider.
-          type: string
-        phone:
-          description: Phone Number
-          type: string
-        specialty:
-          description: The speciality of a provider.
-          type: string
-        specialtyCode:
-          description: The speciality code of a provider.
-          type: string
-        state:
-          description: The state.
-          type: string
-        stateCode:
-          description: The state code.
-          type: string
-        submitterId:
-          description: The payer assigned provider reference number.
-          type: string
-        suffix:
-          description: The suffix of an individual provider.
-          type: string
-        taxId:
-          description: The tax id of a provider.
-          type: string
-        url:
-          description: Website URL
-          type: string
-        zipCode:
-          description: The ZIP code.
-          type: string
-      type: object
-    Link:
-      properties:
-        href:
-          description: The URL.
-          type: string
-      type: object
-    FieldError:
-      properties:
-        code:
-          description: A code for the error.
-          type: string
-        errorMessage:
-          description: The message associated with this error.
-          type: string
-        field:
-          description: The field or parameter associated with this error.
-          type: string
-        index:
-          description: The array index of the item associated with this error.
-          type: integer
-      type: object
     Note:
       properties:
         message:
@@ -1051,28 +937,31 @@ components:
           description: The type code of the note.
           type: string
       type: object
-    TransportLocation:
+    Payer:
       properties:
-        addressLine1:
-          description: The address line 1 of the transport location
+        contactName:
+          description: Full Name
           type: string
-        addressLine2:
-          description: The address line 2 of the transport location
+        emailAddress:
+          description: E-mail Address
           type: string
-        city:
-          description: The city of the transport location
+        extension:
+          description: Extension
+          type: string
+        fax:
+          description: Fax
+          type: string
+        id:
+          description: Service review payer id
           type: string
         name:
-          description: The name of the transport location
+          description: Service review payer name
           type: string
-        state:
-          description: The state of the transport location
+        phone:
+          description: Phone Number
           type: string
-        stateCode:
-          description: The state code of the transport location
-          type: string
-        zipCode:
-          description: The ZIP code of the transport location
+        url:
+          description: Website URL
           type: string
       type: object
     ServiceReview:
@@ -1345,6 +1234,107 @@ components:
             $ref: '#/components/schemas/FieldError'
           type: array
       type: object
+    Patient:
+      properties:
+        addressLine1:
+          description: The street line 1.
+          type: string
+        addressLine2:
+          description: The street line 2.
+          type: string
+        birthDate:
+          description: The patient's date of birth.
+          format: date
+          type: string
+        city:
+          description: The city.
+          type: string
+        condition:
+          description: The condition
+          type: string
+        conditionCode:
+          description: The condition code
+          type: string
+        firstName:
+          description: The patient's first name.
+          type: string
+        gender:
+          description: The patient's gender.
+          type: string
+        genderCode:
+          description: The patient's gender code.
+          type: string
+        lastName:
+          description: The patient's last name.
+          type: string
+        medicareCoverage:
+          description: The patient is covered by Medicare
+          type: boolean
+        middleName:
+          description: The patient's middle name.
+          type: string
+        prognosis:
+          description: The prognosis
+          type: string
+        prognosisCode:
+          description: The prognosis code
+          type: string
+        state:
+          description: The state.
+          type: string
+        stateCode:
+          description: The state code.
+          type: string
+        status:
+          description: The patient's status
+          type: string
+        statusCode:
+          description: The patient's status code
+          type: string
+        subscriberRelationship:
+          description: The patient's relationship to the subscriber or policy holder.
+          type: string
+        subscriberRelationshipCode:
+          description: The patient's relationship code to the subscriber or policy holder.
+          type: string
+        suffix:
+          description: The patient's suffix.
+          type: string
+        zipCode:
+          description: The ZIP code.
+          type: string
+      type: object
+    ResultSet:
+      properties:
+        count:
+          description: Number of assets in the result set.
+          type: integer
+        limit:
+          description: Paging limit.
+          type: integer
+        links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Links.
+          type: object
+        offset:
+          description: Paging offset.
+          type: integer
+        serviceReviews:
+          description: list of service reviews
+          items:
+            $ref: '#/components/schemas/ServiceReview'
+          type: array
+        totalCount:
+          description: Total number of assets.
+          type: integer
+      type: object
+    Link:
+      properties:
+        href:
+          description: The URL.
+          type: string
+      type: object
     Diagnosis:
       properties:
         code:
@@ -1364,7 +1354,7 @@ components:
           description: The value or description of the diagnosis.
           type: string
       type: object
-    RenderingProvider:
+    RequestingProvider:
       properties:
         addressLine1:
           description: The street line 1.
@@ -1385,7 +1375,7 @@ components:
           description: Phone Extension
           type: string
         fax:
-          description: fax
+          description: Fax
           type: string
         firstName:
           description: The first name of an individual provider.
@@ -1400,16 +1390,10 @@ components:
           description: The NPI of a provider.
           type: string
         payerAssignedProviderId:
-          description: The payer assigned provider id of a provider.
+          description: The payer assigned provider id of the provider.
           type: string
         phone:
           description: Phone Number
-          type: string
-        role:
-          description: The role of a provider.
-          type: string
-        roleCode:
-          description: The role code of a provider.
           type: string
         specialty:
           description: The speciality of a provider.
@@ -1422,6 +1406,9 @@ components:
           type: string
         stateCode:
           description: The state code.
+          type: string
+        submitterId:
+          description: The payer assigned provider reference number.
           type: string
         suffix:
           description: The suffix of an individual provider.
@@ -1436,51 +1423,64 @@ components:
           description: The ZIP code.
           type: string
       type: object
-    Payer:
+    Subscriber:
       properties:
-        contactName:
-          description: Full Name
+        addressLine1:
+          description: The street line 1.
           type: string
-        emailAddress:
-          description: E-mail Address
+        addressLine2:
+          description: The street line 2.
           type: string
-        extension:
-          description: Extension
+        city:
+          description: The city.
           type: string
-        fax:
-          description: Fax
+        firstName:
+          description: The subscriber's first name.
           type: string
-        id:
-          description: Service review payer id
+        lastName:
+          description: The subscriber's last name.
           type: string
-        name:
-          description: Service review payer name
+        memberId:
+          description: The health plan member id of the subscriber.
           type: string
-        phone:
-          description: Phone Number
+        middleName:
+          description: The subscriber's middle name.
           type: string
-        url:
-          description: Website URL
+        state:
+          description: The state.
+          type: string
+        stateCode:
+          description: The state code.
+          type: string
+        suffix:
+          description: The subscriber's suffix.
+          type: string
+        zipCode:
+          description: The ZIP code.
           type: string
       type: object
-    ErrorResponse:
+    TransportLocation:
       properties:
-        developerMessage:
-          description: A more technical error message.
+        addressLine1:
+          description: The address line 1 of the transport location
           type: string
-        errors:
-          description: A list of detailed user friendly messages.
-          items:
-            $ref: '#/components/schemas/FieldError'
-          type: array
-        reasonCode:
-          description: A reason code.
-          type: integer
-        statusCode:
-          description: The status code.
-          type: integer
-        userMessage:
-          description: A high level error message.
+        addressLine2:
+          description: The address line 2 of the transport location
+          type: string
+        city:
+          description: The city of the transport location
+          type: string
+        name:
+          description: The name of the transport location
+          type: string
+        state:
+          description: The state of the transport location
+          type: string
+        stateCode:
+          description: The state code of the transport location
+          type: string
+        zipCode:
+          description: The ZIP code of the transport location
           type: string
       type: object
     Error:
@@ -1599,14 +1599,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

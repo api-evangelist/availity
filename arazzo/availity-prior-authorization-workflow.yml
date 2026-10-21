@@ -78,7 +78,7 @@ workflows:
       authRequired: $response.body#/authRequired
   - stepId: createReview
     description: Create the X12 278 service review request for the requested services.
-    operationId: createServiceReview
+    operationId: postAvailityIntelligentPayerNetworkV1ServiceReviews
     requestBody:
       contentType: application/json
       payload: $inputs.serviceReview
