@@ -282,3 +282,153 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: availity-caqh-core-certification
+  label: CAQH CORE Certification
+  partner_name: CAQH CORE Certification
+  category: HIPAA administrative operating rules (eligibility, claims, ERA/EFT, prior auth)
+  type: register
+  channel: standard-directory
+  evidence: https://www.dataspring.com/core/core-certified-organizations-pending-and-current
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: CAQH CORE certified organizations (caqh.org/core/core-certification -> dataspring.com)
+    spec_file: null
+    standard: CAQH CORE Operating Rules certification
+    role: certified clearinghouse
+    registered_name: Availity, LLC
+    matched_domain: null
+    matched_by: register-name
+    market_fit: own apis.yml tags carry a health administration / health IT term
+    detected_by: sweep-payer-interop-caqh-core.py
+    detected: '2026-10-21'
+    register_name_note: register-name 'availity' = availity; no wikidata P856
+    listings:
+    - name: Availity, LLC
+      tab: clearinghouses
+      product: Availity Health Information Network
+      rules:
+      - rule_set: Eligibility & Benefits
+        status: Active
+      - rule_set: Claim Status
+        status: Active
+      - rule_set: Payment & Remittance
+        status: Active
+      - rule_set: Prior Authorization & Referrals (Infrastructure Only)
+        status: Active
+      - rule_set: Health Care Claims
+        status: Active
+    certified_products:
+    - product: CAQH CORE Eligibility & Benefits
+      rule_set: Eligibility & Benefits
+      lapsed: false
+      products:
+      - Availity Health Information Network
+    - product: CAQH CORE Claim Status
+      rule_set: Claim Status
+      lapsed: false
+      products:
+      - Availity Health Information Network
+    - product: CAQH CORE Payment & Remittance
+      rule_set: Payment & Remittance
+      lapsed: false
+      products:
+      - Availity Health Information Network
+    - product: CAQH CORE Prior Authorization & Referrals (Infrastructure Only)
+      rule_set: Prior Authorization & Referrals (Infrastructure Only)
+      lapsed: false
+      products:
+      - Availity Health Information Network
+    - product: CAQH CORE Health Care Claims
+      rule_set: Health Care Claims
+      lapsed: false
+      products:
+      - Availity Health Information Network
+    signal_note: certified_products = one entry per CORE operating-rule SET (product type); lapsed when no listed
+      status is Active; several certified products on one rule set count once
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
+- slug: availity-hl7-da-vinci-project
+  label: HL7 Da Vinci Project
+  partner_name: HL7 Da Vinci Project
+  category: Payer / provider FHIR accelerator (CRD, DTR, PAS, PDex)
+  type: register
+  channel: standard-directory
+  evidence: https://www.hl7.org/about/davinci/members.cfm
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: HL7 Da Vinci Project members (confluence.hl7.org DVP)
+    spec_file: null
+    standard: HL7 Da Vinci (payer FHIR implementation guides)
+    role: member
+    registered_name: Availity
+    matched_domain: null
+    matched_by: register-name
+    market_fit: own apis.yml tags carry a health administration / health IT term
+    detected_by: sweep-payer-interop-caqh-core.py
+    detected: '2026-10-21'
+    register_name_note: register-name 'availity' = availity; no wikidata P856
+    org_type: Vendor
+    founder: false
+    signal_note: membership = participation; member level in partner_tier
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
+- slug: availity-wedi
+  label: WEDI
+  partner_name: WEDI
+  category: Health administrative data exchange (membership)
+  type: register
+  channel: standard-directory
+  evidence: https://members.wedi.org/website-organization-directory/FindStartsWith?term=%23%21
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: WEDI member organizations (members.wedi.org directory)
+    spec_file: null
+    standard: WEDI (HIPAA administrative simplification)
+    role: member
+    registered_name: Availity
+    matched_domain: availity.com
+    matched_by: domain
+    market_fit: own apis.yml tags carry a health administration / health IT term
+    detected_by: sweep-payer-interop-caqh-core.py
+    detected: '2026-10-21'
+    website: http://www.availity.com/
+    identity_source: the website the member filed on the register (no lookup)
+    signal_note: membership = participation
+  status: not-a-workflow
+  arazzo: null
+- slug: availity-asc-x12
+  label: ASC X12
+  partner_name: ASC X12
+  category: EDI standards development (membership)
+  type: register
+  channel: standard-directory
+  evidence: https://x12.org/membership/list-of-members
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: X12 members list (x12.org/membership/list-of-members)
+    spec_file: null
+    standard: ASC X12 (HIPAA EDI transactions)
+    role: member
+    registered_name: Availity, LLC
+    matched_domain: null
+    matched_by: register-name
+    market_fit: own apis.yml tags carry a health administration / health IT term
+    detected_by: sweep-payer-interop-caqh-core.py
+    detected: '2026-10-21'
+    register_name_note: register-name 'availity' = availity; no wikidata P856
+    signal_note: membership = participation
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
