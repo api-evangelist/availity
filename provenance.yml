@@ -7,17 +7,17 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   arazzo/availity-claim-attachment-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/availity-claim-status-inquiry-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/availity-eligibility-benefits-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/availity-prior-authorization-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   authentication/availity-authentication.yml:
     method: searched
     evidence: declared in the artifact
@@ -85,7 +85,7 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   conformance/availity-conformance.yml:
-    method: searched
+    method: derived
     evidence: declared in the artifact
   conventions/availity-conventions.yml:
     method: searched
@@ -207,6 +207,15 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/availity-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/availity-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
   json-ld/availity-availity-context.jsonld:
     method: unknown
     evidence: no authorship recorded
@@ -510,127 +519,7 @@ artifacts:
   json-structure/service-reviews-service-review-response-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -714,15 +603,49 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/availity-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/availity-llms-provenance.yml:
+    method: generated
+    evidence: 'derive-llms-provenance.py: generated'
   llms/availity-llms.txt:
     method: generated
-    evidence: carries an API Evangelist house phrase
+    evidence: 'derive-llms-provenance.py: generated'
   mcp/availity-mcp.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/availity-care-cost-estimator-institutional-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-care-cost-estimator-institutional-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-care-cost-estimator-professional-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-care-cost-estimator-professional-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/availity-claim-attachments-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -731,7 +654,67 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/availity-claim-statuses-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-configurations-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-configurations-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-coverages-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-coverages-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-dental-claims-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-dental-claims-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-dfs-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-dfs-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/availity-eligibility-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-openapi.json:
+    method: harvested
+    evidence: byte-identical to https://developer.availity.com/system/api_details/service-reviews-prd/oasdocument/service-reviews-prd.20261017095554490576.json
+      (sha256 d777ac0a7764, fetched 2026-10-19)
+  openapi/_original/availity-patient-cost-estimator-professional-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-patient-cost-estimator-professional-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-payer-list-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-payer-list-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/availity-service-reviews-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -742,10 +725,28 @@ artifacts:
   openapi/availity-auth-attachments-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-availity-payer-list-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/availity-claim-attachments-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/availity-claim-status-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-claim-statuses-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-configurations-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-coverages-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-dental-claims-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-dfs-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/availity-eligibility-api-openapi.yml:
@@ -754,45 +755,75 @@ artifacts:
   openapi/availity-enhanced-claim-status-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-institutional-claims-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/availity-is-auth-required-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-patient-cost-estimator-2-0-0-professional-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/availity-professional-claims-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/availity-service-reviews-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/availity-auth-attachments-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/availity-aws-payer-list-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/availity-care-cost-estimator-institutional-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/availity-care-cost-estimator-professional-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/availity-claim-attachments-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  overlays/availity-care-cost-estimator-professional-overlay.yaml:
+  overlays/availity-claim-status-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/availity-claim-statuses-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/availity-configurations-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/availity-coverages-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/availity-dental-claims-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/availity-dfs-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/availity-eligibility-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  overlays/availity-dfs-overlay.yaml:
+  overlays/availity-enhanced-claim-status-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/availity-is-auth-required-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/availity-patient-cost-estimator-professional-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/availity-payer-list-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/availity-service-reviews-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/availity-service-reviews-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/availity-packages.yml:
     method: searched
     evidence: declared in the artifact
@@ -803,6 +834,9 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   rules/availity-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/availity-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/availity-spectral-rules.yml:
@@ -835,12 +869,15 @@ artifacts:
   skills/availity-prior-authorization.md:
     method: generated
     evidence: declared in the artifact
+  vendors/availity-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/availity-vocabulary.yaml:
     method: unknown
     evidence: no authorship recorded
   vocabulary/availity-vocabulary.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: declared in the artifact
   well-known/availity-well-known.yml:
     method: unknown
     evidence: no authorship recorded
