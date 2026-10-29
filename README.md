@@ -1,4 +1,4 @@
-# availity (availity)
+# Availity
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,280 +66,311 @@
 
 Availity is a healthcare information network and clearinghouse providing REST APIs for real-time HIPAA EDI transactions. The platform processes over 11 billion annual healthcare transactions connecting providers, health plans, and vendors nationwide. Create your application and subscribe to a plan to make use of Availity APIs for eligibility verification, claims management, prior authorization, and patient cost estimation.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/apis.yml)
+**Areas:** Healthcare · Clearinghouse · HIPAA · X12 EDI · Eligibility · Claims · Prior Authorization · Revenue Cycle Management · Payers · Price Transparency · Health Insurance
+
+## Availity on APIs.io
+
+Everything profiled for Availity is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/availity/](https://apis.io/providers/availity/)** — or go straight to one of the APIs or properties below.
+
+### APIs (18)
+
+- [Availity Healthcare HIPAA Transactions API](https://apis.io/apis/availity/availity-hipaa-transactions-api/) — The Availity Healthcare HIPAA Transactions API provides a unified interface for standard HIPAA EDI transactions. REST APIs enable healthcare providers and…
+- [Availity Eligibility & Benefits Value-Add APIs](https://apis.io/apis/availity/availity-eb-value-adds-api/) — The Availity Eligibility & Benefits Value-Add APIs provide supplementary data during eligibility transactions. The Care Reminders API retrieves real-time…
+- [availity Auth Attachments API](https://apis.io/apis/availity/availity-auth-attachments-api/) — Attach documentation to authorization requests
+- [availity Claim Attachments API](https://apis.io/apis/availity/availity-claim-attachments-api/) — Electronic claim attachment submission and retrieval
+- [availity Claim Status API](https://apis.io/apis/availity/availity-claim-status-api/) — Claim status inquiries and tracking
+- [availity Eligibility API](https://apis.io/apis/availity/availity-eligibility-api/) — Real-time eligibility and benefits verification
+- [availity Enhanced Claim Status API](https://apis.io/apis/availity/availity-enhanced-claim-status-api/) — Enhanced claim status with value-add data
+- [availity Is Auth Required API](https://apis.io/apis/availity/availity-is-auth-required-api/) — Check if authorization is required before submission
+- [availity Service Reviews API](https://apis.io/apis/availity/availity-service-reviews-api/) — Prior authorization and service review requests
+- [Availity Availity Payer List API](https://apis.io/apis/availity/availity-availity-payer-list-api/) — The Availity Payer List API from Availity — 1 operation(s) for availity payer list.
+- [Availity Claim Statuses API](https://apis.io/apis/availity/availity-claim-statuses-api/) — The Claim Statuses API from Availity — 2 operation(s) for claim statuses.
+- [Availity Configurations API](https://apis.io/apis/availity/availity-configurations-api/) — The Configurations API from Availity — 1 operation(s) for configurations.
+- [Availity Coverages API](https://apis.io/apis/availity/availity-coverages-api/) — The Coverages API from Availity — 2 operation(s) for coverages.
+- [Availity Dental Claims API](https://apis.io/apis/availity/availity-dental-claims-api/) — The Dental Claims API from Availity — 2 operation(s) for dental claims.
+- [Availity Dfs API](https://apis.io/apis/availity/availity-dfs-api/) — The Dfs API from Availity — 1 operation(s) for dfs.
+- [Availity Institutional Claims API](https://apis.io/apis/availity/availity-institutional-claims-api/) — The Institutional Claims API from Availity — 2 operation(s) for institutional claims.
+- [Availity Patient Cost Estimator 2.0.0 Professional API](https://apis.io/apis/availity/availity-patient-cost-estimator-2-0-0-professional-api/) — The Patient Cost Estimator 2.0.0 Professional API from Availity — 2 operation(s) for patient cost estimator 2.0.0 professional.
+- [Availity Professional Claims API](https://apis.io/apis/availity/availity-professional-claims-api/) — The Professional Claims API from Availity — 2 operation(s) for professional claims.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (4)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Availity Claim Attachment (X12 275)](https://apis.io/arazzos/availity/availity-claim-attachment-workflow/)
+- [Availity Claim Status Inquiry (X12 276/277)](https://apis.io/arazzos/availity/availity-claim-status-inquiry-workflow/)
+- [Availity Eligibility and Benefits (X12 270/271)](https://apis.io/arazzos/availity/availity-eligibility-benefits-workflow/)
+- [Availity Prior Authorization (X12 278)](https://apis.io/arazzos/availity/availity-prior-authorization-workflow/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [availity-mcp.yml](https://apis.io/servers/availity/availity-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Availity Agentic Access](https://apis.io/agentic-access/availity/availity-agentic-access/)
+
+#### JSON Schema (63)
+
+The data models the API reads and writes.
+
+- [AsyncJobResponse](https://apis.io/schemas/availity/availity-asyncjobresponse/)
+- [AttachmentRequest](https://apis.io/schemas/availity/availity-attachmentrequest/)
+- [AttachmentStatusResponse](https://apis.io/schemas/availity/availity-attachmentstatusresponse/)
+- [Benefit](https://apis.io/schemas/availity/availity-benefit/)
+- [ClaimAttachmentRequest](https://apis.io/schemas/availity/availity-claimattachmentrequest/)
+- [ClaimAttachmentResponse](https://apis.io/schemas/availity/availity-claimattachmentresponse/)
+- [ClaimStatusList](https://apis.io/schemas/availity/availity-claimstatuslist/)
+- [ClaimStatusRequest](https://apis.io/schemas/availity/availity-claimstatusrequest/)
+- [ClaimStatusResponse](https://apis.io/schemas/availity/availity-claimstatusresponse/)
+- [Coverage](https://apis.io/schemas/availity/availity-coverage/)
+- [Dependent](https://apis.io/schemas/availity/availity-dependent/)
+- [DetailSearchRequest](https://apis.io/schemas/availity/availity-detailsearchrequest/)
+- [Availity Eligibility Response](https://apis.io/schemas/availity/availity-eligibility/)
+- [EligibilityError](https://apis.io/schemas/availity/availity-eligibilityerror/)
+- [EligibilityList](https://apis.io/schemas/availity/availity-eligibilitylist/)
+- [EligibilityRequest](https://apis.io/schemas/availity/availity-eligibilityrequest/)
+- [EligibilityResponse](https://apis.io/schemas/availity/availity-eligibilityresponse/)
+- [Error](https://apis.io/schemas/availity/availity-error/)
+- [IsAuthRequiredRequest](https://apis.io/schemas/availity/availity-isauthrequiredrequest/)
+- [IsAuthRequiredResponse](https://apis.io/schemas/availity/availity-isauthrequiredresponse/)
+- [Payer](https://apis.io/schemas/availity/availity-payer/)
+- [PayerInfo](https://apis.io/schemas/availity/availity-payerinfo/)
+- [PayerList](https://apis.io/schemas/availity/availity-payerlist/)
+- [PlanInformation](https://apis.io/schemas/availity/availity-planinformation/)
+- [Provider](https://apis.io/schemas/availity/availity-provider/)
+- …and 38 more published on APIs.io
+
+#### JSON Structure (33)
+
+Data models expressed in JSON Structure.
+
+- [Availity Eligibility Structure](https://apis.io/json-structure/availity/availity-eligibility-structure/)
+- [Availity Structure](https://apis.io/json-structure/availity/availity-structure/)
+- [Claim Attachments Claim Attachment Request Structure](https://apis.io/json-structure/availity/claim-attachments-claim-attachment-request-structure/)
+- [Claim Attachments Claim Attachment Response Structure](https://apis.io/json-structure/availity/claim-attachments-claim-attachment-response-structure/)
+- [Claim Status Async Job Response Structure](https://apis.io/json-structure/availity/claim-status-async-job-response-structure/)
+- [Claim Status Claim Status List Structure](https://apis.io/json-structure/availity/claim-status-claim-status-list-structure/)
+- [Claim Status Claim Status Request Structure](https://apis.io/json-structure/availity/claim-status-claim-status-request-structure/)
+- [Claim Status Claim Status Response Structure](https://apis.io/json-structure/availity/claim-status-claim-status-response-structure/)
+- [Claim Status Detail Search Request Structure](https://apis.io/json-structure/availity/claim-status-detail-search-request-structure/)
+- [Claim Status Search By276 Request Structure](https://apis.io/json-structure/availity/claim-status-search-by276-request-structure/)
+- [Claim Status Summary Search Request Structure](https://apis.io/json-structure/availity/claim-status-summary-search-request-structure/)
+- [Eligibility Benefit Structure](https://apis.io/json-structure/availity/eligibility-benefit-structure/)
+- [Eligibility Coverage Structure](https://apis.io/json-structure/availity/eligibility-coverage-structure/)
+- [Eligibility Dependent Structure](https://apis.io/json-structure/availity/eligibility-dependent-structure/)
+- [Eligibility Eligibility Error Structure](https://apis.io/json-structure/availity/eligibility-eligibility-error-structure/)
+- [Eligibility Eligibility List Structure](https://apis.io/json-structure/availity/eligibility-eligibility-list-structure/)
+- [Eligibility Eligibility Request Structure](https://apis.io/json-structure/availity/eligibility-eligibility-request-structure/)
+- [Eligibility Eligibility Response Structure](https://apis.io/json-structure/availity/eligibility-eligibility-response-structure/)
+- [Eligibility Payer Info Structure](https://apis.io/json-structure/availity/eligibility-payer-info-structure/)
+- [Eligibility Payer List Structure](https://apis.io/json-structure/availity/eligibility-payer-list-structure/)
+- [Eligibility Payer Structure](https://apis.io/json-structure/availity/eligibility-payer-structure/)
+- [Eligibility Plan Information Structure](https://apis.io/json-structure/availity/eligibility-plan-information-structure/)
+- [Eligibility Provider Structure](https://apis.io/json-structure/availity/eligibility-provider-structure/)
+- [Eligibility Subscriber Info Structure](https://apis.io/json-structure/availity/eligibility-subscriber-info-structure/)
+- [Eligibility Subscriber Structure](https://apis.io/json-structure/availity/eligibility-subscriber-structure/)
+- …and 8 more published on APIs.io
+
+#### JSON-LD (5)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Availity Availity Context](https://apis.io/jsonld/availity/availity-availity-context/)
+- [Availity Claim Context](https://apis.io/jsonld/availity/availity-claim-context/)
+- [Availity Context](https://apis.io/jsonld/availity/availity-context/)
+- [Availity Eligibility Context](https://apis.io/jsonld/availity/availity-eligibility-context/)
+- [Availity Service Context](https://apis.io/jsonld/availity/availity-service-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Availity Vocabulary](https://apis.io/vocabularies/availity/availity-vocabulary/)
+
+#### Examples (35)
+
+Example requests and responses.
+
+- [Availity Createclaimstatusinquiry Example](https://apis.io/examples/availity/availity-createclaimstatusinquiry-example/)
+- [Availity Createservicereview Example](https://apis.io/examples/availity/availity-createservicereview-example/)
+- [Availity Eligibility Example](https://apis.io/examples/availity/availity-eligibility-example/)
+- [Availity Submitclaimattachment Example](https://apis.io/examples/availity/availity-submitclaimattachment-example/)
+- [Claim Attachments Claim Attachment Request Example](https://apis.io/examples/availity/claim-attachments-claim-attachment-request-example/)
+- [Claim Attachments Claim Attachment Response Example](https://apis.io/examples/availity/claim-attachments-claim-attachment-response-example/)
+- [Claim Status Async Job Response Example](https://apis.io/examples/availity/claim-status-async-job-response-example/)
+- [Claim Status Claim Status List Example](https://apis.io/examples/availity/claim-status-claim-status-list-example/)
+- [Claim Status Claim Status Request Example](https://apis.io/examples/availity/claim-status-claim-status-request-example/)
+- [Claim Status Claim Status Response Example](https://apis.io/examples/availity/claim-status-claim-status-response-example/)
+- [Claim Status Detail Search Request Example](https://apis.io/examples/availity/claim-status-detail-search-request-example/)
+- [Claim Status Search By276 Request Example](https://apis.io/examples/availity/claim-status-search-by276-request-example/)
+- [Claim Status Summary Search Request Example](https://apis.io/examples/availity/claim-status-summary-search-request-example/)
+- [Eligibility Benefit Example](https://apis.io/examples/availity/eligibility-benefit-example/)
+- [Eligibility Coverage Example](https://apis.io/examples/availity/eligibility-coverage-example/)
+- [Eligibility Dependent Example](https://apis.io/examples/availity/eligibility-dependent-example/)
+- [Eligibility Eligibility Error Example](https://apis.io/examples/availity/eligibility-eligibility-error-example/)
+- [Eligibility Eligibility List Example](https://apis.io/examples/availity/eligibility-eligibility-list-example/)
+- [Eligibility Eligibility Request Example](https://apis.io/examples/availity/eligibility-eligibility-request-example/)
+- [Eligibility Eligibility Response Example](https://apis.io/examples/availity/eligibility-eligibility-response-example/)
+- [Eligibility Payer Example](https://apis.io/examples/availity/eligibility-payer-example/)
+- [Eligibility Payer Info Example](https://apis.io/examples/availity/eligibility-payer-info-example/)
+- [Eligibility Payer List Example](https://apis.io/examples/availity/eligibility-payer-list-example/)
+- [Eligibility Plan Information Example](https://apis.io/examples/availity/eligibility-plan-information-example/)
+- [Eligibility Provider Example](https://apis.io/examples/availity/eligibility-provider-example/)
+- …and 10 more published on APIs.io
 
-## Timestamps
+#### Collections (9)
 
-- **Modified:** 2026-05-19
+Postman and Open Collection request collections.
 
-## APIs
+- [Availity Claim Attachments Auth Attachments API](https://apis.io/collections/availity/open-availity-auth-attachments-api/)
+- [Availity Claim Attachments API](https://apis.io/collections/availity/open-availity-claim-attachments/)
+- [Availity Auth Attachments Claim Attachments API](https://apis.io/collections/availity/open-availity-claim-attachments-api/)
+- [Availity Claim Status API](https://apis.io/collections/availity/open-availity-claim-status/)
+- [Availity Claim Attachments Auth Attachments Claim Status API](https://apis.io/collections/availity/open-availity-claim-status-api/)
+- [Availity Eligibility & Benefits API](https://apis.io/collections/availity/open-availity-eligibility/)
+- [Availity Claim Attachments Auth Attachments Eligibility API](https://apis.io/collections/availity/open-availity-eligibility-api/)
+- [Availity Claim Attachments Auth Attachments Enhanced Claim Status API](https://apis.io/collections/availity/open-availity-enhanced-claim-status-api/)
+- [Availity Claim Attachments Auth Attachments Is Auth Required API](https://apis.io/collections/availity/open-availity-is-auth-required-api/)
 
-### Availity Eligibility & Benefits API
+#### Overlays (18)
 
-The Availity Eligibility & Benefits API supports the ASC X12N 270 and 271 transactions, enabling real-time verification of member coverage, co-pays, deductibles, and benefits information. REST APIs connect provider systems to every major health plan nationwide for eligibility checks.
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
+- [Availity Auth Attachments Api Phrasing Overlay](https://apis.io/overlays/availity/availity-auth-attachments-api-phrasing-overlay/)
+- [Availity Aws Payer List Overlay](https://apis.io/overlays/availity/availity-aws-payer-list-overlay/)
+- [Availity Care Cost Estimator Institutional Overlay](https://apis.io/overlays/availity/availity-care-cost-estimator-institutional-overlay/)
+- [Availity Care Cost Estimator Professional Overlay](https://apis.io/overlays/availity/availity-care-cost-estimator-professional-overlay/)
+- [Availity Claim Attachments Api Phrasing Overlay](https://apis.io/overlays/availity/availity-claim-attachments-api-phrasing-overlay/)
+- [Availity Claim Status Api Phrasing Overlay](https://apis.io/overlays/availity/availity-claim-status-api-phrasing-overlay/)
+- [Availity Claim Statuses Overlay](https://apis.io/overlays/availity/availity-claim-statuses-overlay/)
+- [Availity Configurations Overlay](https://apis.io/overlays/availity/availity-configurations-overlay/)
+- [Availity Coverages Overlay](https://apis.io/overlays/availity/availity-coverages-overlay/)
+- [Availity Dental Claims Overlay](https://apis.io/overlays/availity/availity-dental-claims-overlay/)
+- [Availity Dfs Overlay](https://apis.io/overlays/availity/availity-dfs-overlay/)
+- [Availity Eligibility Api Phrasing Overlay](https://apis.io/overlays/availity/availity-eligibility-api-phrasing-overlay/)
+- [Availity Enhanced Claim Status Api Phrasing Overlay](https://apis.io/overlays/availity/availity-enhanced-claim-status-api-phrasing-overlay/)
+- [Availity Is Auth Required Api Phrasing Overlay](https://apis.io/overlays/availity/availity-is-auth-required-api-phrasing-overlay/)
+- [Availity Patient Cost Estimator Professional Overlay](https://apis.io/overlays/availity/availity-patient-cost-estimator-professional-overlay/)
+- [Availity Payer List Overlay](https://apis.io/overlays/availity/availity-payer-list-overlay/)
+- [Availity Service Reviews Api Phrasing Overlay](https://apis.io/overlays/availity/availity-service-reviews-api-phrasing-overlay/)
+- [Availity Service Reviews Overlay](https://apis.io/overlays/availity/availity-service-reviews-overlay/)
 
-#### Tags
+#### Governance rules (3)
 
-- Benefits
-- EDI
-- Eligibility
-- Healthcare
-- X12 270/271
+Spectral rulesets for the provider's contracts.
 
-#### Properties
+- [Availity — jsonschema rules](https://apis.io/rules/availity/availity-jsonschema-spectral-rules/)
+- [Availity API Rules](https://apis.io/rules/availity/availity-rules/)
+- [Availity API Rules](https://apis.io/rules/availity/availity-spectral-rules/)
 
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Documentation](https://developer.availity.com/blog/2025/3/4/ebvalue-add-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (2)
 
-### Availity Claim Status API
+Authentication, trust centre, and vulnerability disclosure.
 
-The Availity Claim Status API enables the standard ASC X12N 276 and 277 transactions, allowing providers to find, create, and manage claim status inquiries against payer systems. REST APIs bridge provider billing systems and payers through the Availity clearinghouse network. Supports both standard 276/277 workflows and enhanced claim status with summary and detail search.
+- [Availity Authentication](https://apis.io/security/availity/availity-authentication/)
+- [Availity Domain Security](https://apis.io/security/availity/availity-domain-security/)
 
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
+#### OAuth scopes (1)
 
-#### Tags
+The permissions the API asks for.
 
-- Claims
-- Clearinghouse
-- EDI
-- Healthcare
-- X12 276/277
+- [Availity Scopes](https://apis.io/scopes/availity/availity-scopes/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Documentation](https://developer.availity.com/blog/2025/3/25/enhanced-claim-status)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-status-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Availity Claim Attachments API
+- [Availity Plans Pricing](https://apis.io/plans/availity/availity-plans-pricing/)
 
-The Availity Claim Attachments API enables electronic submission of supporting documentation alongside healthcare claims. REST APIs support structured and unstructured attachment types for additional clinical information required by payers during claims adjudication.
+#### Rate limits (1)
 
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
+Published request limits.
 
-#### Tags
+- [Availity Rate Limits](https://apis.io/rate-limits/availity/availity-rate-limits/)
 
-- Attachments
-- Claims
-- Clearinghouse
-- EDI
-- Healthcare
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://developer.availity.com/blog/2025/2/28/claim-attachment-api)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-attachments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Availity Finops](https://apis.io/finops/availity/availity-finops/)
 
-### Availity Service Reviews (Prior Authorization) API
+## Where to find this API
 
-The Availity Service Reviews API enables the ASC X12N 278 transaction for prior authorization and healthcare service review. REST APIs allow providers to find, create, and manage authorization requests and responses with health plan payers through the Availity clearinghouse. Includes IsAuthRequired and Attachments add-on APIs.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- EDI
-- Healthcare
-- Prior Authorization
-- Service Reviews
-- X12 278
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/blog/2025/3/4/service-reviews)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-service-reviews-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Availity Healthcare HIPAA Transactions API
-
-The Availity Healthcare HIPAA Transactions API provides a unified interface for standard HIPAA EDI transactions. REST APIs enable healthcare providers and vendors to submit and receive X12 EDI transactions across payers including eligibility, claims, remittance, authorizations, and referrals. Quota: 100,000 calls per day, 100 calls per second rate limit.
-
-- **Human URL:** [https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1](https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- Clearinghouse
-- EDI
-- Healthcare
-- HIPAA
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1)
-- [Documentation](https://developer.availity.com/blog/2025/3/25/hipaa-transactions)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Availity Patient Cost Estimator API
-
-The Availity Patient Cost Estimator API enables healthcare providers and institutions to estimate service costs before delivery for both institutional and professional services. REST APIs support version 1.0.0 and 2.0.0 and include predetermination requests across all major health plan payers, helping meet price transparency requirements.
-
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- Cost Estimation
-- Healthcare
-- Patient Financial Responsibility
-- Price Transparency
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Availity Eligibility & Benefits Value-Add APIs
-
-The Availity Eligibility & Benefits Value-Add APIs provide supplementary data during eligibility transactions. The Care Reminders API retrieves real-time care gap information from multiple payers. The Member ID Card API retrieves digital member ID cards in PDF or PNG format during eligibility verification workflows.
-
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- Care Reminders
-- EDI
-- Eligibility
-- Healthcare
-- Member ID Card
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/blog/2025/3/4/ebvalue-add-api)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Availity Payer List API
-
-The Availity Payer List API (v1.0.4) allows healthcare organizations to query available payers and the transactions they support. Returns payer identifiers, names, and supported transaction types including eligibility, claim status, prior authorization, and remittance across the nationwide Availity clearinghouse network.
-
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- Clearinghouse
-- Healthcare
-- Payer Network
-- Reference Data
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Availity Configurations API
-
-The Availity Configurations API (v1.0.0) provides provider details and payer-specific validation requirements. Returns configuration rules for enhanced claim status, prior authorization, and other transaction types so provider systems can validate submissions before sending to payers.
-
-- **Human URL:** [https://developer.availity.com/](https://developer.availity.com/)
-- **Base URL:** `https://api.availity.com`
-
-#### Tags
-
-- Configuration
-- Healthcare
-- Payer Requirements
-- Provider Validation
-
-#### Properties
-
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Postman Collection](collections/availity-claim-attachments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-attachments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-claim-status.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-claim-status.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/availity-eligibility.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/availity-eligibility.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/availity)
 - [Website](https://www.availity.com)
-- [Portal](https://developer.availity.com/)
-- [Documentation](https://developer.availity.com/partner/documentation)
-- [Getting Started](https://developer.availity.com/partner/gettingstarted)
-- [Documentation](https://developer.availity.com/blog/2025/3/25/availity-api-guide)
+- [Documentation](https://developer.availity.com/blog)
+- [Getting started](https://developer.availity.com/partner/gettingstarted)
+- [API reference](https://developer.availity.com/portal/catalogue-products/healthcare-hipaa-transactions-1)
+- [Sign up](https://developer.availity.com/portal/user/login)
 - [Support](https://developer.availity.com/partner/contact-us)
-- [Terms of Service](https://www.availity.com/terms-of-use/)
-- [Privacy Policy](https://www.availity.com/Privacy-Policy/)
-- [GitHub Organization](https://github.com/availity)
-- [SDK](https://availity.github.io/sdk-js/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-eligibility-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-status-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-claim-attachments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/openapi/availity-service-reviews-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-schema/availity-eligibility-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-eligibility-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON-LD](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-claim-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON-LD](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/json-ld/availity-service-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/rules/availity-spectral-rules.yml)
-- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/availity/refs/heads/main/vocabulary/availity-vocabulary.yaml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [L L Ms Txt](https://developer.availity.com/llms.txt)
+- [Blog](https://www.availity.com/blog/)
+- [Compliance](https://www.availity.com/regulatory-compliance/)
+- [Terms of service](https://www.availity.com/terms-of-use/)
+- [Privacy policy](https://www.availity.com/Privacy-Policy/)
+- [GitHub](https://github.com/availity)
+- [Status](https://status.availity.com)
 
-## Maintainers
+## API Evangelist rating
 
-**Email:** kin@apievangelist.com
+**Kin Score 64.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 60.1 |
+| Contract governance | 31.8 |
+| Operational transparency | 60.5 |
+| Developer ergonomics | 78.0 |
+| Access clarity | 65.8 |
+
+**Agent readiness 33.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 36.8** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/availity/](https://apis.io/providers/availity/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Availity: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/availity/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
